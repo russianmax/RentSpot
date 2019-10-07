@@ -1,13 +1,12 @@
 All of your documentation should be placed in subdirectories of this directory.
 
 - Use the `proposal` sub-directory for your project proposal.
-- Use the `functional-spec` sub-directory for your functional specification.
-- Use the `documentation` sub-directory for your user manual and technical documentation.
-- Use the `video-walk-through` sub-directory for you video walk through.
+- Use the `mid-term_deliverable` sub-directory for your mid-term deliverable of documentation.
+- Use the `final_documentation` sub-directory for your final project documentation deliverables 
 
 There are additional instructions in each of those sub-directories.  Please read them.
 
-** Excluding the proposal document, The general rule of thumb that you should 
+** Excluding the proposal document, the general rule of thumb that you should 
 adopt is that documents should be converted to PDF when finalised - and
 available for collection from your repo in time for the appropriate deadlines.
 While templates are provided in MS Word format, individual students may select
