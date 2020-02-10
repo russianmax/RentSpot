@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% comment %} {% extends "listingStyle.html" %} {% endcomment %}
+{% load static %}
+{% block content %}
+<div class="content-section">
+        <div class="media">
+        <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
+            <div class="media-body">
+                <h2 class="account-heading">{{user.username}}</h2>
+                <p class="text-secondary">{{user.email}}</p>
+                <button class="btn btn-outline-info" onclick="window.location.href = '/profile'" >Update Profile</button>
+            </div>
+        </div>
+    </div>
+<div class="card">
+<h1>Your active listings:</h1>
+    <div class="row">
+    {% for myListing in portal %}
+        <div class="col-md-4">
+            <div class="card mb-2">
+                <img class="card-img-top" src="{{myListing.image.url}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ myListing.title }}</h5>
+                    <p class="card-text">{{ myListing.description }}</p>
+                    {% comment %} <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary">View Property</a> {% endcomment %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content%}
