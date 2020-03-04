@@ -18,7 +18,7 @@ class Tenant_Profile(models.Model):
     salary_doc = models.FilePathField(null=True)
     savings = models.FloatField(null=True)
     savings_doc = models.FilePathField(null=True)
-    is_hap = models.BooleanField(null=True)
+    is_hap = models.NullBooleanField(null=True)
 
     def __str__(self):
         return f'{self.tenant.username}'
