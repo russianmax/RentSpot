@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content%}
+
+    <div class="content-section">
+        <div class="media">
+        <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
+            <div class="media-body">
+                <h2 class="account-heading">{{portal.tenant}}</h2>
+                <p class="text-secondary">{{portal}}</p>
+            </div>
+        </div>
+                <legend class="border-bottom mb-4">Profile Info</legend>
+    </div>
+
+    <div class="col-md-4">
+        <div class="content-section">
+          <h5>Tenant Review</h5>
+          {% for reviews in tenantReview %}
+          <!-- <a href="{% url 'view_profile' reviews.landlord.pk %}" >{{ reviews.landlord }}</a> -->
+          <p class='text-muted'>{{ reviews.landlord }}
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-light">{{reviews.review}}</li>
+            </ul>
+          </p>
+          {% endfor %}
+        </div>
+      </div>
+{% endblock content %}

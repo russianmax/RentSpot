@@ -1,21 +1,36 @@
 from django.shortcuts import render, redirect
-from projects.models import Listing_Database
+from projects.models import Properties, Property_Applications, Property_Reviews
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CreatingListingForm
+from .forms import CreatingListingForm, ListingApplicationForm
 
 def project_index(request):
-    projects = Listing_Database.objects.all()
+    projects = Properties.objects.all()
     context = {
         'projects': projects
     }
     return render(request, 'project_index.html', context)
 
+def property_apply(request, pk):
+    project = Properties.objects.get(pk=pk)
+    applyButton = ListingApplicationForm(request.POST)
+    propertyReview = Property_Reviews.objects.filter(property=project)
+    if request.method == "POST":
+        link = applyButton.save(commit=False)
+        link.tenant=request.user
+        link.listingId=project
+        link.save()
+        messages.success(request, f'You have applied!')
+        return redirect('/portal/')
+    else:
+        link = applyButton
+    context = {'project': project, 'applyButton': link, 'propertyReview': propertyReview}
+    return render(request, 'application_submit.html', context)
+
 def project_detail(request, pk):
-    project = Listing_Database.objects.get(pk=pk)
-    context = {
-        'project': project
-    }
+    project = Properties.objects.get(pk=pk)
+    propertyReview = Property_Reviews.objects.filter(property=project)
+    context = {'project': project, 'propertyReview': propertyReview}
     return render(request, 'project_detail.html', context)
 
 @login_required
@@ -24,36 +39,13 @@ def createListing(request):
         listing_form = CreatingListingForm(request.POST, request.FILES)
         if listing_form.is_valid():
             link  = listing_form.save(commit=False)
-            link.user = request.user
+            link.landlord = request.user
             link.save()
             messages.success(request, f'Your listing has been created!!')
-            return redirect('/profile/')
+            return redirect('/portal/')
     else:
         listing_form = CreatingListingForm()
         link = listing_form
 
     return render(request, 'createListing.html', {'listing_form': link})
 
-# @login_required
-# def createListing(request):
-#     listings = Listing_Database.objects.all()
-#     context = {
-#         'listings': listings
-#     }
-#     if request.method == 'POST':
-#         if request.POST.get('address') and request.POST.get('rentPrice') and request.POST.get('description')and request.POST.get('bedRooms') and request.POST.get('bathRoom'):
-#             post = Listing_Database()
-#             post.user = request.user
-#             post.address = request.POST.get('address')
-#             post.rentPrice = request.POST.get('rentPrice')
-#             post.description = request.POST.get('description')
-#             post.bedRooms= request.POST.get('bedRooms')
-#             post.bathRoom= request.POST.get('bathRoom')
-#             post.tenantCondtions = request.POST.get('tenantCondtions')
-#             # post.image = request.POST.get('image')
-#             post.save()
-#             messages.success(request, f'Your listing has been created!!')
-#             return redirect('createListing')
-        
-        
-#     return render(request, 'createListing.html', context)

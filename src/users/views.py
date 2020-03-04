@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
-from projects.models import Listing_Database
+from projects.models import Properties, Property_Applications
+from .models import Tenant_Profile, Tenant_Reviews, Landlord_Profile
 
 def register(request):
     if request.method == 'POST':
@@ -28,7 +29,7 @@ def profile(request):
             return redirect('portal')
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        p_form = ProfileUpdateForm(instance=request.user.tenant_profile)
         messages.success(request, f'in the else statement')
     context = {
         'u_form': u_form,
@@ -37,10 +38,24 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 @login_required
-def landlordPortal(request):
-    user = request.user
-    portal = Listing_Database.objects.filter(user=user)
+def landlordPortal(request,pk):
+    llp = Landlord_Profile.objects.get(pk=pk)
+    portal = Properties.objects.filter(landlord=llp.landlord)
+    apps = Property_Applications.objects.filter(listingId=pk)
     context = {
-        'portal': portal
+        'portal': portal,
+        'apps': apps,
+        'llp': llp
     }
     return render(request, 'users/landlordPortal.html', context)
+
+@login_required
+def viewProfile(request, pk):
+    portal = Tenant_Profile.objects.get(pk=pk)
+    tenantReview = Tenant_Reviews.objects.filter(tenant=portal)
+    context = {
+        'portal': portal,
+        'tenantReview': tenantReview
+    }
+    return render(request, 'users/view_profile.html', context)
+

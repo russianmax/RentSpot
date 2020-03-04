@@ -1,4 +1,4 @@
-from .models import Listing_Database
+from .models import Properties, Property_Applications
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 # class to allow user update their own data
 class CreatingListingForm(forms.ModelForm):
     class Meta:
-        model = Listing_Database
+        model = Properties
         fields = ['address', 'rentPrice','description','bedRooms','bathRoom','tenantCondtions','image']
+
+class ListingApplicationForm(forms.ModelForm):
+    class Meta:
+        model = Property_Applications
+        fields = ['app_description']
         

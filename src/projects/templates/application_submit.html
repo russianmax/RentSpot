@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<body>
+
+    <p> Are you sure you want to apply for this property? </p>
+
+    <br>
+
+    <!-- <a href="{% url 'application_submit' project.pk %}" type="submit" class="btn btn-primary">Apply</a> -->
+
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Create New Listing</legend>
+        {{ applyButton|crispy}}
+    </fieldset>
+    <div class ="form-group">
+      <!-- <label for="app_description">Please add a summary for the landlord</label><br>
+      <input type="text" id="app_description" name="app_description" value="Type here"><br> -->
+      <button type="submit" class="btn btn-primary">Yes</button>
+    </div>
+  </form>
+
+
+
+</body>
+
+{% endblock content%}

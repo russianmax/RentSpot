@@ -4,7 +4,7 @@
 {% block content %}
 <div class="content-section">
         <div class="media">
-        <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
+        <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
             <div class="media-body">
                 <h2 class="account-heading">{{user.username}}</h2>
                 <p class="text-secondary">{{user.email}}</p>
@@ -14,17 +14,26 @@
     </div>
 <div class="card">
 <h1>Your active listings:</h1>
-    <div class="row">
+    
     {% for myListing in portal %}
+    <div class="row"></div>
+    <p>WHere am I</p><p>Amnd me</p>
         <div class="col-md-4">
             <div class="card mb-2">
                 <img class="card-img-top" src="{{myListing.image.url}}">
                 <div class="card-body">
                     <h5 class="card-title">{{ myListing.title }}</h5>
                     <p class="card-text">{{ myListing.description }}</p>
-                    {% comment %} <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary">View Property</a> {% endcomment %}
+                    {% for application in apps %}
+                    {% if application.listingId_id == myListing.id %}
+                        <h4>You Have Open Appliations</h4>
+                        <p>{{llp}}</p>
+                        <p>{{application.tenant_id.}} {{application.app_description}}</p>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
+            
         </div>
         {% endfor %}
     </div>
