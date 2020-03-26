@@ -6,18 +6,9 @@ from django.conf import settings
 
 # Create your models here.
 
-# class Project(models.Model):
-#     address = models.CharField(max_length=100)
-#     rentPrice = models.IntegerField()
-#     description = models.TextField()
-#     bedRooms = models.IntegerField()
-#     bathRoom = models.IntegerField()
-#     tenantCondtions = models.CharField(max_length=100)
-#     image = models.ImageField(default='default.jpg', upload_to='house_preview')
-
 class Listing_Database(models.Model):
     User = settings.AUTH_USER_MODEL
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=True)
     address = models.CharField(max_length=100)
     rentPrice = models.IntegerField()
     description = models.TextField()
