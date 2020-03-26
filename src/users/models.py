@@ -4,16 +4,15 @@ from PIL import Image
 
 usertypechoices = [(True,'Landlord'),(False,'Tenant')]
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Landlord_Profile(models.Model):
+    landlord = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    usertype = models.BooleanField(choices=usertypechoices,default=True)
+    usertype = models.BooleanField(choices=usertypechoices,default=True) 
     def __str__(self):
-        return f'{self.user.username} Profile'
-
+        return f'{self.landlord.usertype} Profile'
     # Resize images to reduce memory wasted
     def save(self, *args, **kwargs):
-        super(Profile, self).save(*args, **kwargs)
+        super(Landlord_Profile, self).save(*args, **kwargs)
 
         img = Image.open(self.image.path)
 
