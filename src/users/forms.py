@@ -3,11 +3,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm 
 from .models import Profile
 from django.forms import ModelForm
-# from .models import usertypechoices
+
+usertypechoices = [(True,'Landlord'),(False,'Tenant')]
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
-    # usertype = forms.ChoiceField(choices=usertypechoices)
+    usertype = forms.ChoiceField(choices=usertypechoices)
 
     class Meta:
         model = User

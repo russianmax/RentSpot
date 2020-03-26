@@ -7,8 +7,7 @@ usertypechoices = [(True,'Landlord'),(False,'Tenant')]
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    usertype = models.BooleanField(choices=usertypechoices,default=False)
-
+    usertype = models.BooleanField(choices=usertypechoices,default=True)
     def __str__(self):
         return f'{self.user.username} Profile'
 
