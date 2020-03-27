@@ -9,7 +9,7 @@ class Landlord_Profile(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     usertype = models.BooleanField(choices=usertypechoices,default=True) 
     def __str__(self):
-        return f'{self.landlord.usename} Profile'
+        return f'{self.landlord.username} Profile'
     # Resize images to reduce memory wasted
     def save(self, *args, **kwargs):
         super(Landlord_Profile, self).save(*args, **kwargs)
