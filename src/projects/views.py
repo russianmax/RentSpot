@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from projects.models import Properties, Property_Applications, Property_Reviews
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CreatingListingForm
+from .forms import CreatingListingForm, ListingApplicationForm
 
 def project_index(request):
     projects = Properties.objects.all()
@@ -10,6 +10,22 @@ def project_index(request):
         'projects': projects
     }
     return render(request, 'project_index.html', context)
+
+def property_apply(request, pk):
+    project = Properties.objects.get(pk=pk)
+    applyButton = ListingApplicationForm(request.POST)
+    propertyReview = Property_Reviews.objects.filter(property=project)
+    if request.method == "POST":
+        link = applyButton.save(commit=False)
+        link.tenant=request.user
+        link.listingId=project
+        link.save()
+        messages.success(request, f'You have applied!')
+        return redirect('/portal/')
+    else:
+        link = applyButton
+    context = {'project': project, 'applyButton': link, 'propertyReview': propertyReview}
+    return render(request, 'application_submit.html', context)
 
 def project_detail(request, pk):
     project = Properties.objects.get(pk=pk)

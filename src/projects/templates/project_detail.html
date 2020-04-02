@@ -24,7 +24,7 @@
     </div>
     <form action="/projects/{{ project.pk}}/" method="post">
       {% csrf_token %}
-      <button type="submit" class="btn btn-primary">Apply</button>
+      <a href="{% url 'application_submit' project.pk %}" type="submit" class="btn btn-primary">Apply</a>
   </form>
   </div>
 
