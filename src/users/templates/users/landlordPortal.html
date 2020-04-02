@@ -14,26 +14,19 @@
     </div>
 <div class="card">
 <h1>Your active listings:</h1>
-    
-    {% for myListing in portal %}
-    <div class="row"></div>
-    <p>WHere am I</p><p>Amnd me</p>
+    <div class="row">
+    {% for listing in portal %}
         <div class="col-md-4">
             <div class="card mb-2">
-                <img class="card-img-top" src="{{myListing.image.url}}">
+                <img class="card-img-top" src="{{listing.image.url}}">
                 <div class="card-body">
-                    <h5 class="card-title">{{ myListing.title }}</h5>
-                    <p class="card-text">{{ myListing.description }}</p>
-                    {% for application in apps %}
-                    {% if application.listingId_id == myListing.id %}
-                        <h4>You Have Open Appliations</h4>
-                        <p>{{llp}}</p>
-                        <p>{{application.tenant_id.}} {{application.app_description}}</p>
-                    {% endif %}
-                    {% endfor %}
+                    <h5 class="card-title">{{ listing.address }}</h5>
+                    <p class="card-text">{{ listing.description }}</p>
+                    <p class="card-text">{{ listing.rentPrice }}</p>
+
+                    {% comment %} <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary">View Property</a> {% endcomment %}
                 </div>
             </div>
-            
         </div>
         {% endfor %}
     </div>

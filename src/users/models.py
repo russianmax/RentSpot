@@ -18,10 +18,10 @@ class Tenant_Profile(models.Model):
     salary_doc = models.FilePathField(null=True)
     savings = models.FloatField(null=True)
     savings_doc = models.FilePathField(null=True)
-    is_hap = models.NullBooleanField(null=True)
+    is_hap = models.BooleanField(null=True)
 
     def __str__(self):
-        return f'{self.tenant.username}'
+        return f'{self.tenant.username} Tenant Profile'
 
     # Resize images to reduce memory wasted
     def save(self, *args, **kwargs):
@@ -41,4 +41,4 @@ class Landlord_Profile(models.Model):
 
 
     def __str__(self):
-        return f'{self.landlord.username}'
+        return f'{self.landlord.username} Landlord Profile'

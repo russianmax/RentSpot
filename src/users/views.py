@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
-from projects.models import Properties, Property_Applications
-from .models import Tenant_Profile, Tenant_Reviews, Landlord_Profile
+from projects.models import Properties
+from .models import Tenant_Profile, Tenant_Reviews
 
 def register(request):
     if request.method == 'POST':
@@ -38,14 +38,11 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 @login_required
-def landlordPortal(request,pk):
-    llp = Landlord_Profile.objects.get(pk=pk)
-    portal = Properties.objects.filter(landlord=llp.landlord)
-    apps = Property_Applications.objects.filter(listingId=pk)
+def landlordPortal(request):
+    user = request.user
+    portal = Properties.objects.filter(landlord=user)
     context = {
-        'portal': portal,
-        'apps': apps,
-        'llp': llp
+        'portal': portal
     }
     return render(request, 'users/landlordPortal.html', context)
 

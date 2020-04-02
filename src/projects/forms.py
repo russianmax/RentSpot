@@ -1,4 +1,4 @@
-from .models import Properties, Property_Applications
+from .models import Properties
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
@@ -8,9 +8,4 @@ class CreatingListingForm(forms.ModelForm):
     class Meta:
         model = Properties
         fields = ['address', 'rentPrice','description','bedRooms','bathRoom','tenantCondtions','image']
-
-class ListingApplicationForm(forms.ModelForm):
-    class Meta:
-        model = Property_Applications
-        fields = ['app_description']
         

@@ -7,5 +7,4 @@ urlpatterns = [
     path("", views.project_index, name="project_index"),
     path("<int:pk>/", views.project_detail, name="project_detail"),
     path("createListing", views.createListing, name="createListing"),
-    path("application_submit/<int:pk>/", views.property_apply, name="application_submit"),
 ] 

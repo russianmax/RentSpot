@@ -5,5 +5,4 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("<int:pk>/", views.viewProfile, name="view_profile"),
-    path("portal/<int:pk>/", views.landlordPortal, name ="portal"),
 ] 

@@ -1,5 +1,5 @@
 # Add files names (and patterns) you want git to ignore here.
-
+*.pyc
 # Ignore java .class files.
 *.class
 
