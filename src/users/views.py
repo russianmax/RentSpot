@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
+from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from projects.models import Properties
 from .models import Tenant_Profile, Tenant_Reviews
+
+
 
 def register(request):
     if request.method == 'POST':
@@ -55,4 +58,14 @@ def viewProfile(request, pk):
         'tenantReview': tenantReview
     }
     return render(request, 'users/view_profile.html', context)
+
+def documents(request):
+    context = {}
+    if request.method == 'POST':
+        uploaded_document = request.FILES['document']
+        #print(uploaded_document.name, uploaded_document.size)
+        fs = FileSystemStorage()
+        name = fs.save(uploaded_document.name,uploaded_document)
+        context['url'] = fs.url(name)
+    return render(request, 'users/documents.html', context)
 
