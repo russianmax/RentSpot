@@ -3,8 +3,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
-from projects.models import Properties
+from projects.models import Properties, Property_Applications
 from .models import Tenant_Profile, Tenant_Reviews
+from django import forms
+
 
 
 
@@ -24,7 +26,7 @@ def register(request):
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)  
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
@@ -32,13 +34,27 @@ def profile(request):
             return redirect('portal')
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.tenant_profile)
-        messages.success(request, f'in the else statement')
+        p_form = ProfileUpdateForm(instance=request.user.Tenant_Profile)
+        messages.success(request, f'Click "Update" to store your details')
     context = {
         'u_form': u_form,
         'p_form': p_form
     }
     return render(request, 'users/profile.html', context)
+
+#git hub version
+# @login_required
+# def landlordPortal(request,pk):
+#     llp = Landlord_Profile.objects.get(pk=pk)
+#     portal = Properties.objects.filter(landlord=llp.landlord)
+#     apps = Property_Applications.objects.filter(listingId=pk)
+#     context = {
+#         'portal': portal,
+#         'apps': apps,
+#         'llp': llp
+#     }
+#     return render(request, 'users/landlordPortal.html', context)
+#
 
 @login_required
 def landlordPortal(request):
@@ -47,6 +63,7 @@ def landlordPortal(request):
     context = {
         'portal': portal
     }
+
     return render(request, 'users/landlordPortal.html', context)
 
 @login_required

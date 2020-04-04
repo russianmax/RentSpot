@@ -14,20 +14,47 @@
         </div>
     </div>
 <div class="card">
-<h1>Your active listings:</h1>
+    <h1>Your active listings:</h1>
     <div class="row">
-    {% for listing in portal %}
-        <div class="col-md-4">
+        {% for listing in portal %}
+            <div class="col-md-4">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="{{listing.image.url}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ listing.address }}</h5>
+                        <p class="card-text">{{ listing.description }}</p>
+                        <p class="card-text">{{ listing.rentPrice }}</p>
+                        <a href="{% url 'project_detail' listing.pk %}" class="btn btn-primary">View Property</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+
+<div class="card">
+    <h1>Applications:</h1>
+    <div class="row">
+    {% comment %} {% for applications in propertyApplications %} {% endcomment %}
+
+        <div class = "col-md-4">
             <div class="card mb-2">
                 <img class="card-img-top" src="{{listing.image.url}}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ listing.address }}</h5>
-                    <p class="card-text">{{ listing.description }}</p>
-                    <p class="card-text">{{ listing.rentPrice }}</p>
-                    <a href="{% url 'project_detail' listing.pk %}" class="btn btn-primary">View Property</a>
+                    <div class="card-body">
+                        <h5 class="card-title">1</h5>
+                        <p class="card-text">2</p>
+                        <p class="card-text">3</p>
+                    </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
+
+    {% comment %} {% endfor %} {% endcomment %}
     </div>
+</div>
+
+            
+            
+
 {% endblock content%}

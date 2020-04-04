@@ -10,9 +10,9 @@ from users.models import Landlord_Profile, Tenant_Profile
 class Property_Reviews(models.Model):
     tenant = models.ForeignKey(Tenant_Profile, on_delete=models.CASCADE)
     property = models.ForeignKey('Properties', on_delete=models.CASCADE, default=1)
-    # landlord = models.OneToOneField(Landlord_Profile, on_delete=models.CASCADE)
+    landlord_id = models.OneToOneField(Landlord_Profile, on_delete=models.CASCADE)
     review = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
+    created = models.TextField(null=False)
 
 class Property_Applications(models.Model):
     User = settings.AUTH_USER_MODEL

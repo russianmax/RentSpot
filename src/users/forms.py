@@ -21,8 +21,10 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['username', 'email',]
 
+# Set profile variables in Update profile page for tenants
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Tenant_Profile
-        fields = ['is_landlord','image']
+        fields = ['is_landlord','image','salary','savings','is_hap']
+
 
