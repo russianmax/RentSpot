@@ -16,6 +16,9 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            last_name = form.cleaned_data.get('last_name')
+            #print(type(username))
+            #print(type(last_name))
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
@@ -36,7 +39,7 @@ def profile(request):
             return redirect('portal')
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.Tenant_Profile)
+        p_form = ProfileUpdateForm(instance=request.user.tenant_profile)
         messages.success(request, f'Click "Update" to store your details')
     context = {
         'u_form': u_form,

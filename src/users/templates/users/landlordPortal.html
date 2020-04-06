@@ -7,7 +7,7 @@
             <img class="rounded-circle account-img" src="{{user.tenant_profile.image.url}}">
                 <div class="media-body">
                     <font size="10">{{user.username}}</font>
-                     {% if user.tenant_profile.is_landlord == False %}
+                     {% if user.last_name == 'False' %}
                          <p>Usertype: Tenant</p>
                      {% else %}
                          <p>Usertype: Landlord</p>
