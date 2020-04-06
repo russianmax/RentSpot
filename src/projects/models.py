@@ -8,17 +8,17 @@ from users.models import Landlord_Profile, Tenant_Profile
 # Create your models here.
 
 class Property_Reviews(models.Model):
-    tenant = models.ForeignKey(Tenant_Profile, on_delete=models.CASCADE)
+    tenant = models.ForeignKey(Tenant_Profile, on_delete=models.CASCADE,default=1)
     property = models.ForeignKey('Properties', on_delete=models.CASCADE, default=1)
-    landlord_id = models.OneToOneField(Landlord_Profile, on_delete=models.CASCADE)
+    landlord_id = models.OneToOneField(Landlord_Profile, on_delete=models.CASCADE,default=1)
     review = models.TextField()
-    created = models.TextField(null=False)
+    created = models.TextField(default=1)
 
 class Property_Applications(models.Model):
     User = settings.AUTH_USER_MODEL
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
     listingId = models.ForeignKey('Properties', on_delete=models.CASCADE)
-    app_description = models.TextField(null=False)
+    app_description = models.TextField(default='app description')
 
 
 class Properties(models.Model):
