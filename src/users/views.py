@@ -30,6 +30,8 @@ def profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
+            print('testtesttest')
+            print(p_form)
             messages.success(request, f'Your account has been updated!')
             return redirect('portal')
     else:

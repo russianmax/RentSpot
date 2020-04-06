@@ -7,11 +7,11 @@ from .models import usertypechoices
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
-    whatisthis = forms.ChoiceField(choices=usertypechoices)
-
+    #whatisthis = forms.ChoiceField(choices=usertypechoices, required=False)
+    last_name = forms.ChoiceField(choices=usertypechoices, required=True)
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2','whatisthis']
+        fields = ['username', 'email', 'password1', 'password2','last_name']
 
 
 # class to allow user update their own data
