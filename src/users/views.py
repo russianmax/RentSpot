@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from projects.models import Properties, Property_Applications
-from .models import Tenant_Profile, Tenant_Reviews
+from .models import Landlord_Profile, Tenant_Profile, Tenant_Reviews
 from django import forms
 
 
@@ -30,13 +30,11 @@ def profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            print('testtesttest')
-            print(p_form)
             messages.success(request, f'Your account has been updated!')
             return redirect('portal')
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.Tenant_Profile)
+        p_form = ProfileUpdateForm(instance=request.user.tenant_profile)
         messages.success(request, f'Click "Update" to store your details')
     context = {
         'u_form': u_form,
@@ -56,7 +54,6 @@ def profile(request):
 #         'llp': llp
 #     }
 #     return render(request, 'users/landlordPortal.html', context)
-#
 
 @login_required
 def landlordPortal(request):
