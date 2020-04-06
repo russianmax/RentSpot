@@ -4,7 +4,7 @@
 {% block content %}
 <body>
 
-  <div class="card">
+  <div class="card bg-secondary">
   <br>
   <br>
 
@@ -13,14 +13,17 @@
       <div class="row">
        {% comment %} defining the with of the first block {% endcomment %}
         <div class="col-md-8">
-          <div class = "card">
-          
-          <h1>{{ project.address }}</h1>
-            
-            
-            <div class="Preview">
-              <div class="text-center">
-                <img src="{{ project.image.url }}" style="width:90%">
+          <div class="content-section bg-dark text-white">
+            <div class = "text-center">
+              <div class = "text-white">
+                <font size="10">{{ project.address }}</font>
+              </div>
+            </div>
+            <div class="bg-dark">
+              <div class="Preview">
+                <div class="text-center">
+                  <img src="{{ project.image.url }}" style="width:90%">
+                </div>
               </div>
             </div>
             <br>
@@ -53,8 +56,8 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="content-section">
-            <h5>Property Review</h5>
+          <div class="content-section bg-dark text-white">
+            <h5>Property Reviews:</h5>
             {% for reviews in propertyReview %}
             <a href="{% url 'view_profile' reviews.tenant.pk %}" >{{ reviews.tenant }}</a>
             <p></p>

@@ -2,58 +2,68 @@
 {% comment %} {% extends "listingStyle.html" %} {% endcomment %}
 {% load static %}
 {% block content %}
-<div class="content-section">
+    <div class="content-section bg-dark text-white">
         <div class="media">
-        <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
-            <div class="media-body">
-                <h2 class="account-heading">{{user.username}}</h2>
-                <p class="text-secondary">{{user.email}}</p>
-                <button class="btn btn-outline-info" onclick="window.location.href = '/profile'" >Update Profile</button>
-                <button class="btn btn-outline-info" onclick="window.location.href = '/documents'" >Documents</button>
-            </div>
-        </div>
-    </div>
-<div class="card">
-    <h1>Your active listings:</h1>
-    <div class="row">
-        {% for listing in portal %}
-            <div class="col-md-4">
-                <div class="card mb-2">
-                    <img class="card-img-top" src="{{listing.image.url}}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ listing.address }}</h5>
-                        <p class="card-text">{{ listing.description }}</p>
-                        <p class="card-text">{{ listing.rentPrice }}</p>
-                        <a href="{% url 'project_detail' listing.pk %}" class="btn btn-primary">View Property</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
-<br>
-
-<div class="card">
-    <h1>Applications:</h1>
-    <div class="row">
-    {% comment %} {% for applications in propertyApplications %} {% endcomment %}
-
-        <div class = "col-md-4">
-            <div class="card mb-2">
-                <img class="card-img-top" src="{{listing.image.url}}">
-                    <div class="card-body">
-                        <h5 class="card-title">1</h5>
-                        <p class="card-text">2</p>
-                        <p class="card-text">3</p>
-                    </div>
+            <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
+                <div class="media-body">
+                    <font size="10">{{user.username}}</font>
+                    <p>{{user.email}}</p>
+                    <button class="btn btn-outline-info" onclick="window.location.href = '/profile'" >Update Profile</button>
+                    <button class="btn btn-outline-info" onclick="window.location.href = '/documents'" >Documents</button>
                 </div>
             </div>
         </div>
+    
+        <div class="card bg-dark">
+            <div class="col-md-12">
+                <div class="text-white">
+                    <font size='10'>Your active listings:</font>
+                </div>
+                <div class="row">
+                    {% for listing in portal %}
+                        <div class="col-md-4">
+                            <div class="card mb-2">
+                                <img class="card-img-top" src="{{listing.image.url}}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ listing.address }}</h5>
+                                    <p class="card-text">{{ listing.description }}</p>
+                                    <p class="card-text">€{{ listing.rentPrice }}</p>
+                                    <a href="{% url 'project_detail' listing.pk %}" class="btn btn-primary">View Property</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+       
+        <br>
 
-    {% comment %} {% endfor %} {% endcomment %}
+        <div class="card bg-dark ">
+            <div class="col-md-12">
+                <div class="text-white">
+                    <font size='10'>Applications:</font>
+                </div>
+                <div class="row">
+                {% for newApplication in tenantApplicant %}
+
+                    <div class = "col-md-4">
+                        <div class="card mb-2">
+                            <img class="card-img-top" src="{{listing.image.url}}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ newApplication.app_description }}</h5>  <!--django tags for db-->
+                                    <p class="card-text">2</p>
+                                    <p class="card-text">3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+                </div>
+            </div>
     </div>
 </div>
-
             
             
 
