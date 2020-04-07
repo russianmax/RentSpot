@@ -11,7 +11,7 @@ class Tenant_Reviews(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
 class Tenant_Profile(models.Model):
-    tenant = models.OneToOneField(User, on_delete=models.CASCADE)
+    tenant = models.OneToOneField(User, on_delete=models.CASCADE, unique = True)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     is_landlord = models.BooleanField(choices=usertypechoices,default=False)
     salary = models.FloatField(null=True)
