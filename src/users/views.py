@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
-from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegistrationForm, UserUpdateForm, TenantProfileUpdateForm , LandlordProfileUpdateForm 
 from projects.models import Properties, Property_Applications
 from .models import Tenant_Profile, Tenant_Reviews
 from django import forms
@@ -17,29 +17,33 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             last_name = form.cleaned_data.get('last_name')
-            #print(type(username))
-            #print(type(last_name))
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
         form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
 
+# to differentiate between Ll - 'True' and Tenant - 'False' (request.user.last_name)
+
 @login_required
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)  
+        if request.user.last_name == 'False':
+            p_form = TenantProfileUpdateForm(request.POST, request.FILES, instance=request.user)
+        else:
+            p_form = LandlordProfileUpdateForm(request.POST, request.FILES, instance=request.user)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            print('testtesttest')
-            print(p_form)
             messages.success(request, f'Your account has been updated!')
             return redirect('portal')
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.tenant_profile)
+        if request.user.last_name == 'False':
+            p_form = TenantProfileUpdateForm(instance=request.user.tenant_profile)
+        else:
+            p_form = LandlordProfileUpdateForm(instance=request.user.landlord_profile)
         messages.success(request, f'Click "Update" to store your details')
     context = {
         'u_form': u_form,
@@ -47,19 +51,8 @@ def profile(request):
     }
     return render(request, 'users/profile.html', context)
 
-#git hub version
-# @login_required
-# def landlordPortal(request,pk):
-#     llp = Landlord_Profile.objects.get(pk=pk)
-#     portal = Properties.objects.filter(landlord=llp.landlord)
-#     apps = Property_Applications.objects.filter(listingId=pk)
-#     context = {
-#         'portal': portal,
-#         'apps': apps,
-#         'llp': llp
-#     }
-#     return render(request, 'users/landlordPortal.html', context)
-#
+
+
 
 @login_required
 def landlordPortal(request):

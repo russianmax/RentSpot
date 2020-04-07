@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm 
-from .models import Tenant_Profile
+from .models import Tenant_Profile , Landlord_Profile
 from django.forms import ModelForm
 from .models import usertypechoices
 
@@ -21,9 +21,14 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['username', 'email',]
 
 # Set profile variables in Update profile page for tenants
-class ProfileUpdateForm(forms.ModelForm):
+class TenantProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Tenant_Profile
         fields = ['is_landlord','image','salary','savings','is_hap']
+
+class LandlordProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Landlord_Profile
+        fields = ['is_landlord','image']
 
 
