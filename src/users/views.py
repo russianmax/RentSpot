@@ -57,12 +57,15 @@ def profile(request):
 @login_required
 def landlordPortal(request):
     user = request.user
+    landlord_user = request.user.landlord_profile
     portal = Properties.objects.filter(landlord=user)
+    tenantApplicant = Property_Applications.objects.filter(property_owner=landlord_user)
     context = {
-        'portal': portal
+        'portal': portal,
+        'tenantApplicant':tenantApplicant
     }
-
     return render(request, 'users/landlordPortal.html', context)
+
 
 @login_required
 def viewProfile(request, pk):

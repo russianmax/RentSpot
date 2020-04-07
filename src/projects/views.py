@@ -18,7 +18,7 @@ def property_apply(request, pk):
     if request.method == "POST":
         link = applyButton.save(commit=False)
         link.tenant=request.user
-        link.listingId=project
+        link.listing=project
         link.save()
         messages.success(request, f'You have applied!')
         return redirect('/portal/')
@@ -29,12 +29,12 @@ def property_apply(request, pk):
 
 def project_detail(request, pk):
     project = Properties.objects.get(pk=pk)
-    applyButton = Property_Applications.objects.filter(listing_id=project)
+    applyButton = Property_Applications.objects.filter(listing=project)
     propertyReview = Property_Reviews.objects.filter(property=project)
     if request.method == "POST":
         applyButton = Property_Applications(
             user=request.user,
-            listingId=project,
+            listing=project,
         )
         applyButton.save()
     context = {'project': project, 'applyButton': applyButton, 'propertyReview': propertyReview}

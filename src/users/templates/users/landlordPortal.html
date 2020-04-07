@@ -22,7 +22,11 @@
         <div class="card bg-dark">
             <div class="col-md-12">
                 <div class="text-white">
+                {% if user.last_name == 'False' %}
+                    <font size='10'>Your open applications:</font>
+                {% else %}
                     <font size='10'>Your active listings:</font>
+                {% endif %}
                 </div>
                 <div class="row">
                     {% for listing in portal %}
