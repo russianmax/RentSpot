@@ -14,10 +14,10 @@ def create_profile(sender, instance, created, **kwargs):
             Landlord_Profile.objects.create(landlord=instance)
 
 # kwargs just accepts any additional keyword arguments on the end of the function
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
-    if instance.last_name == 'False':
-        instance.Tenant_Profile.save()
-    else:
-        instance.Landlord_Profile.save()
+# @receiver(post_save, sender=User)
+# def save_profile(sender, instance, **kwargs):
+#     if instance.last_name == 'False':
+#         instance.Tenant_Profile.save()
+#     else:
+#         instance.Landlord_Profile.save()
 

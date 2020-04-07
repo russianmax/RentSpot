@@ -14,8 +14,8 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
             username = form.cleaned_data.get('username')
+            form.save()
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
@@ -42,23 +42,12 @@ def profile(request):
     }
     return render(request, 'users/profile.html', context)
 
-#git hub version
-# @login_required
-# def landlordPortal(request,pk):
-#     llp = Landlord_Profile.objects.get(pk=pk)
-#     portal = Properties.objects.filter(landlord=llp.landlord)
-#     apps = Property_Applications.objects.filter(listingId=pk)
-#     context = {
-#         'portal': portal,
-#         'apps': apps,
-#         'llp': llp
-#     }
-#     return render(request, 'users/landlordPortal.html', context)
 
 @login_required
 def landlordPortal(request):
     user = request.user
     portal = Properties.objects.filter(landlord=user)
+    #tenantApplicant = Property_Applications.objects.filter(listingId=)
     context = {
         'portal': portal
     }
