@@ -29,7 +29,7 @@ def property_apply(request, pk):
 
 def project_detail(request, pk):
     project = Properties.objects.get(pk=pk)
-    applyButton = Property_Applications.objects.filter(listingId=project)
+    applyButton = Property_Applications.objects.filter(listing_id=project)
     propertyReview = Property_Reviews.objects.filter(property=project)
     if request.method == "POST":
         applyButton = Property_Applications(

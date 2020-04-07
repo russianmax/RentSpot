@@ -15,10 +15,11 @@ class Property_Reviews(models.Model):
     created = models.TextField(default=1)
 
 class Property_Applications(models.Model):
-    User = settings.AUTH_USER_MODEL
-    user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
-    listingId = models.ForeignKey('Properties', on_delete=models.CASCADE)
+    tenant_apply = models.ForeignKey(Tenant_Profile, on_delete=models.CASCADE, default=1)
+    property_owner = models.OneToOneField(Landlord_Profile, on_delete=models.CASCADE, default=1)
+    listing_id = models.ForeignKey('Properties', on_delete=models.CASCADE)
     app_description = models.TextField(default='app description')
+    created = models.TextField(default=1)
 
 
 class Properties(models.Model):
