@@ -37,7 +37,10 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('portal')
+            if request.user.last_name == 'False':
+                return redirect('tenantportal')
+            else:
+                return redirect('portal')
     else:
         u_form = UserUpdateForm(instance=request.user)
         if request.user.last_name == 'False':
@@ -65,6 +68,19 @@ def landlordPortal(request):
         'tenantApplicant':tenantApplicant
     }
     return render(request, 'users/landlordPortal.html', context)
+
+
+@login_required
+def tenantPortal(request):
+    tenant_user = request.user.tenant_profile
+    application = Property_Applications.objects.filter(tenant_apply=tenant_user)
+    context = {
+        'application':application
+    }
+    return render(request, 'users/tenantPortal.html', context)
+
+
+
 
 
 @login_required

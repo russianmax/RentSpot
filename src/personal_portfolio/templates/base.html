@@ -49,7 +49,11 @@
               <!-- Navbar Right Side -->
               <div class="navbar-nav">
                   {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{% url 'portal' %}">Profile</a>
+                    {% if user.last_name == 'False' %}
+                      <a class="nav-item nav-link" href="{% url 'tenantportal' %}">Profile</a>
+                    {% else %}
+                      <a class="nav-item nav-link" href="{% url 'portal' %}">Profile</a>
+                    {%endif%}
                     <a class="nav-item nav-link" href="{% url 'createListing' %}">Create Listing</a>
                     <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                   {% else %}

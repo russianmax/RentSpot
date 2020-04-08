@@ -37,7 +37,7 @@ class Tenant_Profile(models.Model):
 class Landlord_Profile(models.Model):
     landlord = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    is_landlord = models.BooleanField(choices=usertypechoices,default=False)
+    is_landlord = models.BooleanField(choices=usertypechoices,default=True)
 
 
     def __str__(self):

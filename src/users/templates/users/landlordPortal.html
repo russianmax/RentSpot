@@ -4,20 +4,23 @@
 {% block content %}
     <div class="content-section bg-dark text-white">
         <div class="media">
-            <img class="rounded-circle account-img" src="{{user.tenant_profile.image.url}}">
+            <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
+            
                 <div class="media-body">
                     <font size="10">{{user.username}}</font>
-                     {% if user.last_name == 'False' %}
-                         <p>Usertype: Tenant</p>
-                     {% else %}
-                         <p>Usertype: Landlord</p>
-                     {% endif %}
+                    {% if user.last_name == 'False' %}
+                        <p>Usertype: Tenant</p>
+                    {% else %}
+                        <p>Usertype: Landlord</p>
+                    {% endif %}
                     <p>{{user.email}}</p>
                     <button class="btn btn-outline-info" onclick="window.location.href = '/profile'" >Update Profile</button>
                     <button class="btn btn-outline-info" onclick="window.location.href = '/documents'" >Documents</button>
+                        
                 </div>
-            </div>
+            
         </div>
+    </div>
     
         <div class="card bg-dark">
             <div class="col-md-12">
@@ -60,9 +63,9 @@
                         <div class="card mb-2">
                             <img class="card-img-top" src="{{listing.image.url}}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ newApplication.app_description }}</h5>  <!--django tags for db-->
-                                    <p class="card-text">2</p>
-                                    <p class="card-text">3</p>
+                                    <h5 class="card-title">{{ newApplication.listing }}</h5>  <!--django tags for db-->
+                                    <p class="card-text">{{newApplication.tenant_apply}}</p>
+                                    <p class="card-text">{{newApplication.app_description}}</p>
                                 </div>
                             </div>
                         </div>
