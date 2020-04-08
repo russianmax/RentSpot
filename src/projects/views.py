@@ -21,7 +21,7 @@ def property_apply(request, pk):
         link.listing=project
         link.save()
         messages.success(request, f'You have applied!')
-        return redirect('/portal/')
+        return redirect('/tenantportal/')
     else:
         link = applyButton
     context = {'project': project, 'applyButton': link, 'propertyReview': propertyReview}
