@@ -79,14 +79,22 @@ def tenantPortal(request):
     }
     return render(request, 'users/tenantPortal.html', context)
 
-
-
-
+# @login_required
+# def viewProfile(request, pk):
+#     portal = Tenant_Profile.objects.get(pk=pk)
+#     tenantReview = Tenant_Reviews.objects.filter(tenant=portal)
+#     context = {
+#         'portal': portal,
+#         'tenantReview': tenantReview
+#     }
+#     return render(request, 'users/view_profile.html', context)
 
 @login_required
 def viewProfile(request, pk):
+    landlord_user = request.user.landlord_profile
     portal = Tenant_Profile.objects.get(pk=pk)
     tenantReview = Tenant_Reviews.objects.filter(tenant=portal)
+    viewingApplication = Property_Applications.objects.filter(property_owner=landlord_user)
     context = {
         'portal': portal,
         'tenantReview': tenantReview

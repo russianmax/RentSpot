@@ -64,6 +64,7 @@
                             <img class="card-img-top" src="{{listing.image.url}}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ newApplication.listing }}</h5>  <!--django tags for db-->
+                                    {% comment %} <a href="{% url 'view_profile' newApplication.tenant.pk %}" >{{ newApplication.tenant_apply }}</a> {% endcomment %}
                                     <p class="card-text">{{newApplication.tenant_apply}}</p>
                                     <p class="card-text">{{newApplication.app_description}}</p>
                                 </div>
