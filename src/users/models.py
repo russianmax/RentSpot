@@ -8,6 +8,7 @@ class Tenant_Reviews(models.Model):
     landlord = models.ForeignKey('Landlord_Profile', on_delete=models.CASCADE)
     tenant = models.ForeignKey('Tenant_Profile', on_delete=models.CASCADE)
     review = models.TextField()
+    stars = models.IntegerField(default=5)
     created_on = models.DateTimeField(auto_now_add=True)
 
 class Tenant_Profile(models.Model):

@@ -2,28 +2,58 @@
 {% load crispy_forms_tags %}
 {% block content%}
 
-    <div class="content-section">
-        <div class="media">
-        <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
-            <div class="media-body">
-                <h2 class="account-heading">{{portal.tenant}}</h2>
-                <p class="text-secondary">{{portal}}</p>
-            </div>
+    <div class="content-section bg-dark">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{user.tenant_profile.image}}">
+          <div class="media-body  text-white">
+            <font size="10"class="account-heading">{{portal.tenant}}</font>
+            <img class="rounded-circle account-img" style="width:30px;height:30px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png">
+          </div>
         </div>
-                <legend class="border-bottom mb-4">Profile Info</legend>
-    </div>
+      <legend class="border-bottom mb-4  text-white">Profile Info</legend>
+      <div class="container">
+        <div class="row">
+          {% comment %} left side  {% endcomment %}
 
-    <div class="col-md-4">
-        <div class="content-section">
-          <h5>Tenant Review</h5>
-          {% for reviews in tenantReview %}
-          <!-- <a href="{% url 'view_profile' reviews.landlord.pk %}" >{{ reviews.landlord }}</a> -->
-          <p class='text-muted'>{{ reviews.landlord }}
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-light">{{reviews.review}}</li>
-            </ul>
-          </p>
-          {% endfor %}
+          <div class="col-md-8">
+            <div class="content-section bg-dark text-white">  
+              <h5>Tenants Salary:</h5>
+              <p>€{{portal.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
+              <h5>Tenants Savings:</h5>
+              <p>€{{portal.savings }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
+              {% if portal.is_hap == False %}
+                <h5>H.A.P. Status: </h5>
+                <p>This tenant has H.A.P.</p>
+              {%else%}
+                <h5>Hap Status: </h5>
+              {%endif%}
+            </div>
+          </div>
+
+          {% comment %} right side {% endcomment %}
+          <div class="col-md-4">
+            <div class="content-section bg-dark "> 
+              <div class="text-white">
+                <h5>Tenant Reviews:</h5>
+              </div>
+                {% for reviews in tenantReview %}
+                <!-- <a href="{% url 'view_profile' reviews.landlord.pk %}" >{{ reviews.landlord }}</a> -->
+                  <div class='card'>
+                    <p>{{ reviews.landlord }}
+                    <p>{{reviews.stars}} <img src='https://clipart.info/images/ccovers/1495916675yellow-star-png-image-yellow-star-png-image-2.png' style="width:15px;height:15px;"></p>
+
+                    <ul class="list-group">
+                      <li class="list-group-item list-group-item-light text-dark">{{reviews.review}}</li>
+                    </ul>
+                    </p>
+                  </div>
+                  <br>
+                {% endfor %}
+            </div> 
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

@@ -14,8 +14,8 @@
                         <p>Usertype: Landlord</p>
                     {% endif %}
                     <p>{{user.email}}</p>
-                    <button class="btn btn-outline-info" onclick="window.location.href = '/profile'" >Update Profile</button>
-                    <button class="btn btn-outline-info" onclick="window.location.href = '/documents'" >Documents</button>
+                    <button class="btn btn-outline-info bg-white" onclick="window.location.href = '/profile'" >Update Profile</button>
+                    <button class="btn btn-outline-info bg-white" onclick="window.location.href = '/documents'" >Documents</button>
                         
                 </div>
             
@@ -64,8 +64,7 @@
                             <img class="card-img-top" src="{{listing.image.url}}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ newApplication.listing }}</h5>  <!--django tags for db-->
-                                    {% comment %} <a href="{% url 'view_profile' newApplication.tenant.pk %}" >{{ newApplication.tenant_apply }}</a> {% endcomment %}
-                                    <p class="card-text">{{newApplication.tenant_apply}}</p>
+                                    <a href="{% url 'view_profile' newApplication.tenant_apply.pk %}" >{{ newApplication.tenant_apply }}</a>
                                     <p class="card-text">{{newApplication.app_description}}</p>
                                 </div>
                             </div>
