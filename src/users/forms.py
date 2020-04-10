@@ -24,11 +24,11 @@ class UserUpdateForm(forms.ModelForm):
 class TenantProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Tenant_Profile
-        fields = ['is_landlord','image','salary','savings','is_hap']
+        fields = ['is_landlord','salary','savings','is_hap']
 
 class LandlordProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Landlord_Profile
-        fields = ['is_landlord','image']
+        fields = ['is_landlord','test']
 
 

@@ -24,85 +24,33 @@ def register(request):
         form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
 
-# to differentiate between Ll - 'True' and Tenant - 'False' (request.user.last_name)
+
 
 @login_required
 def profile(request, *args, **kwargs):
     if request.method == 'POST':
         if request.user.last_name == 'False':
-            p_form = TenantProfileUpdateForm(request.POST, request.FILES, instance=request.user)
+            p_form = TenantProfileUpdateForm(request.POST, request.FILES, instance=request.user.tenant_profile)
         else:
-            p_form = LandlordProfileUpdateForm(request.POST, request.FILES, instance=request.user)
-        #p_form(request.POST)
-
-        #enters data to models
-        if p_form.is_valid() and request.user.last_name == 'False':
-            details = Tenant_Profile(
-                tenant=User,
-                image=p_form.cleaned_data['image'],
-                salary=p_form.cleaned_data['salary'],
-                savings=p_form.cleaned_data['savings']
-                )
-            details.save()
+            p_form = LandlordProfileUpdateForm(request.POST, request.FILES, instance=request.user.landlord_profile)
+        if p_form.is_valid():
+            p_form.save()
             messages.success(request, f'Your account has been updated!')
-            
             if request.user.last_name == 'False':
                 return redirect('tenantportal')
             else:
-                return redirect('portal')
-    
+                if p_form.is_valid():
+                    p_form.save()
+                    return redirect('landlordportal')
+
     else:
-        
         if request.user.last_name == 'False':
             p_form = TenantProfileUpdateForm(instance=request.user.tenant_profile)
-            
         else:
             p_form = LandlordProfileUpdateForm(instance=request.user.landlord_profile)
-            
-        messages.success(request, f'Click "Update" to store your details')
-    context = {
-        'p_form': p_form, #'details': details
-    }
+            messages.success(request, f'Click "Update" to store your details')
+    context = {'p_form': p_form, }
     return render(request, 'users/profile.html', context)
-
-
-
-# @login_required
-# def profile(request, *args, **kwargs):
-#     if request.method == 'POST':
-#         u_form = UserUpdateForm(request.POST, instance=request.user)
-#         if request.user.last_name == 'False':
-#             p_form = TenantProfileUpdateForm(request.POST, request.FILES, instance=request.user)
-#         else:
-#             p_form = LandlordProfileUpdateForm(request.POST, request.FILES, instance=request.user)
-#         if u_form.is_valid() and p_form.is_valid():
-#             # we need to fix this to pass the values in TP
-            
-            
-#             p_form.save(commit=False)
-#             u_form.save()
-            
-#             messages.success(request, f'Your account has been updated!')
-#             if request.user.last_name == 'False':
-#                 return redirect('tenantportal')
-#             else:
-#                 return redirect('portal')
-    
-#     else:
-#         u_form = UserUpdateForm(instance=request.user)
-#         if request.user.last_name == 'False':
-#             p_form = TenantProfileUpdateForm(instance=request.user.tenant_profile)
-#         else:
-#             p_form = LandlordProfileUpdateForm(instance=request.user.landlord_profile)
-#         messages.success(request, f'Click "Update" to store your details')
-#     context = {
-#         'u_form': u_form,
-#         'p_form': p_form
-#     }
-#     return render(request, 'users/profile.html', context)
-
-
-
 
 
 @login_required

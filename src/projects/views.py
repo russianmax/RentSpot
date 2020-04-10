@@ -37,7 +37,9 @@ def project_detail(request, pk):
             listing=project,
         )
         applyButton.save()
-    context = {'project': project, 'applyButton': applyButton, 'propertyReview': propertyReview}
+    context = {'project': project,
+               'applyButton': applyButton,
+               'propertyReview': propertyReview}
     return render(request, 'project_detail.html', context)
 
 @login_required
@@ -49,7 +51,7 @@ def createListing(request):
             link.landlord = request.user
             link.save()
             messages.success(request, f'Your listing has been created!!')
-            return redirect('/portal/', args=link.pk)
+            return redirect('/landlordportal/', args=link.pk)
     else:
         listing_form = CreatingListingForm()
         link = listing_form

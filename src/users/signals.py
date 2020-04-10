@@ -8,10 +8,10 @@ from .models import Tenant_Profile, Landlord_Profile
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        if instance.last_name == 'False':
-            Tenant_Profile.objects.create(tenant=instance)
-        else:
+        if instance.last_name == 'True':
             Landlord_Profile.objects.create(landlord=instance)
+        else:
+            Tenant_Profile.objects.create(tenant=instance)
 
 
 
