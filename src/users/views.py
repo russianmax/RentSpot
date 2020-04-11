@@ -42,7 +42,6 @@ def profile(request, *args, **kwargs):
                 if p_form.is_valid():
                     p_form.save()
                     return redirect('landlordportal')
-
     else:
         if request.user.last_name == 'False':
             p_form = TenantProfileUpdateForm(instance=request.user.tenant_profile)
@@ -57,6 +56,7 @@ def profile(request, *args, **kwargs):
 def landlordPortal(request,):
     user = request.user
     landlord_user = request.user.landlord_profile
+    print(landlord_user)
     portal = Properties.objects.filter(landlord=user)
     tenantApplicant = Property_Applications.objects.filter(property_owner=landlord_user)
 

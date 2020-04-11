@@ -15,9 +15,10 @@ def property_apply(request, pk):
     project = Properties.objects.get(pk=pk)
     applyButton = ListingApplicationForm(request.POST)
     propertyReview = Property_Reviews.objects.filter(property=project)
+    profile = request.user.tenant_profile
     if request.method == "POST":
         link = applyButton.save(commit=False)
-        link.tenant=request.user
+        link.tenant_apply = profile
         link.listing=project
         link.save()
         messages.success(request, f'You have applied!')
