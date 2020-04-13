@@ -10,23 +10,25 @@
             <img class="rounded-circle account-img" style="width:30px;height:30px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png">
           </div>
         </div>
-      <legend class="border-bottom mb-4  text-white">Profile Info</legend>
+      <legend class="border-bottom mb-4  text-white">Profile Info:</legend>
       <div class="container">
         <div class="row">
           {% comment %} left side  {% endcomment %}
 
           <div class="col-md-8">
-            <div class="content-section bg-dark text-white">  
+            <div class="content-section text-black" style="background: #C0C0C0">
               <h5>Tenants Salary:</h5>
               <p>€{{portal.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
               <h5>Tenants Savings:</h5>
               <p>€{{portal.savings }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
-              {% if portal.is_hap == False %}
+              {% if portal.is_hap == True %}
                 <h5>H.A.P. Status: </h5>
                 <p>This tenant has H.A.P.</p>
               {%else%}
-                <h5>Hap Status: </h5>
+                <h5>H.A.P. Status:</h5>
+                  <p>In-Active</p>
               {%endif%}
+
             </div>
           </div>
 

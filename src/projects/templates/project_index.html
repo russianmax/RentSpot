@@ -1,21 +1,41 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<h1>Available Listings</h1>
-    <div class="row">
-    {% for project in projects %}
-        <div class="col-md-4">
-            <div class="card mb-2">
-                <!-- <div class="media"> -->
-                <img class="card-img-top" src="{{project.image.url}}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ project.address }}</h5>
-                        <p class="card-text">{{ project.description }}</p>
-                        <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary">View Property</a>
-                    </div>
-                <!-- </div> -->
-            </div>
+
+<div class="content-section bg-dark">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{user.tenant_profile.image.url}}">
+
+                <div class="media-body text-white">
+                    <font size="10">{{user.username}}</font>
+                    {% if user.last_name == 'False' %}
+                        <p>Usertype: Tenant</p>
+                    {% else %}
+                        <p>Usertype: Landlord</p>
+                    {% endif %}
+                    <p>{{user.email}}</p>
+
+                </div>
         </div>
-        {% endfor %}
-    </div>
+
+        <legend class="border-bottom mb-4  text-white">Available Listings:</legend>
+        <div class="card" style="background: #C0C0C0">
+        <p>
+            <div class="row">
+            {% for project in projects %}
+                <p> </p>
+                <div class="col-md-4" >
+                    <div class="card mb-2 border border-dark" style="width:270px; height: 400px;">
+                        <!-- <div class="media"> -->
+                        <img class="card-img-top "style="width:268px; height: 220px;"  src="{{project.image.url}}">
+                            <div class="card-body" style="width=272px height" >
+                                <h5 class="card-title">{{ project.address }}</h5>
+                                <p class="card-text">{{ project.description }}</p>
+                                <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary">View Property</a>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
 {% endblock content%}

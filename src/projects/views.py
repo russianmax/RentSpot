@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from projects.models import Properties, Property_Applications, Property_Reviews
+from users.models import Landlord_Profile, Tenant_Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CreatingListingForm, ListingApplicationForm
@@ -15,10 +16,13 @@ def property_apply(request, pk):
     project = Properties.objects.get(pk=pk)
     applyButton = ListingApplicationForm(request.POST)
     propertyReview = Property_Reviews.objects.filter(property=project)
+    landlord_table = Landlord_Profile.objects.get(landlord=project.landlord)
     profile = request.user.tenant_profile
+
     if request.method == "POST":
         link = applyButton.save(commit=False)
         link.tenant_apply = profile
+        link.property_owner = landlord_table
         link.listing=project
         link.save()
         messages.success(request, f'You have applied!')
