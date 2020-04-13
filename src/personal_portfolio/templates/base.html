@@ -54,7 +54,9 @@
                     {% else %}
                       <a class="nav-item nav-link" href="{% url 'landlordportal' %}">Profile</a>
                     {%endif%}
+                      {% if user.last_name == 'True'  %}
                     <a class="nav-item nav-link" href="{% url 'createListing' %}">Create Listing</a>
+                          {% endif %}
                     <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                   {% else %}
                     <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>

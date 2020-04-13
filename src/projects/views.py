@@ -18,7 +18,6 @@ def property_apply(request, pk):
     propertyReview = Property_Reviews.objects.filter(property=project)
     landlord_table = Landlord_Profile.objects.get(landlord=project.landlord)
     profile = request.user.tenant_profile
-
     if request.method == "POST":
         link = applyButton.save(commit=False)
         link.tenant_apply = profile
