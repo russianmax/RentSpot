@@ -4,13 +4,16 @@
 
 <div class="content-section bg-dark">
         <div class="media">
+            {% if user.last_name == 'False' %}
             <img class="rounded-circle account-img" src="{{user.tenant_profile.image.url}}">
-
+            {% elif user.last_name == 'True' %}
+             <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
+        {% endif %}
                 <div class="media-body text-white">
                     <font size="10">{{user.username}}</font>
                     {% if user.last_name == 'False' %}
                         <p>Usertype: Tenant</p>
-                    {% else %}
+                    {% elif user.last_name == 'True' %}
                         <p>Usertype: Landlord</p>
                     {% endif %}
                     <p>{{user.email}}</p>

@@ -10,13 +10,14 @@ from users.models import Landlord_Profile, Tenant_Profile
 class Property_Reviews(models.Model):
     tenant = models.ForeignKey(Tenant_Profile, on_delete=models.CASCADE,default=1)
     property = models.ForeignKey('Properties', on_delete=models.CASCADE, default=1)
-    landlord = models.OneToOneField(Landlord_Profile, on_delete=models.CASCADE,default=1)
+    landlord = models.ForeignKey(Landlord_Profile, on_delete=models.CASCADE,default=1)
     review = models.TextField()
     created = models.TextField(default=1)
 
 class Property_Applications(models.Model):
-     tenant_apply = models.ForeignKey(Tenant_Profile, on_delete=models.CASCADE)
-     property_owner = models.ForeignKey(Landlord_Profile, on_delete=models.CASCADE)
+     User = settings.AUTH_USER_MODEL
+     tenant_apply = models.ForeignKey(User, on_delete=models.CASCADE)
+     property_owner = models.ForeignKey(Landlord_Profile,to_field='landlord', on_delete=models.CASCADE)
      listing = models.ForeignKey('Properties', on_delete=models.CASCADE)
      app_description = models.TextField(default='app description')
      created = models.TextField(default=1)

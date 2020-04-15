@@ -16,8 +16,9 @@ def property_apply(request, pk):
     project = Properties.objects.get(pk=pk)
     applyButton = ListingApplicationForm(request.POST)
     propertyReview = Property_Reviews.objects.filter(property=project)
-    landlord_table = Landlord_Profile.objects.get(landlord=project.landlord)
-    profile = request.user.tenant_profile
+    landlord_table = Landlord_Profile.objects.get(landlord=project.landlord_id)
+
+    profile = request.user
     if request.method == "POST":
         link = applyButton.save(commit=False)
         link.tenant_apply = profile

@@ -13,7 +13,7 @@ class Tenant_Reviews(models.Model):
 
 class Tenant_Profile(models.Model):
     tenant = models.OneToOneField(User, on_delete=models.CASCADE, unique = True)
-    #image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     is_landlord = models.BooleanField(choices=usertypechoices,default=False)
     salary = models.FloatField(null=True)
     savings = models.FloatField(null=True)
@@ -25,8 +25,7 @@ class Tenant_Profile(models.Model):
 
 class Landlord_Profile(models.Model):
     landlord = models.OneToOneField(User, on_delete=models.CASCADE)
-    test = models.FloatField(null=True)
-    #image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     is_landlord = models.BooleanField(choices=usertypechoices,default=True)
 
 

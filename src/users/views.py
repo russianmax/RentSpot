@@ -70,8 +70,7 @@ def landlordPortal(request,):
 @login_required
 def tenantPortal(request):
     user = request.user
-    tenant_user = request.user.tenant_profile
-    application = Property_Applications.objects.filter(tenant_apply=tenant_user)
+    application = Property_Applications.objects.filter(tenant_apply=user)
     context = {
         'application':application
     }

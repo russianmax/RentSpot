@@ -29,6 +29,6 @@ class TenantProfileUpdateForm(forms.ModelForm):
 class LandlordProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Landlord_Profile
-        fields = ['is_landlord','test']
+        fields = ['is_landlord']
 
 
