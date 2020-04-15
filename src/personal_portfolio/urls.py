@@ -15,8 +15,7 @@ urlpatterns = [
     path("profile/", user_views.profile, name ='profile'),
     path("login/", auth_views.LoginView.as_view(template_name='users/login.html'), name ='login'),
     path("logout/", auth_views.LogoutView.as_view(template_name='users/logout.html'), name ='logout'),
-    path("landlordportal/", user_views.landlordPortal, name ='landlordportal'),
-    path("tenantportal/", user_views.tenantPortal, name ='tenantportal'), #new URL for tenants
+    path("portal/", user_views.portal, name ='portal'),
     path("documents/", user_views.documents, name='documents'),
 
 

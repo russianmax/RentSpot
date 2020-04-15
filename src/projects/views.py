@@ -17,8 +17,7 @@ def property_apply(request, pk):
     applyButton = ListingApplicationForm(request.POST)
     propertyReview = Property_Reviews.objects.filter(property=project)
     landlord_table = Landlord_Profile.objects.get(landlord=project.landlord_id)
-
-    profile = request.user
+    profile = request.user.tenant_profile
     if request.method == "POST":
         link = applyButton.save(commit=False)
         link.tenant_apply = profile
@@ -26,7 +25,7 @@ def property_apply(request, pk):
         link.listing=project
         link.save()
         messages.success(request, f'You have applied!')
-        return redirect('/tenantportal/')
+        return redirect('/portal/')
     else:
         link = applyButton
     context = {'project': project, 'applyButton': link, 'propertyReview': propertyReview}

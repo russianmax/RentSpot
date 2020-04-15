@@ -21,51 +21,21 @@
             
         </div>
     </div>
-    
-        <div class="card bg-dark">
-            <div class="col-md-12">
-                <div class="text-white">
-                {% if user.last_name == 'False' %}
-                    <font size='10'>Your open applications:</font>
-                {% else %}
-                    <font size='10'>Your active listings:</font>
-                {% endif %}
-                </div>
-                <div class="row">
-                    {% for listing in portal %}
-                        <div class="col-md-4">
-                            <div class="card mb-2">
-                                <img class="card-img-top" src="{{listing.image.url}}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ listing.address }}</h5>
-                                    <p class="card-text">{{ listing.description }}</p>
-                                    <p class="card-text">€{{ listing.rentPrice }}</p>
-                                    <a href="{% url 'project_detail' listing.pk %}" class="btn btn-primary">View Property</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-       
         <br>
-
         <div class="card bg-dark ">
             <div class="col-md-12">
                 <div class="text-white">
                     <font size='10'>Applications:</font>
                 </div>
                 <div class="row">
-                {% for newApplication in tenantApplicant %}
-
+                {% for application in applications %}
                     <div class = "col-md-4">
                         <div class="card mb-2">
                             <img class="card-img-top" src="{{listing.image.url}}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ newApplication.listing }}</h5>  <!--django tags for db-->
-                                    <p class="card-text">{{newApplication.tenant_apply}}</p>
-                                    <p class="card-text">{{newApplication.app_description}}</p>
+                                    <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
+{#                                    <p class="card-text">{{application.tenant_apply}}</p>#}
+                                    <p class="card-text">{{application.app_description}}</p>
                                 </div>
                             </div>
                         </div>

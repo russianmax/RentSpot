@@ -26,7 +26,7 @@
             <div class="col-md-12" >
 
                 <div class="row">
-                    {% for listing in portal %}
+                    {% for listing in properties %}
                         <div class="col-md-4" style="width:270px; height: 400px;">
                             <div class="card mb-2">
                                 <img class="card-img-top" style="width:260px; height: 200px;" src="{{listing.image.url}}">
@@ -51,20 +51,20 @@
                     <font size='10'>Applications:</font>
                 </div>
                 <div class="row">
-                {% for newApplication in tenantApplicant %}
-
+                {% for application in applications %}
+                    {% for listing in properties %}
                     <div class = "col-md-4">
                         <div class="card mb-2">
                             <img class="card-img-top"  style="width:271px;height:230px;" src="{{listing.image.url}}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ newApplication.listing }}</h5>  <!--django tags for db-->
-                                    <a href="{% url 'view_profile' newApplication.tenant_apply.pk %}" >{{ newApplication.tenant_apply }}</a>
-                                    <p class="card-text">{{newApplication.app_description}}</p>
+                                    <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
+                                    <a href="{% url 'view_profile' application.tenant_apply.pk %}" >{{ application.tenant_apply }}</a>
+                                    <p class="card-text">{{application.app_description}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                {% endfor %}
                 {% endfor %}
                 </div>
             </div>

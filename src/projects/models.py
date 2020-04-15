@@ -15,8 +15,7 @@ class Property_Reviews(models.Model):
     created = models.TextField(default=1)
 
 class Property_Applications(models.Model):
-     User = settings.AUTH_USER_MODEL
-     tenant_apply = models.ForeignKey(User, on_delete=models.CASCADE)
+     tenant_apply = models.ForeignKey(Tenant_Profile,to_field='tenant', on_delete=models.CASCADE)
      property_owner = models.ForeignKey(Landlord_Profile,to_field='landlord', on_delete=models.CASCADE)
      listing = models.ForeignKey('Properties', on_delete=models.CASCADE)
      app_description = models.TextField(default='app description')

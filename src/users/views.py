@@ -37,11 +37,11 @@ def profile(request, *args, **kwargs):
             p_form.save()
             messages.success(request, f'Your account has been updated!')
             if request.user.last_name == 'False':
-                return redirect('tenantportal')
+                return redirect('portal')
             else:
                 if p_form.is_valid():
                     p_form.save()
-                    return redirect('landlordportal')
+                    return redirect('portal')
     else:
         if request.user.last_name == 'False':
             p_form = TenantProfileUpdateForm(instance=request.user.tenant_profile)
@@ -53,28 +53,22 @@ def profile(request, *args, **kwargs):
 
 
 @login_required
-def landlordPortal(request,):
+def portal(request,):
     user = request.user
-    landlord_user = request.user.landlord_profile
-    print(landlord_user)
-    portal = Properties.objects.filter(landlord=user)
-    tenantApplicant = Property_Applications.objects.filter(property_owner=landlord_user)
+    if user.last_name == 'True':
+        landlord_user = request.user.landlord_profile
+        properties = Properties.objects.filter(landlord=user)
+        applications = Property_Applications.objects.filter(property_owner=landlord_user)
 
-    context = {
-        'portal': portal,
-        'tenantApplicant':tenantApplicant
-    }
-    return render(request, 'users/landlordPortal.html', context)
-
-
-@login_required
-def tenantPortal(request):
-    user = request.user
-    application = Property_Applications.objects.filter(tenant_apply=user)
-    context = {
-        'application':application
-    }
-    return render(request, 'users/tenantPortal.html', context)
+        context = {'properties': properties,'applications':applications}
+        return render(request, 'users/landlordPortal.html', context)
+    else:
+        tenant_user = request.user.tenant_profile
+        applications = Property_Applications.objects.filter(tenant_apply=tenant_user)
+        context = {
+            'applications': applications,
+        }
+        return render(request, 'users/tenantPortal.html', context)
 
 
 @login_required
