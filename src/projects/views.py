@@ -48,6 +48,7 @@ def project_detail(request, pk):
 
 @login_required
 def createListing(request):
+
     if request.method == 'POST':
         listing_form = CreatingListingForm(request.POST, request.FILES)
         if listing_form.is_valid():
@@ -55,7 +56,7 @@ def createListing(request):
             link.landlord = request.user
             link.save()
             messages.success(request, f'Your listing has been created!!')
-            return redirect('/landlordportal/', args=link.pk)
+            return redirect('/portal/', args=link.pk)
     else:
         listing_form = CreatingListingForm()
         link = listing_form
