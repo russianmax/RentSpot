@@ -3,7 +3,7 @@ from projects.models import Properties, Property_Applications, Property_Reviews
 from users.models import Landlord_Profile, Tenant_Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CreatingListingForm, ListingApplicationForm
+from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm
 
 def project_index(request):
     projects = Properties.objects.all()
@@ -11,6 +11,24 @@ def project_index(request):
         'projects': projects
     }
     return render(request, 'project_index.html', context)
+
+def property_review(request,pk):
+    project = Properties.objects.get(pk=pk)
+    reviewButton = PropertyReviewForm(request.POST)
+    landlord_table = Landlord_Profile.objects.get(landlord=project.landlord_id)
+    profile = request.user.tenant_profile
+    if request.method == "POST":
+        link = reviewButton.save(commit=False)
+        link.tenant = profile
+        link.property = project
+        link.landlord = landlord_table
+        link.save()
+        messages.success(request, f'Thanks for leaving a review!')
+        return redirect ('/portal/')
+    else:
+        link = reviewButton
+    context = {'project': project, 'reviewButton': link}
+    return render(request, 'review_submit.html', context)
 
 def property_apply(request, pk):
     project = Properties.objects.get(pk=pk)
@@ -38,8 +56,7 @@ def project_detail(request, pk):
     if request.method == "POST":
         applyButton = Property_Applications(
             user=request.user,
-            listing=project,
-        )
+            listing=project,)
         applyButton.save()
     context = {'project': project,
                'applyButton': applyButton,

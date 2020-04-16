@@ -62,13 +62,12 @@
             <h5>Property Reviews:</h5>
             {% for reviews in propertyReview %}
             <a href="{% url 'view_profile' reviews.tenant.pk %}" >{{ reviews.tenant }}</a>
-            <p></p>
             <ul class="list-group">
-            <li class="list-group-item list-group-item-light">{{reviews.review}}</li>
+            <li class="list-group-item list-group-item-light">{{reviews.review_description}}</li>
             </ul>
-            </p>
             {% endfor %}
           </div>
+         <a href="{% url 'review_submit' project.pk %}" type="submit" class="btn btn-primary">Leave a Review</a>
           </div>
       </div>  
 

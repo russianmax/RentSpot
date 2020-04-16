@@ -1,4 +1,4 @@
-from .models import Properties, Property_Applications
+from .models import Properties, Property_Applications, Property_Reviews
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
@@ -13,3 +13,8 @@ class ListingApplicationForm(forms.ModelForm):
     class Meta:
         model = Property_Applications
         fields = ['app_description']
+
+class PropertyReviewForm(forms.ModelForm):
+    class Meta:
+        model = Property_Reviews
+        fields = ['review_description']
