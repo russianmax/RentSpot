@@ -2,21 +2,26 @@
 {% load crispy_forms_tags %}
 {% block content%}
 
-    <div class="content-section bg-dark">
+    <div class="content-section border border-dark" style="background: #41b6ae">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{user.tenant_profile.image}}">
+        <img class="rounded-circle account-img border border-dark" src="{{user.tenant_profile.image}}">
           <div class="media-body  text-white">
             <font size="10"class="account-heading">{{portal.tenant}}</font>
             <img class="rounded-circle account-img" style="width:30px;height:30px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png">
           </div>
         </div>
-      <legend class="border-bottom mb-4  text-white">Profile Info:</legend>
-      <div class="container">
+    </div>
+
+
+
+
+      <div class="col-md-12">
         <div class="row">
           {% comment %} left side  {% endcomment %}
 
           <div class="col-md-8">
-            <div class="content-section text-black" style="background: #C0C0C0">
+          <legend class="border-bottom mb-4">Profile Info:</legend>
+            <div class="content-section" style="background: white">
               <h5>Tenants Salary:</h5>
               <p>€{{portal.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
               <h5>Tenants Savings:</h5>
@@ -28,16 +33,19 @@
                 <h5>H.A.P. Status:</h5>
                   <p>In-Active</p>
               {%endif%}
-
             </div>
           </div>
 
+
+
           {% comment %} right side {% endcomment %}
+
           <div class="col-md-4">
-            <div class="content-section bg-dark "> 
-              <div class="text-white">
-                <h5>Tenant Reviews:</h5>
-              </div>
+            <legend class="border-bottom mb-4">Tenant Reviews:</legend>
+            <div class="content-section" >
+
+            <h5>Tenant Reviews:</h5>
+
                 {% for reviews in tenantReview %}
                 <!-- <a href="{% url 'view_profile' reviews.landlord.pk %}" >{{ reviews.landlord }}</a> -->
                   <div class='card'>

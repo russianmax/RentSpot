@@ -1,10 +1,26 @@
 {% extends "base.html" %}
-{% comment %} {% extends "listingStyle.html" %} {% endcomment %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-    <div class="content-section bg-dark">
+
+<style>
+    .center {
+        border: 1px #41b6ae;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        margin-left: 10px;
+        {#background: #41b6ae;#}
+}
+
+</style>
+
+
+
+
+    <div class="content-section border border-dark" style="background: #41b6ae">
         <div class="media">
-            <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
+            <img class="rounded-circle account-img border border-dark" src="{{user.landlord_profile.image.url}}">
             
                 <div class="media-body text-white">
                     <font size="10">{{user.username}}</font>
@@ -20,55 +36,68 @@
                 </div>
 
         </div>
-   <legend class="border-bottom mb-4  text-white">Your active listings:</legend>
-    
-        <div class="card bg-dark">
-            <div class="col-md-12" >
+    </div>
 
+    
+{#this is full screen #}
+            <div class="col-md-12" >
+{#            then splitting it into two columns here #}
                 <div class="row">
-                    {% for listing in properties %}
-                        <div class="col-md-4" style="width:270px; height: 400px;">
-                            <div class="card mb-2">
-                                <img class="card-img-top" style="width:260px; height: 200px;" src="{{listing.image.url}}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ listing.address }}</h5>
-                                    <p class="card-text">{{ listing.description }}</p>
-                                    <p class="card-text">€{{ listing.rentPrice }}</p>
-                                    <a href="{% url 'project_detail' listing.pk %}" class="btn btn-primary">View Property</a>
+{#                    on the bigger column here we have active listings, this  then has row inside of listings#}
+                    <div class ='col-md-8'>
+                        <div class="row">
+                        <legend class="border-bottom mb-4 text-black">Your Active listings :</legend>
+                            {% for listing in properties %}
+                                <div class="col-md-3 border border-dark center">
+
+                                        <img class="card-img-top" style="margin: auto; margin-top:10px; height:170px"  src="{{listing.image.url}}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ listing.address }}</h5>
+                                            <p class="card-text">{{ listing.description }}</p>
+                                            <p class="card-text">€{{ listing.rentPrice }}</p>
+                                            <a href="{% url 'project_detail' listing.pk %}" class="btn btn-primary">View Property</a>
+                                        </div>
                                 </div>
-                            </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
+                    </div>
+{#                    the second row is here where the open applications live #}
+                    <div class="col-md-4">
+                        <legend class="border-bottom mb-4 text-black">Open Applications:</legend>
+                        <div class="row">
+                            {% for application in applications %}
+                                <div class = "col-md-12 ">
+                                    <div class="card mb-3">
+                                        <div class="card-body border border-dark">
+                                            <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
+                                            <a href="{% url 'view_profile' application.tenant_apply.pk %}" >{{ application.tenant_apply }}</a>
+                                            <p class="card-text">{{application.app_description}}</p>
+                                            {{scheduleButton|crispy}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
+
+
+
+            </div>
         </div>
-       
+
         <br>
 
-        <div class="card bg-dark ">
+        <div class="container-f " >
             <div class="col-md-12">
                 <div class="text-white">
                     <font size='10'>Applications:</font>
                 </div>
-                <div class="row">
-                {% for application in applications %}
-                    {% for listing in properties %}
-                    <div class = "col-md-4">
-                        <div class="card mb-2">
-                            <img class="card-img-top"  style="width:271px;height:230px;" src="{{listing.image.url}}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
-                                    <a href="{% url 'view_profile' application.tenant_apply.pk %}" >{{ application.tenant_apply }}</a>
-                                    <p class="card-text">{{application.app_description}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-                {% endfor %}
-                </div>
+
             </div>
-    </div>
 </div>
             
             

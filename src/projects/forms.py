@@ -1,4 +1,4 @@
-from .models import Properties, Property_Applications, Property_Reviews
+from .models import Properties, Property_Applications, Property_Reviews, Schedule_Viewing
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
@@ -18,3 +18,8 @@ class PropertyReviewForm(forms.ModelForm):
     class Meta:
         model = Property_Reviews
         fields = ['review_description']
+
+class ScheduleViewingForm(forms.ModelForm):
+    class Meta:
+        model = Schedule_Viewing
+        fields = ['date']

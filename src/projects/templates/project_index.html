@@ -2,33 +2,38 @@
 {% load static %}
 {% block content %}
 
-<div class="content-section bg-dark">
-        <div class="media">
-            {% if user.last_name == 'False' %}
-            <img class="rounded-circle account-img" src="{{user.tenant_profile.image.url}}">
-            {% elif user.last_name == 'True' %}
-             <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
-        {% endif %}
-                <div class="media-body text-white">
-                    <font size="10">{{user.username}}</font>
-                    {% if user.last_name == 'False' %}
-                        <p>Usertype: Tenant</p>
-                    {% elif user.last_name == 'True' %}
-                        <p>Usertype: Landlord</p>
-                    {% endif %}
-                    <p>{{user.email}}</p>
+<style>
+    .center {
+        border: 1px #41b6ae;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        margin-left: 10px;
+        {#background: #41b6ae;#}
+}
 
-                </div>
-        </div>
+</style>
 
-        <legend class="border-bottom mb-4  text-white">Available Listings:</legend>
-        <div class="card" style="background: #C0C0C0">
-        <p>
-            <div class="row">
+<div class="content-section border border-dark"style="background: #41b6ae">
+ <div class="container-fuild">
+    <H1 style="text-align: center">Welcome to RentSpot</H1>
+    <h2 style="text-align: center">Lets find the perfect spot for you!</h2>
+     <br>
+{#     Search bar goes here #}
+
+ </div>
+
+</div>
+        <legend class="border-bottom mb-4 ">Available Listings:</legend>
+        <p></p>
+
+    <div class="column-md-12 center">
+        <div class="row" >
+
             {% for project in projects %}
                 <p> </p>
-                <div class="col-md-4" >
-                    <div class="card mb-2 border border-dark" style="width:270px; height: 400px;">
+                <div class="col-md-3" style="margin-left: auto; margin-right: auto;display: block">
+                    <div class="card mb-2 border border-dark center" style="width:270px; height: 400px; border: 3px black;">
                         <!-- <div class="media"> -->
                         <img class="card-img-top "style="width:268px; height: 220px;"  src="{{project.image.url}}">
                             <div class="card-body" style="width=272px height" >
@@ -41,4 +46,5 @@
                 </div>
                 {% endfor %}
             </div>
+    </di>
 {% endblock content%}

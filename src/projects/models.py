@@ -14,6 +14,12 @@ class Property_Reviews(models.Model):
     review_description = models.TextField()
 
 
+class Schedule_Viewing(models.Model):
+    landlord = models.ForeignKey(Landlord_Profile,to_field='landlord', on_delete=models.CASCADE)
+    tenant = models.ForeignKey(Tenant_Profile,to_field='tenant', on_delete=models.CASCADE)
+    listing = models.ForeignKey('Properties', on_delete=models.CASCADE)
+    date = models.DateTimeField()
+
 
 class Property_Applications(models.Model):
      tenant_apply = models.ForeignKey(Tenant_Profile,to_field='tenant', on_delete=models.CASCADE)

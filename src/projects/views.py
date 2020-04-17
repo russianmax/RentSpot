@@ -3,7 +3,7 @@ from projects.models import Properties, Property_Applications, Property_Reviews
 from users.models import Landlord_Profile, Tenant_Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm
+from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm ,ScheduleViewingForm
 
 def project_index(request):
     projects = Properties.objects.all()
@@ -11,6 +11,22 @@ def project_index(request):
         'projects': projects
     }
     return render(request, 'project_index.html', context)
+
+
+# @login_required
+def scheduleViewing(request,pk):
+    landlord = request.user.landlord_profile
+    submitButton = ScheduleViewingForm(request.POST)
+    viewingApply = Property_Applications.objects.get(pk=pk)
+    if request.method == 'POST':
+        link = submitButton.save(commit=False)
+        link.landlord = landlord
+        link.listing = viewingApply.listing
+        print(viewingApply)
+        messages.success(request, f'You have Scheduled a viewing!')
+        return redirect('/portal/')
+    else:
+        return redirect('/portal/')
 
 def property_review(request,pk):
     project = Properties.objects.get(pk=pk)

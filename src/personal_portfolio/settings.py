@@ -114,7 +114,7 @@ STATIC_URL = '/static/'
 # Full path to dorectory where django stores media file
 # Stored on FileSystem and not DB for performance reasons
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# Ho we access media through the web browser
+# How we access media through the web browser
 MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
