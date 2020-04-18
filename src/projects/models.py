@@ -31,16 +31,20 @@ class Property_Applications(models.Model):
 class Properties(models.Model):
     User = settings.AUTH_USER_MODEL
     landlord = models.ForeignKey(User, on_delete=models.CASCADE)
-    address = models.CharField(max_length=100)
+    street1 = models.CharField(max_length=20,null=True)
+    street2 = models.CharField(max_length=20,null=True)
+    county = models.CharField(max_length=20,null=True)
     rentPrice = models.FloatField()
-    description = models.TextField()
-    bedRooms = models.IntegerField()
-    bathRoom = models.IntegerField()
-    tenantCondtions = models.CharField(max_length=100)
+    description = models.TextField(null=True)
+    bedRooms = models.IntegerField(null=True)
+    bathRoom = models.IntegerField(null=True)
+    tenantSavings = models.IntegerField(null=True)
+    tenantSalary = models.IntegerField(null=True)
+    referenceRequired = models.BooleanField(default=False)
     image = models.ImageField(upload_to='house_preview/')
 
     def __str__(self):
-        return f'{self.address} Property'
+        return f'{self.street1} Property'
 
     def save(self, *args, **kwargs):
         super(Properties, self).save(*args, **kwargs)

@@ -2,9 +2,9 @@
 {% comment %} {% extends "listingStyle.html" %} {% endcomment %}
 {% load static %}
 {% block content %}
-    <div class="content-section bg-dark text-white">
+    <div class="content-section text-white border border-dark" style="background: #41b6ae">
         <div class="media">
-            <img class="rounded-circle account-img" src="{{user.tenant_profile.image.url}}">
+            <img class="rounded-circle account-img border border-dark" src="{{user.tenant_profile.image.url}}">
             
                 <div class="media-body">
                     <font size="10">{{user.username}}</font>
@@ -14,36 +14,42 @@
                         <p>Usertype: Landlord</p>
                     {% endif %}
                     <p>{{user.email}}</p>
-                    <button class="btn btn-outline-info" onclick="window.location.href = '/profile'" >Update Profile</button>
-                    <button class="btn btn-outline-info" onclick="window.location.href = '/documents'" >Documents</button>
+                    <button class="btn bg-white btn-outline-info" onclick="window.location.href = '/profile'" >Update Profile</button>
+                    <button class="btn bg-white btn-outline-info" onclick="window.location.href = '/documents'" >Documents</button>
                         
                 </div>
             
         </div>
     </div>
         <br>
-        <div class="card bg-dark ">
             <div class="col-md-12">
-                <div class="text-white">
-                    <font size='10'>Applications:</font>
-                </div>
                 <div class="row">
-                {% for application in applications %}
-                    <div class = "col-md-4">
-                        <div class="card mb-2">
-                            <img class="card-img-top" src="{{listing.image.url}}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
-{#                                    <p class="card-text">{{application.tenant_apply}}</p>#}
-                                    <p class="card-text">{{application.app_description}}</p>
+                    <div class="col-md-8">
+                        <legend class="border-bottom  mb-4 ">Applications:</legend>
+
+                        <div class="row">
+                        {% for application in applications %}
+                            <div class = "col-md-2 ">
+                                <div class="card mb-2 border border-dark">
+                                    <img class="card-img-top" src="{{listing.image.url}}">
+                                    <div class="card-body">
+                                            <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
+    {#                                      <p class="card-text">{{application.tenant_apply}}</p>#}
+                                            <p class="card-text">{{application.app_description}}</p>
+                                    </div>
                                 </div>
                             </div>
+                        {% endfor %}
                         </div>
                     </div>
 
-                {% endfor %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <p>well</p>
+                    </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
             

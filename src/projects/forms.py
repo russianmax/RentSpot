@@ -7,7 +7,17 @@ from django.contrib.auth.models import User
 class CreatingListingForm(forms.ModelForm):
     class Meta:
         model = Properties
-        fields = ['address', 'rentPrice','description','bedRooms','bathRoom','tenantCondtions','image']
+        fields = ['image',
+                  'street1','street2',
+                  'county',
+                  'description',
+                  'bedRooms',
+                  'bathRoom',
+                  'rentPrice',
+                  'tenantSavings',
+                  'tenantSalary',
+                  'referenceRequired'
+                  ]
 
 class ListingApplicationForm(forms.ModelForm):
     class Meta:

@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content%}
-    <div class="content-section bg-dark text-white">
+    <div class="content-section " style="background: #41b6ae">
         <div class="media">
-        <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
-            <div class="media-body ">
+            {% if request.user.last_name == 'False' %}
+                <img class="rounded-circle account-img" src="{{user.tenant_profile.image.url}}">
+            {% else %}
+                <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
+            {% endif %}
+            <div class="media-body text-white">
                 <font size="10">{{user.username}}</font>
                 <p>{{user.email}}</p>
             </div>
@@ -20,7 +24,7 @@
                 {{ p_form|crispy }}
             </fieldset>
             <div class ="form-group">
-                <button class="btn btn-outline-info" type="submit">Update</button>
+                <button class="btn bg-white btn-outline-info" type="submit">Update</button>
             </div>
         </form>
         

@@ -23,7 +23,8 @@
 
     <div class="content-section border border-dark" style="background: #41b6ae">
       <div class="media">
-        <img class="rounded-circle account-img border border-dark" src="{{user.tenant_profile.image}}">
+{#          Fixed images for view tenant....add .url#}
+        <img class="rounded-circle account-img border border-dark" src="{{ portal.image.url }}">
           <div class="media-body  text-white">
             <font size="10"class="account-heading">{{portal.tenant}}</font>
             <img class="rounded-circle account-img" style="width:30px;height:30px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png">
@@ -55,19 +56,20 @@
 
 {#                        this is where the images in the slideshow are#}
                         <div class="carousel-item active">
-                            <img class="d-block w-100" src="data:image/jpeg;base64,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" alt="First slide">
+                            <p>well bai</p>
+
                          </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTBP6z7WmN_PYt4DzEvGZJQXJsN_dG8Cc_ZMJ1wv8D7vWf5zAHH&usqp=CAU" alt="Second slide">
+
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="https://www.worldofmusic.com.au/wp-content/uploads/2019/06/Fender-Vintera-60s-Strat-Green-Body.jpg" alt="Third slide">
+
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="https://www.worldofmusic.com.au/wp-content/uploads/2019/06/Fender-Vintera-60s-Strat-Green-Body.jpg" alt="Third slide">
+
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="https://www.worldofmusic.com.au/wp-content/uploads/2019/06/Fender-Vintera-60s-Strat-Green-Body.jpg" alt="Third slide">
+
                         </div>
                     </div>
 
@@ -94,7 +96,6 @@
               {%else%}
                 <h5>H.A.P. Status:</h5>
                   <p>In-Active</p>
-                  <iframe src='{{ portal.savingsDocument }}'>
               {%endif%}
             </div>
           </div>

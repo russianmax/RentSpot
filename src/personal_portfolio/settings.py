@@ -55,6 +55,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -113,7 +114,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # Full path to dorectory where django stores media file
 # Stored on FileSystem and not DB for performance reasons
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # How we access media through the web browser
 MEDIA_URL = '/media/'
 

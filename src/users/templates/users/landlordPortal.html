@@ -58,7 +58,7 @@
 
                                         <img class="card-img-top" style="margin: auto; margin-top:10px; height:170px"  src="{{listing.image.url}}">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ listing.address }}</h5>
+                                            <h5 class="card-title">{{ listing.street1 }}</h5>
                                             <p class="card-text">{{ listing.description }}</p>
                                             <p class="card-text">€{{ listing.rentPrice }}</p>
                                             <a href="{% url 'project_detail' listing.pk %}" class="btn btn-primary">View Property</a>

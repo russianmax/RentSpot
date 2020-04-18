@@ -16,11 +16,17 @@
 
 <div class="content-section border border-dark"style="background: #41b6ae">
  <div class="container-fuild">
-    <H1 style="text-align: center">Welcome to RentSpot</H1>
-    <h2 style="text-align: center">Lets find the perfect spot for you!</h2>
-     <br>
-{#     Search bar goes here #}
-
+    {% if user.is_authenticated %}
+        <H1 style="text-align: center">Welcome back to RentSpot {{ request.user}}</H1>
+        <h2 style="text-align: center">Lets find the perfect spot for you!</h2>
+         <br>
+        {#     Search bar goes here #}
+    {% else %}
+{#        If the user is logged out/ not registered it displays a different header #}
+     <img src="{{ MEDIA_URL }}/rentSpotLogo.jpg" style="height: 300px; width:80%; margin: auto">
+        <h1 style="text-align: center">Join RentSpot today!</h1>
+        <h2 style="text-align: center">Get your spot on</h2>
+     {% endif %}
  </div>
 
 </div>
@@ -33,18 +39,20 @@
             {% for project in projects %}
                 <p> </p>
                 <div class="col-md-3" style="margin-left: auto; margin-right: auto;display: block">
+
                     <div class="card mb-2 border border-dark center" style="width:270px; height: 400px; border: 3px black;">
                         <!-- <div class="media"> -->
                         <img class="card-img-top "style="width:268px; height: 220px;"  src="{{project.image.url}}">
                             <div class="card-body" style="width=272px height" >
-                                <h5 class="card-title">{{ project.address }}</h5>
+                                <h5 class="card-title">{{ project.street1 }}</h5>
                                 <p class="card-text">{{ project.description }}</p>
                                 <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary">View Property</a>
                             </div>
                         <!-- </div> -->
                     </div>
                 </div>
-                {% endfor %}
+            {% endfor %}
+
             </div>
     </di>
 {% endblock content%}
