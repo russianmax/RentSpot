@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content%}
 <style>
 
@@ -18,8 +19,6 @@
 
 
 </style>
-
-
 
     <div class="content-section border border-dark" style="background: #41b6ae">
       <div class="media">
@@ -56,19 +55,46 @@
 
 {#                        this is where the images in the slideshow are#}
                         <div class="carousel-item active">
-                            <p>well bai</p>
-
-                         </div>
-                        <div class="carousel-item">
-
-                        </div>
-                        <div class="carousel-item">
-
-                        </div>
-                        <div class="carousel-item">
+                            <p>slide 1</p>
+{#                            <iframe src="{{ portal.references.url }}" width="100%" height="500px"></iframe>#}
+                            <img src="{{ MEDIA_URL }}/toilet.png">
+                            <a href="{{ portal.hapDocument.url }}">{{ portal.hapDocument.url }}</a>
+                            <p></p>
+                            <a href="{{ portal.references.url }}">{{ portal.references.url }}</a>
 
                         </div>
+
                         <div class="carousel-item">
+                            <p>slide 2</p>
+                            <iframe src="{{ portal.salaryDocument.url }}" width="100%" height="500px"></iframe>
+                            <h5>Tenants Salary:</h5>
+                            <p>€{{portal.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
+                        </div>
+
+                        <div class="carousel-item">
+                            <p>slide3</p>
+                            <iframe src="{{ portal.savingsDocument.url }}" width="100%" height="500px"></iframe>
+                            <h5>Tenants Savings:</h5>
+                            <p>€{{portal.savings }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
+                        </div>
+
+                        <div class="carousel-item">
+                            <p>slide 4</p>
+                            <iframe src="{{ portal.hapDocument.url }}" width="100%" height="500px"></iframe>
+
+                            {% if portal.is_hap == True %}
+                                <h5>H.A.P. Status: </h5>
+                                <p>This tenant has H.A.P.</p>
+                            {%else%}
+                                <h5>H.A.P. Status:</h5>
+                                <p>In-Active</p>
+                            {%endif%}
+                        </div>
+
+                        <div class="carousel-item">
+                            <p>slide 5</p>
+                            <h1>Hello</h1>
+                            <iframe src="{{ MEDIA_URL }}/default.jpg" width="100%" height="500px"></iframe>
 
                         </div>
                     </div>
@@ -86,17 +112,9 @@
                 </div>
 
 
-              <h5>Tenants Salary:</h5>
-              <p>€{{portal.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
-              <h5>Tenants Savings:</h5>
-              <p>€{{portal.savings }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
-              {% if portal.is_hap == True %}
-                <h5>H.A.P. Status: </h5>
-                <p>This tenant has H.A.P.</p>
-              {%else%}
-                <h5>H.A.P. Status:</h5>
-                  <p>In-Active</p>
-              {%endif%}
+
+
+
             </div>
           </div>
 

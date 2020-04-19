@@ -18,9 +18,11 @@ class Tenant_Profile(models.Model):
     is_landlord = models.BooleanField(choices=usertypechoices,default=False)
     salary = models.FloatField(null=True)
     salaryDocument = models.FileField(null=True,blank=True)
+    references = models.FileField(null=True, blank=True)
     savings = models.FloatField(null=True)
     savingsDocument = models.FileField(null=True,blank=True)
     is_hap = models.NullBooleanField(default=False)
+    hapDocument = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.tenant.username} Tenant Profile'

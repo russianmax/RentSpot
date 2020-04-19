@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content%}
+    <style>
+
+
+    </style>
+
+
+
     <div class="content-section " style="background: #41b6ae">
         <div class="media">
             {% if request.user.last_name == 'False' %}
@@ -14,19 +21,21 @@
             </div>
         </div>
 
+    <legend class="border-bottom mb-4">Profile Info</legend>
+        <div class="col-md-8">
+            <div class="card border border-dark bg-white mx-auto" >
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
 
-        
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Profile Info</legend>
-                {{ u_form|crispy }}
-                {{ p_form|crispy }}
-            </fieldset>
-            <div class ="form-group">
-                <button class="btn bg-white btn-outline-info" type="submit">Update</button>
+                        {{ p_form|crispy }}
+                    </fieldset>
+                    <div class ="form-group">
+                        <button class="btn bg-white btn-outline-info" type="submit">Update</button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
         
     </div>
 {% endblock content %}
