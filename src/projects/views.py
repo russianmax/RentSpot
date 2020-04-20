@@ -4,15 +4,20 @@ from users.models import Landlord_Profile, Tenant_Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm ,ScheduleViewingForm
+from .filters import CountyFilter
+
+
 
 def project_index(request):
+    # search_term = ''
+    # if 'search' in request.GET:
+    #     search_term = request.GET['search']
+    #     projects = Properties.objects.all().filter(street1__icontains=search_term)
     projects = Properties.objects.all()
-    searchTerm = ''
-    if 'search' in request.GET:
-        search_term = request.GET['search']
-        projects = Properties.objects.all().filter(county__icontains=search_term)
+    myFilter = CountyFilter(request.GET, queryset=projects)
+    projects = myFilter.qs
     context = {
-        'projects': projects
+        'projects': projects, 'myFilter' : myFilter,
     }
     return render(request, 'project_index.html', context)
 

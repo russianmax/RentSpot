@@ -18,6 +18,9 @@ class CreatingListingForm(forms.ModelForm):
                   'tenantSalary',
                   'referenceRequired'
                   ]
+        def __init__(self, *args, **kwargs):
+            super(CreateListingForm, self).__init__(*args, **kwargs)
+            self.fields['county'].empty_label = 'Select county'
 
 class ListingApplicationForm(forms.ModelForm):
     class Meta:

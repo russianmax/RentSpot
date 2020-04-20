@@ -32,14 +32,24 @@
         <h2 style="color: white">Get your spot on</h2>
     {% endif %}
 
+
+ <div class="container bg-dark " style="width: 25%; padding:3px" >
+     <form method ="get">
+         {{ myFilter.form }}
+         <button class="border border-dark" type="submit"<>
+         Search</button>
+     </form>
+    </div>
+
+
      {#Search Bar#}
-            <br>
-            <div class="container bg-dark " style="width: 25%; padding:3px" >
-                <form method="get">
-                    <input class="border border-dark" style="width: 70%; type="text" placeholder="Search.." name="search">
-                    <button class="border border-dark" style="width: 28%; type="submit">Go!<i class="fa fa-search "></i></button>
-                </form>
-            </div>
+{#            <br>#}
+{#            <div class="container bg-dark " style="width: 25%; padding:3px" >#}
+{#                <form method="get">#}
+{#                    <input class="border border-dark" style="width: 70%; type="text" placeholder="Search.." name="search">#}
+{#                    <button class="border border-dark" style="width: 28%; type="submit">Go!<i class="fa fa-search "></i></button>#}
+{#                </form>#}
+{#            </div>#}
  <br>
  </div>
 
@@ -49,7 +59,7 @@
 
     <div class="column-md-12 center">
         <div class="row" >
-
+        {% if projects %}
             {% for project in projects %}
                 <p> </p>
                 <div class="col-md-3" style="margin-left: auto; margin-right: auto;display: block">
@@ -59,13 +69,18 @@
                         <img class="card-img-top "style="width:268px; height: 220px;"  src="{{project.image.url}}">
                             <div class="card-body" style="width=272px height" >
                                 <h5 class="card-title">{{ project.street1 }}</h5>
+                                 <h5 class="card-title">{{ project.county }}</h5>
                                 <p class="card-text">{{ project.description }}</p>
+                                 <p class="card-text">€{{ project.rentPrice }} p/m</p>
                                 <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary">View Property</a>
                             </div>
                         <!-- </div> -->
                     </div>
                 </div>
             {% endfor %}
+        {% else %}
+            no properties found
+        {% endif %}
 
             </div>
     </di>

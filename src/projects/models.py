@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from users.models import Landlord_Profile, Tenant_Profile
+from projects.choices import *
 
 # Create your models here.
 
@@ -34,11 +35,12 @@ class Properties(models.Model):
     landlord = models.ForeignKey(User, on_delete=models.CASCADE)
     street1 = models.CharField(max_length=20,null=True)
     street2 = models.CharField(max_length=20,null=True)
-    county = models.CharField(max_length=20,null=True)
-    rentPrice = models.FloatField()
+    county = models.CharField(choices=COUNTY_CHOICES,max_length=200)
+    rentPrice = models.IntegerField()
     description = models.TextField(null=True)
-    bedRooms = models.IntegerField(null=True)
-    bathRoom = models.IntegerField(null=True)
+    type = models.CharField(choices=TYPE_CHOICES,max_length=200)
+    bedRooms = models.IntegerField(choices=NUMBER_CHOICES,default=1)
+    bathRoom = models.IntegerField(choices=NUMBER_CHOICES,default=1)
     tenantSavings = models.IntegerField(null=True)
     tenantSalary = models.IntegerField(null=True)
     referenceRequired = models.BooleanField(default=False)
