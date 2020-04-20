@@ -18,7 +18,8 @@ class Schedule_Viewing(models.Model):
     landlord = models.ForeignKey(Landlord_Profile,to_field='landlord', on_delete=models.CASCADE)
     tenant = models.ForeignKey(Tenant_Profile,to_field='tenant', on_delete=models.CASCADE)
     listing = models.ForeignKey('Properties', on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    date = models.CharField(max_length=16,null=True)
+    time = models.CharField(max_length=6,null=True)
 
 
 class Property_Applications(models.Model):

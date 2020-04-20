@@ -12,36 +12,35 @@
         {#background: #41b6ae;#}
 }
 
-.active-purple-4 input[type=text]:focus:not([readonly]) {
-  border: 1px solid #ce93d8;
-  box-shadow: 0 0 0 1px #ce93d8;
-}
-.active-purple-3 input[type=text] {
-  border: 1px solid #ce93d8;
-  box-shadow: 0 0 0 1px #ce93d8;
-}
+.
+
+
 
 </style>
 
 <div class="content-section border border-dark active-purple-3"style="background: #41b6ae">
- <div class="container-fuild text-center">
+ <div class="container-fuild text-white text-center">
     {% if user.is_authenticated %}
-        <H1 style="text-align: center">Welcome back to RentSpot {{ request.user}}</H1>
-        <h2 style="text-align: center">Lets find the perfect spot for you!</h2>
-         <br>
-
-            {#Search Bar#}
-            <div class="active-purple-3 active-purple-4 mb-4">
-                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-            </div>
-
+{#        Header card for logged in users#}
+        <h1 style="color: white">Welcome back to RentSpot {{ request.user}}</h1>
+        <h3 style="color: white">Lets find the perfect spot for you!</h3>
 
     {% else %}
 {#        If the user is logged out/ not registered it displays a different header #}
         <img src="{{ MEDIA_URL }}/rentSpotLogo.jpg" style="position:center; height: 300px; width:80%; margin: auto">
-        <h1 style="text-align: center">Join RentSpot today!</h1>
-        <h2 style="text-align: center">Get your spot on</h2>
-     {% endif %}
+        <h1 style="color: white">Join RentSpot today!</h1>
+        <h2 style="color: white">Get your spot on</h2>
+    {% endif %}
+
+     {#Search Bar#}
+            <br>
+            <div class="container bg-dark " style="width: 25%; padding:3px" >
+                <form method="get">
+                    <input class="border border-dark" style="width: 70%; type="text" placeholder="Search.." name="search">
+                    <button class="border border-dark" style="width: 28%; type="submit">Go!<i class="fa fa-search "></i></button>
+                </form>
+            </div>
+ <br>
  </div>
 
 </div>

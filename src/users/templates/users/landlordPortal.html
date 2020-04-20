@@ -9,10 +9,10 @@
         padding-right: 10px;
         padding-left: 10px;
         padding-bottom: 10px;
-        width: 100%;
+        width: 99%;
         height: 600px;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: auto;
+        margin-right: auto;
         overflow: scroll;
 }
 
@@ -29,11 +29,7 @@
             
                 <div class="media-body text-white">
                     <font size="10">{{user.username}}</font>
-                    {% if user.last_name == 'False' %}
-                        <p>Usertype: Tenant</p>
-                    {% else %}
-                        <p>Usertype: Landlord</p>
-                    {% endif %}
+
                     <p>{{user.email}}</p>
                     <button class="btn btn-outline-info bg-white" onclick="window.location.href = '/profile'" >Update Profile</button>
                     <button class="btn btn-outline-info bg-white" onclick="window.location.href = '/documents'" >Documents</button>
@@ -49,9 +45,9 @@
 {#            then splitting it into two columns here #}
                 <div class="row">
 {#                    on the bigger column here we have active listings, this  then has row inside of listings#}
-                    <div class ='col-md-8'>
+                    <div class ='col-md-8 ex1'>
+                    <legend class="border-bottom mb-4 text-black ">Your Active listings :</legend>
                         <div class="row">
-                        <legend class="border-bottom mb-4 text-black">Your Active listings :</legend>
 
                             {% for listing in properties %}
                                 <div class="col-md-3 border border-dark center" style="margin: 14px">
@@ -72,24 +68,45 @@
                     <div class="col-md-4 ">
                         <div class="border border-dark ex1" style="background: #41b6ae">
 
-                        <legend class="border-bottom mb-4 text-white">Open Applications:</legend>
-                        <div class="row">
-                            {% for application in applications %}
-                                <div class = "col-md-12 ">
-                                    <div class="card mb-3">
-                                        <div class="card-body border border-dark">
-                                            <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
-                                            <a href="{% url 'view_profile' application.tenant_apply.pk %}" >{{ application.tenant_apply }}</a>
-                                            <p class="card-text">{{application.app_description}}</p>
-                                            {{scheduleButton|crispy}}
+                            <legend class="border-bottom mb-4 text-white">Open Applications:</legend>
+                            <div class="row">
+                                {% for application in applications %}
+                                    <div class = "col-md-12 ">
+                                        <div class="card mb-3">
+                                            <div class="card-body border border-dark">
+                                                <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
+                                                <a href="{% url 'view_profile' application.tenant_apply.pk %}" >{{ application.tenant_apply }}</a>
+                                                <p class="card-text">{{application.app_description}}</p>
+                                                {{scheduleButton|crispy}}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                    <br>
+                <div class="col-md-12">
+                    <div class="content-section border border-dark" style="background: #41b6ae">
+                        <legend class="border-bottom mb-4 text-white">Up coming viewing appointments</legend>
+                        <div class="row">
+
+                            {% for view in viewings %}
+                                <div class="col-md-3 border border-dark center bg-white" style="margin: 14px">
+
+                                        <div class="card-body ">
+                                            <h5 class="card-title">{{ view.listing }}</h5>
+                                            <p class="card-text">You have scheduled a viewing with {{ view.tenant }} at {{ view.time }} on {{ view.date }}</p>
+
+                                        </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                    </div>
+                </div>
 
 
 

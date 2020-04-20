@@ -33,7 +33,7 @@
               <button class="btn btn-outline-info bg-white" data-target="#carouselExampleIndicators" data-slide-to="1">Salary</button>
               <button class="btn btn-outline-info bg-white" data-target="#carouselExampleIndicators" data-slide-to="2">Savings</button>
               <button class="btn btn-outline-info bg-white" data-target="#carouselExampleIndicators" data-slide-to="3" >H.A.P.</button>
-              <button class="btn btn-outline-info bg-white" data-target="#carouselExampleIndicators" data-slide-to="5" >Schedule Viewing</button>
+              <button class="btn btn-outline-info bg-white" data-target="#carouselExampleIndicators" data-slide-to="4" >Schedule Viewing</button>
           </div>
         </div>
     </div>
@@ -56,26 +56,21 @@
 {#                        this is where the images in the slideshow are#}
                         <div class="carousel-item active">
                             <p>slide 1</p>
-{#                            <iframe src="{{ portal.references.url }}" width="100%" height="500px"></iframe>#}
-                            <img src="{{ MEDIA_URL }}/toilet.png">
-                            <a href="{{ portal.hapDocument.url }}">{{ portal.hapDocument.url }}</a>
+                            <iframe src="https://pdfs.semanticscholar.org/b91e/b0284ce618e5c093222186a57dea601478e0.pdf#toolbar=0" width="100%" height="500px"></iframe>
                             <p></p>
                             <a href="{{ portal.references.url }}">{{ portal.references.url }}</a>
-
                         </div>
 
                         <div class="carousel-item">
-                            <p>slide 2</p>
-                            <iframe src="{{ portal.salaryDocument.url }}" width="100%" height="500px"></iframe>
                             <h5>Tenants Salary:</h5>
                             <p>€{{portal.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
+                            <iframe src="https://pdfs.semanticscholar.org/b91e/b0284ce618e5c093222186a57dea601478e0.pdf#toolbar=0" width="100%" height="500px"></iframe>
                         </div>
 
                         <div class="carousel-item">
-                            <p>slide3</p>
-                            <iframe src="{{ portal.savingsDocument.url }}" width="100%" height="500px"></iframe>
-                            <h5>Tenants Savings:</h5>
-                            <p>€{{portal.savings }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
+                            <h5>mk 2Tenants Salary:</h5>
+                            <p>€{{portal.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
+                            <iframe src="https://pdfs.semanticscholar.org/b91e/b0284ce618e5c093222186a57dea601478e0.pdf#toolbar=0" width="100%" height="500px"></iframe>
                         </div>
 
                         <div class="carousel-item">
@@ -92,11 +87,22 @@
                         </div>
 
                         <div class="carousel-item">
-                            <p>slide 5</p>
-                            <h1>Hello</h1>
-                            <iframe src="{{ MEDIA_URL }}/default.jpg" width="100%" height="500px"></iframe>
+                            <h2>Would you like to schedule a viewing with this tenant?</h2>
+
+                            <form method="POST">
+                              <label for="Viewing Date">Enter a time that suits you to host a viewing with {{ portal.tenant }}</label>
+                              <fieldset class="form-group">
+                                  <div class="text-center">
+                                    <button type="submit" class="btn btn-primary ">Apply</button>
+                                  </div>
+                                  {% csrf_token %}
+                                  {{submitButton | crispy}}
+                                </fieldset>
+                            </form>
+{#                            {{ MEDIA_URL }}#}
 
                         </div>
+
                     </div>
 
 {#                    Previous Button#}

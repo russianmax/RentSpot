@@ -2,6 +2,21 @@
 {% comment %} {% extends "listingStyle.html" %} {% endcomment %}
 {% load static %}
 {% block content %}
+    <style>
+    .ex1 {
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        width: 100%;
+        height: 600px;
+        margin-left: 10px;
+        margin-right: 10px;
+        overflow: scroll;
+    }
+    </style>
+
+
+
     <div class="content-section text-white border border-dark" style="background: #41b6ae">
         <div class="media">
             <img class="rounded-circle account-img border border-dark" src="{{user.tenant_profile.image.url}}">
@@ -21,7 +36,7 @@
             
         </div>
     </div>
-        <br>
+
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-8">
@@ -44,15 +59,43 @@
                     </div>
 
                 <div class="col-md-4">
-                    <div class="card">
-                        <p>well</p>
+                    <div class="border border-dark ex1" style="background: #41b6ae">
+                        <legend class="border-bottom mb-4 text-white">Upcoming Viewings:</legend>
+                        <div class="row">
+                            {% for newViewing in viewings %}
+                                    <div class = "col-md-12 ">
+                                        <div class="card mb-3">
+                                            <div class="card-body border border-dark">
+                                                <h5 class="card-title">{{ newViewing.listing }}</h5>  <!--django tags for db-->
+                                                <p class="success">Congratulations! {{ newViewing.landlord }} has scheduled a viewing with you.</p>
+                                                <p class="card-text">Your viewing is on {{ newViewing.date }}</p>
+                                                <p></p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                            {% endfor %}
+
+                        </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-            
+
+
+    <div class="col-md-4 ">
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
             
 
 {% endblock content%}

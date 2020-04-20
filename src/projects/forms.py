@@ -32,4 +32,4 @@ class PropertyReviewForm(forms.ModelForm):
 class ScheduleViewingForm(forms.ModelForm):
     class Meta:
         model = Schedule_Viewing
-        fields = ['date']
+        fields = ['date','time']

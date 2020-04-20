@@ -7,6 +7,10 @@ from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewFo
 
 def project_index(request):
     projects = Properties.objects.all()
+    searchTerm = ''
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        projects = Properties.objects.all().filter(county__icontains=search_term)
     context = {
         'projects': projects
     }
@@ -43,7 +47,10 @@ def property_review(request,pk):
         return redirect ('/portal/')
     else:
         link = reviewButton
-    context = {'project': project, 'reviewButton': link}
+    context = {
+        'project': project,
+        'reviewButton': link
+    }
     return render(request, 'review_submit.html', context)
 
 def property_apply(request, pk):
