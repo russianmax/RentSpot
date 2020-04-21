@@ -61,7 +61,7 @@
                                 <div class="col-md-6">
                                     <br>
                                   <h5>Bed Rooms:</h5>
-                                  <p>{{project.bedRooms}} <img src="{{ MEDIA_URL }}/bed.png" style="height: 22px; width:35px;"></p>
+                                  <p>{{project.bedRooms}} <img src="{% static 'images/bed.png' %}" style="height: 22px; width:35px;"></p>
                                     <h5>Property Description:</h5>
                                     <p>{{ project.description }}</p>
                                     <h5>Property Location:</h5>
@@ -82,9 +82,9 @@
                                 <div class="col-md-6">
                                     <br>
                                   <h5>Bathrooms:</h5>
-                                  <p>{{project.bathRoom}} <img src="{{ MEDIA_URL }}/toilet.png" style="height: 20px; width:20px;"></p>
+                                  <p>{{project.bathRoom}} <img src="{% static 'images/toilet.png' %}" style="height: 20px; width:20px;"></p>
                                     <h5>Rent Price:</h5>
-                                    <p>€{{project.rentPrice}} <img src="{{ MEDIA_URL }}/rent.png" style="height: 30px; width:30px;"></p>
+                                    <p>€{{project.rentPrice}} <img src="{% static 'images/rent.png' %}" style="height: 30px; width:30px;"></p>
                                 </div>
                               </div>
 
