@@ -1,19 +1,16 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content%}
-    <style>
 
-
-    </style>
 
 
 
     <div class="content-section " style="background: #41b6ae">
         <div class="media">
             {% if request.user.last_name == 'False' %}
-                <img class="rounded-circle account-img" src="{{user.tenant_profile.image.url}}">
+                <img class="rounded-circle account-img border border-dark" src="{{user.tenant_profile.image.url}}">
             {% else %}
-                <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
+                <img class="rounded-circle account-img border border-dark" src="{{user.landlord_profile.image.url}}">
             {% endif %}
             <div class="media-body text-white">
                 <font size="10">{{user.username}}</font>
@@ -21,9 +18,10 @@
             </div>
         </div>
 
-    <legend class="border-bottom mb-4">Profile Info</legend>
-        <div class="col-md-8">
-            <div class="card border border-dark bg-white mx-auto" >
+    <legend class="border-bottom mb-4 text-white">Profile Info</legend>
+        <div class="col-md-8" style="margin: auto">
+            <div class="card border border-dark bg-white mx-auto" style="padding: 10px;position: center" >
+
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <fieldset class="form-group">

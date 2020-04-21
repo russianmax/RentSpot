@@ -75,6 +75,7 @@ def property_apply(request, pk):
         return redirect('/portal/')
     else:
         link = applyButton
+        messages.info(request, 'When you apply you agree to sharing your profile information with the property owner.')
     context = {'project': project, 'applyButton': link, 'propertyReview': propertyReview}
     return render(request, 'application_submit.html', context)
 
