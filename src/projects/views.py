@@ -14,6 +14,7 @@ def project_index(request):
     #     search_term = request.GET['search']
     #     projects = Properties.objects.all().filter(street1__icontains=search_term)
     projects = Properties.objects.all()
+
     myFilter = CountyFilter(request.GET, queryset=projects)
     projects = myFilter.qs
     context = {
