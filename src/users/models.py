@@ -14,7 +14,7 @@ class Tenant_Reviews(models.Model):
 class Tenant_Profile(models.Model):
     tenant = models.OneToOneField(User, on_delete=models.CASCADE, unique = True)
     identification = models.FileField(upload_to='docs',null=True,blank=True)
-    image = models.ImageField(default='profile_pics/default/default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     is_landlord = models.BooleanField(choices=usertypechoices,default=False)
     salary = models.FloatField(null=True)
     salaryDocument = models.FileField(upload_to='docs',null=True,blank=True)
@@ -31,7 +31,7 @@ class Tenant_Profile(models.Model):
 class Landlord_Profile(models.Model):
     landlord = models.OneToOneField(User, on_delete=models.CASCADE)
     identification = models.FileField(null=True, blank=True)
-    image = models.ImageField(default='profile_pics/default/default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     is_landlord = models.BooleanField(choices=usertypechoices,default=True)
     street1 = models.CharField(max_length=20,null=True)
     street2 = models.CharField(max_length=20,null=True)
