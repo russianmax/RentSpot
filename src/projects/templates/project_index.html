@@ -27,7 +27,7 @@
 
     {% else %}
 {#        If the user is logged out/ not registered it displays a different header #}
-        <img src="{{ MEDIA_URL }}/rentSpotLogo.jpg" style="position:center; height: 300px; width:80%; margin: auto">
+        <img src="{% static 'rentSpotLogo.jpg' %}" style="position:center; height: 300px; width:80%; margin: auto">
         <h1 style="color: white">Join RentSpot today!</h1>
         <h2 style="color: white">Get your spot on</h2>
     {% endif %}
@@ -66,7 +66,7 @@
 
                     <div class="card mb-2 border border-dark center" style="width:270px; height: 400px; border: 3px black;">
                         <!-- <div class="media"> -->
-                        <img class="card-img-top "style="width:268px; height: 220px;"  src="{{project.image.url}}">
+                        <img class="card-img-top "style="width:268px; height: 220px;"  src="{{ project.image.url}}">
                             <div class="card-body" style="width=272px height" >
                                 <h5 class="card-title">{{ project.street1 }}</h5>
                                  <h5 class="card-title">{{ project.county }}</h5>
