@@ -42,4 +42,9 @@ class Landlord_Profile(models.Model):
     def __str__(self):
         return f'{self.landlord.username} Landlord Profile'
 
-    'identification','image','is_landlord','street1','street2','county','postCode'
+
+class Guarantor(models.Model):
+    tenant = models.OneToOneField('Tenant_Profile', on_delete=models.CASCADE)
+    g_salary = models.FloatField(null=True)
+    g_salaryDoc = models.FileField(upload_to='docs',null=True, blank=True)
+    g_confirmation = models.FileField(upload_to='docs',null=True, blank=True)

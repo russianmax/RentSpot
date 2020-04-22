@@ -1,16 +1,24 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content%}
-    <div class="card">
-<h1>Your documents:</h1>
-    <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="document">
-    <button type="submit">Upload File </button>
+
+<div class="card">
+    <h1>Want to add a Guarantor to your profile?</h1>
+    <form method="POST">
+        <label for="Viewing Date " class="text-white">Enter a time that suits you to host a viewing with {{ portal.tenant }}</label>
+        <fieldset class="form-group col-md-4 bg-white border border-dark" style="margin: auto;padding: 10px">
+
+            {% csrf_token %}
+            {{addG | crispy}}
+            <div class="text-center">
+                <button type="submit" class="btn bg-dark text-white">Add Guarantor</button>
+            </div>
+        </fieldset>
     </form>
-    {% if url %}
-        <p>Uploaded file: <a href="{{ url }}"> {{ url }} </a></p>
-    {%  endif %}
-    <img src="{{ MEDIA_URL }}/1_apt.jpg"/>
+
     </div>
 {% endblock content %}
+{#{% if url %}#}
+{#        <p>Uploaded file: <a href="{{ url }}"> {{ url }} </a></p>#}
+{#    {%  endif %}#}
+{#    <img src="{{ MEDIA_URL }}/1_apt.jpg"/>#}

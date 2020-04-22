@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
-from .forms import UserRegistrationForm, UserUpdateForm, TenantProfileUpdateForm , LandlordProfileUpdateForm 
+from .forms import UserRegistrationForm, UserUpdateForm, TenantProfileUpdateForm , LandlordProfileUpdateForm , AddGuarantorForm
 from projects.models import Properties, Property_Applications , Schedule_Viewing
 from projects.forms import ScheduleViewingForm
 from .models import Tenant_Profile, Tenant_Reviews, Landlord_Profile
@@ -26,6 +26,24 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
+def guarantor(request,):
+    addG = AddGuarantorForm(request.POST,request.FILES, instance=request.user.tenant_profile)
+
+    if request.method == 'POST':
+        if addG.is_valid():
+            link = addG.save(commit=False)
+            link.tenant = request.user
+            link.save()
+            messages.success(request, f"You've added a guarantor to your profile!")
+        else:
+            link = addG
+            messages.info(request,'Please upload the required files.')
+
+    context = {'addG': addG}
+
+    return render(request, 'users/documents.html', context)
+
+
 
 @login_required
 def profile(request, *args, **kwargs):
@@ -46,9 +64,10 @@ def profile(request, *args, **kwargs):
     else:
         if request.user.last_name == 'False':
             p_form = TenantProfileUpdateForm(instance=request.user.tenant_profile)
+            messages.info(request, f'Click "Update" to store your details')
         else:
             p_form = LandlordProfileUpdateForm(instance=request.user.landlord_profile)
-            messages.success(request, f'Click "Update" to store your details')
+            messages.info(request, f'Click "Update" to store your details')
     context = {'p_form': p_form, }
     return render(request, 'users/profile.html', context)
 
