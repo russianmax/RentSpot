@@ -51,21 +51,27 @@
                 <div id="carouselExampleIndicators" class="carousel slide" >
                     <div class="carousel-inner">
 {#                        this is where the images in the slideshow are#}
+                        {% if portal.references %}
                         <div class="carousel-item active">
                             <h5>Tenants References</h5>
                             <iframe src="{{ portal.references.url }}" width="100%" height="500px"></iframe>
                         </div>
+                        {% endif %}
+                        {% if portal.salaryDocument %}
                         <div class="carousel-item">
                             <h5>Tenants Salary</h5>
                             <p>€{{portal.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
                             <iframe src="{{ portal.salaryDocument.url }}" width="100%" height="500px"></iframe>
                         </div>
+                        {% endif %}
+                        {% if portal.savingsDocument %}
                         <div class="carousel-item">
                             <h5>Tenants Savings</h5>
                             <p>€{{portal.savings }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
                             <iframe src="{{ portal.savingsDocument.url }}" width="100%" height="500px"></iframe>
                         </div>
-
+                        {% endif %}
+                        {% if portal.hapDocument %}
                         <div class="carousel-item">
                              <h5>HAP Document</h5>
                             <iframe src="{{ portal.hapDocument.url }}" width="100%" height="500px"></iframe>
@@ -77,7 +83,7 @@
                                 <p>In-Active</p>
                             {%endif%}
                         </div>
-
+                        {% endif %}
                         <div class="carousel-item  border border-dark" style="background: #41b6ae; padding: 10px">
                             <h2 style="color: white">Would you like to schedule a viewing with this tenant?</h2>
 
