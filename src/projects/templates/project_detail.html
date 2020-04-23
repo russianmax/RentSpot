@@ -85,6 +85,9 @@
                                   <p>{{project.bathRoom}} <img src="{% static 'toilet.png' %}" style="height: 20px; width:20px;"></p>
                                     <h5>Rent Price:</h5>
                                     <p>€{{project.rentPrice}} <img src="{% static 'rent.png' %}" style="height: 30px; width:30px;"></p>
+                                     <h5>Type:</h5>
+                                  <p>{{project.type}}</p>
+
                                 </div>
                               </div>
 
@@ -93,10 +96,11 @@
                           <div class="text-center">
                               <form action="/projects/{{ project.pk}}/" method="post">
                                 {% csrf_token %}
-                                {% if user.last_name == 'False' %}
+                                  {% if user.last_name == 'False' %}
                                     <br>
                                     <a href="{% url 'application_submit' project.pk %}" type="submit" class="btn btn-primary">SpotOn!</a>
                                 {% endif %}
+
                               </form>
                           </div>
                             <br>

@@ -38,7 +38,7 @@ class Properties(models.Model):
     county = models.CharField(choices=COUNTY_CHOICES,max_length=200)
     rentPrice = models.IntegerField()
     description = models.TextField(null=True)
-    type = models.CharField(choices=TYPE_CHOICES,max_length=200)
+    type = models.CharField(choices=TYPE_CHOICES,max_length=200,default='House')
     bedRooms = models.IntegerField(choices=NUMBER_CHOICES,default=1)
     bathRoom = models.IntegerField(choices=NUMBER_CHOICES,default=1)
     tenantSavings = models.IntegerField(null=True)
