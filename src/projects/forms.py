@@ -15,7 +15,6 @@ class CreatingListingForm(forms.ModelForm):
                   'bedRooms',
                   'bathRoom',
                   'rentPrice',
-                  'tenantSavings',
                   'tenantSalary',
                   'referenceRequired'
                   ]

@@ -68,16 +68,6 @@
                                     <p> {{ project.street1}},</p>
                                     <p> {{ project.street2}},</p>
                                     <p> {{ project.county}}.</p>
-
-                                        {% if project.referenceRequired == False %}
-                                            <div class="card bg-steel border border-dark text-white text-center">
-                                            <p>No reference is required for applicants.</p>
-                                            </div>
-                                        {% else %}
-                                            <div class="card border border-dark bg-warning text-center">
-                                                <p>All applicants must have references to apply for this property.</p>
-                                            </div>
-                                        {% endif %}
                                 </div>
                                 <div class="col-md-6">
                                     <br>
@@ -87,19 +77,47 @@
                                     <p>€{{project.rentPrice}} <img src="{% static 'rent.png' %}" style="height: 30px; width:30px;"></p>
                                      <h5>Type:</h5>
                                   <p>{{project.type}}</p>
+                                        <h5>Tenant_salary_required:</h5>
+                                  <p>{{project.tenantSalary}}</p>
+
 
                                 </div>
                               </div>
+                                    {% if project.referenceRequired == False %}
+                                            <div class="card bg-steel border border-dark text-white text-center">
+                                            <p>No reference is required for applicants.</p>
+                                            </div>
+                                        {% else %}
+                                            <div class="card border border-dark bg-warning text-center">
+                                                <p>All applicants must have references to apply for this property.</p>
+                                                {% if tenant_profile.references %}
+                                                <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
+                                                {% else %}
+                                                <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' with a reference <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                            <div class="card border border-dark bg-warning text-center">
+                                                <p>All applicants must have yearly income of equal or over €{{project.tenantSalary}} apply for this property.</p>
+                                                {% if tenant_profile.salary >= project.tenantSalary %}
+                                                <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
+                                                {% else %}
+                                                <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
+                                                {% endif %}
 
+                                            </div>
 
                             </div>
-                          <div class="text-center">
+                          <div class="text-center text-dark" >
                               <form action="/projects/{{ project.pk}}/" method="post">
                                 {% csrf_token %}
-                                  {% if user.last_name == 'False' %}
+                                  {% if user.last_name == 'False' and tenant_profile.salary >= project.tenantSalary and tenant_profile.references  %}
                                     <br>
                                     <a href="{% url 'application_submit' project.pk %}" type="submit" class="btn btn-primary">SpotOn!</a>
-                                {% endif %}
+                                {% else %}
+                                  <br>
+                                  <p> You don't meet the criteria</p>
+                                  {% endif %}
 
                               </form>
                           </div>
@@ -115,11 +133,12 @@
               <div class="content-section border border-dark bg-white">
                   <h5>Property Reviews:</h5>
                         {% for reviews in propertyReview %}
-                            <a href="{% url 'view_profile' reviews.tenant.pk %}" >{{ reviews.tenant }}</a>
+                            <h3>{{reviews.tenant}}</h3>
                             <ul class="list-group">
                             <li class="list-group-item list-group-item-light">{{reviews.review_description}}</li>
                             </ul>
                             {% endfor %}
+                            <br>
                             <a href="{% url 'review_submit' project.pk %}" type="submit" class="btn btn-primary">Leave a Review</a>
               </div>
           </div>

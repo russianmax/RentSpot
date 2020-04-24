@@ -9,5 +9,5 @@ class CountyFilter(django_filters.FilterSet):
         # price__lt = django_filters.NumberFilter(field_name='rentPrice', lookup_expr='lt')
         model = Properties
         fields = '__all__'
-        exclude = ['image','tenantSalary','referenceRequired','tenantSavings',
+        exclude = ['image','tenantSalary','referenceRequired',
                      'street1','street2','description','landlord','rentPrice']

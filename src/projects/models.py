@@ -41,7 +41,7 @@ class Properties(models.Model):
     type = models.CharField(choices=TYPE_CHOICES,max_length=200,default='House')
     bedRooms = models.IntegerField(choices=NUMBER_CHOICES,default=1)
     bathRoom = models.IntegerField(choices=NUMBER_CHOICES,default=1)
-    tenantSavings = models.IntegerField(null=True)
+    #tenantSavings = models.IntegerField(null=True)
     tenantSalary = models.IntegerField(null=True)
     referenceRequired = models.BooleanField(default=False)
     image = models.ImageField(upload_to='house_preview/')

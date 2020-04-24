@@ -83,6 +83,7 @@ def project_detail(request, pk):
     project = Properties.objects.get(pk=pk)
     applyButton = Property_Applications.objects.filter(listing=project)
     propertyReview = Property_Reviews.objects.filter(property=project)
+    tenant_profile = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)
     if request.method == "POST":
         applyButton = Property_Applications(
             user=request.user,
@@ -90,7 +91,8 @@ def project_detail(request, pk):
         applyButton.save()
     context = {'project': project,
                'applyButton': applyButton,
-               'propertyReview': propertyReview}
+               'propertyReview': propertyReview,
+               'tenant_profile': tenant_profile}
     return render(request, 'project_detail.html', context)
 
 @login_required
