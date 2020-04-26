@@ -81,19 +81,26 @@ def property_apply(request, pk):
 
 def project_detail(request, pk):
     project = Properties.objects.get(pk=pk)
-    applyButton = Property_Applications.objects.filter(listing=project)
     propertyReview = Property_Reviews.objects.filter(property=project)
-    tenant_profile = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)
-    if request.method == "POST":
-        applyButton = Property_Applications(
-            user=request.user,
-            listing=project,)
-        applyButton.save()
-    context = {'project': project,
-               'applyButton': applyButton,
-               'propertyReview': propertyReview,
-               'tenant_profile': tenant_profile}
+    if request.user.last_name == 'False' : #here is the tenants view of the property, and the data we are getting incase they apply
+        tenant = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)
+        applyButton = Property_Applications.objects.filter(listing=project)
+        if request.method == "POST": # if the tenant is applying to this property, input their data in the fields.
+            applyButton = Property_Applications(
+                user=request.user,
+                listing=project, )
+            applyButton.save()
+        context = {'project': project,
+                   'applyButton': applyButton,
+                   'propertyReview': propertyReview,
+                   'tenant': tenant}
+    else :
+        landlord = Landlord_Profile.objects.get(landlord=request.user.landlord_profile.landlord_id)
+        context = {'project': project,
+                   'landlord':landlord}
+
     return render(request, 'project_detail.html', context)
+
 
 @login_required
 def createListing(request):

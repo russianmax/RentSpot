@@ -24,7 +24,6 @@
                     <div class="content-section" style="background: white">
                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner text-center border border-dark">
-
             {#                        this is where the images in the slideshow are#}
                                 <div class="carousel-item active">
                                     <img src="{{ project.image.url }}" style="width:100%; height:90%;">
@@ -111,10 +110,11 @@
                           <div class="text-center text-dark" >
                               <form action="/projects/{{ project.pk}}/" method="post">
                                 {% csrf_token %}
+                                  <p>{{applyButton.tenant_apply}}</p>
                                   {% if user.last_name == 'False' and tenant_profile.salary >= project.tenantSalary and tenant_profile.references  %}
                                     <br>
                                     <a href="{% url 'application_submit' project.pk %}" type="submit" class="btn btn-primary">SpotOn!</a>
-                                {% else %}
+                                  {% else %}
                                   <br>
                                   <p> You don't meet the criteria</p>
                                   {% endif %}
