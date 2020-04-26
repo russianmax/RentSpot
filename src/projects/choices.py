@@ -25,4 +25,4 @@ NUMBER_CHOICES = (
     (8, 8),
 )
 
-TYPE_CHOICES = (('House', 'House'), ('Apartment', 'Apartment'),)
+TYPE_CHOICES = (('House', 'House'), ('Apartment', 'Apartment'),('Industrial','Industrial'))
