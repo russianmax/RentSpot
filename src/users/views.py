@@ -106,14 +106,9 @@ def viewProfile(request, pk):
     portal = Tenant_Profile.objects.get(pk=pk)
     tenantReview = Tenant_Reviews.objects.filter(tenant=portal)
     viewingApplication = Property_Applications.objects.get(property_owner=landlord_user,tenant_apply=portal)
-
-    #too hacky
-    properties = Properties.objects.filter(landlord=authuser)
-    applications = Property_Applications.objects.filter(property_owner=landlord_user)
-    viewings = Schedule_Viewing.objects.filter(landlord=landlord_user)
-
     listingId = viewingApplication.listing
     submitButton = ScheduleViewingForm(request.POST)
+
     if request.method == 'POST':
         link = submitButton.save(commit=False)
         link.landlord = landlord_user
@@ -121,16 +116,9 @@ def viewProfile(request, pk):
         link.tenant = portal
         link.save()
 
-        # too hacky
-        context = {'properties': properties,
-                   'applications': applications,
-                   'viewings': viewings,
-                   'submitButton':link
-                   }
+        messages.success(request, f'You scheduled a viewing!')
+        return redirect('portal')
 
-        messages.success(request, f'Your scheduled a viewing!')
-        return render(request,'users/landlordPortal.html', context)
-        # too hacky
     else:
         link = submitButton
 

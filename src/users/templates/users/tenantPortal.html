@@ -23,11 +23,7 @@
 
                 <div class="media-body">
                     <font size="10">{{user.username}}</font>
-                    {% if user.last_name == 'False' %}
-                        <p>Usertype: Tenant</p>
-                    {% else %}
-                        <p>Usertype: Landlord</p>
-                    {% endif %}
+                    <p>Usertype: Tenant</p>
                     <p>{{user.email}}</p>
                     <button class="btn bg-white btn-outline-info" onclick="window.location.href = '/profile'" >Update Profile</button>
                     <button class="btn bg-white btn-outline-info" onclick="window.location.href = '/documents'" >Add A Guarantor</button>
@@ -43,12 +39,13 @@
                         <legend class="border-bottom  mb-4 ">Applications:</legend>
                         <div class="row">
                         {% for application in applications %}
-                            <div class = "col-md-2 ">
+                            <div class = "col-md-3 ">
                                 <div class="card mb-2 border border-dark">
                                     <img class="card-img-top" src="{{listing.image.url}}">
                                     <div class="card-body">
                                             <h5 class="card-title"><a href="{% url 'project_detail' application.listing_id %}" >{{ application.listing }}</a></h5>  <!--django tags for db-->
                                             <p class="card-text">{{application.app_description}}</p>
+
                                     </div>
                                 </div>
                             </div>

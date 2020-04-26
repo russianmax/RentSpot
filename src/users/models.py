@@ -44,7 +44,7 @@ class Landlord_Profile(models.Model):
 
 
 class Guarantor(models.Model):
-    tenant = models.OneToOneField('Tenant_Profile', on_delete=models.CASCADE)
+    tenant = models.OneToOneField('Tenant_Profile',to_field='tenant', on_delete=models.CASCADE)
     g_salary = models.FloatField(null=True)
     g_salaryDoc = models.FileField(upload_to='docs',null=True, blank=True)
     g_confirmation = models.FileField(upload_to='docs',null=True, blank=True)
