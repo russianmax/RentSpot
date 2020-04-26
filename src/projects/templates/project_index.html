@@ -43,14 +43,7 @@
     </div>
 
 
-     {#Search Bar#}
-{#            <br>#}
-{#            <div class="container bg-dark " style="width: 25%; padding:3px" >#}
-{#                <form method="get">#}
-{#                    <input class="border border-dark" style="width: 70%; type="text" placeholder="Search.." name="search">#}
-{#                    <button class="border border-dark" style="width: 28%; type="submit">Go!<i class="fa fa-search "></i></button>#}
-{#                </form>#}
-{#            </div>#}
+
  <br>
  </div>
 
@@ -65,22 +58,22 @@
                 <p> </p>
                 <div class="col-md-3" style="margin-left: auto; margin-right: auto;display: block">
 
-                    <div class="card mb-2 border border-dark center" style="width:270px; height: 400px; border: 3px black;">
+                    <div class="card mb-2 border border-dark" style="width:270px; height: 400px;">
                         <!-- <div class="media"> -->
-                        <img class="card-img-top "style="width:268px; height: 220px;"  src="{{ project.image.url}}">
+                        <img class="card-img-top border border-dark" style="width:268px; height: 220px;"  src="{{ project.image.url}}">
                             <div class="card-body" style="width=272px height" >
                                 <h5 class="card-title">{{ project.street1 }}</h5>
                                  <h5 class="card-title">{{ project.county }}</h5>
-                                <p class="card-text">{{ project.description }}</p>
+                                 <p class="card-text">{{ project.description | stringformat:".28s" }}...</p> <!--the sfrmat function limits the characters -->
                                  <p class="card-text">€{{ project.rentPrice }} p/m</p>
-                                <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary">View Property</a>
+                                <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary center">View Property</a>
                             </div>
                         <!-- </div> -->
                     </div>
                 </div>
             {% endfor %}
         {% else %}
-            no properties found
+            <h5 class="" >no properties found
         {% endif %}
 
             </div>

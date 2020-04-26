@@ -16,7 +16,7 @@ class Tenant_Profile(models.Model):
     identification = models.FileField(upload_to='docs',null=True,blank=True)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     is_landlord = models.BooleanField(choices=usertypechoices,default=False)
-    salary = models.FloatField(null=True)
+    salary = models.IntegerField(null=True)
     salaryDocument = models.FileField(upload_to='docs',null=True,blank=True)
     references = models.FileField(upload_to='docs',null=True, blank=True)
     savings = models.FloatField(null=True)

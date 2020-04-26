@@ -87,22 +87,24 @@
                                             <div class="card bg-steel border border-dark text-white text-center">
                                             <p>No reference is required for applicants.</p>
                                             </div>
-                                        {% else %}
+                                    {% else %}
                                             <div class="card border border-dark bg-warning text-center">
                                                 <p>All applicants must have references to apply for this property.</p>
-                                                {% if tenant_profile.references %}
-                                                <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
+                                                {% if request.tenant_profile.references != '' %}
+                                                <p>You meet this requirement <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
                                                 {% else %}
                                                 <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' with a reference <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
                                                 {% endif %}
                                             </div>
-                                        {% endif %}
+                                    {% endif %}
                                             <div class="card border border-dark bg-warning text-center">
                                                 <p>All applicants must have yearly income of equal or over €{{project.tenantSalary}} apply for this property.</p>
-                                                {% if tenant_profile.salary >= project.tenantSalary %}
-                                                <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
+                                                {% if request.tenant_profile.salary >= project.tenantSalary %}
+
+                                                    <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
                                                 {% else %}
-                                                <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
+                                                    <p>{{ tenant_profile.salary }}</p>
+                                                    <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
                                                 {% endif %}
 
                                             </div>
