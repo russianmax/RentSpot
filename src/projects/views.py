@@ -94,17 +94,13 @@ def project_detail(request, pk):
                    'applyButton': applyButton,
                    'propertyReview': propertyReview,
                 'tenant_profile': tenant_profile}
-    else: #if you're landlord, goes through this statement
-            if request.user.landlord_profile.landlord_id == project.landlord_id: # if landlord owns the property
-                listing_change = CreatingListingForm(request.POST, request.FILES,instance=request.user.landlord_profile)
-                if listing_change.is_valid():
-                    listing_change.save()
-                    listing_change = CreatingListingForm(instance=request.user.landlord_profile)
-                    messages.info(request, f'Click "Update" to store your details')
-            context = {'project': project,
-                   'applyButton': applyButton,
-                   'propertyReview': propertyReview,
-                   'listing_change' : listing_change}
+    elif request.user.landlord_profile.landlord_id == project.landlord_id:
+        if request.method == 'POST':
+            change_listing_form = CreatingListingForm(request.POST,request.FILES,instance=project)
+            if change_listing_form.is_valid():
+                change_listing_form.save()
+                messages.success(request, f'Your account has been updated!')
+        context = {'project': project, 'applyButton': applyButton,'propertyReview': propertyReview,'change_listing_form' : change_listing_form}
     return render(request, 'project_detail.html', context)
 
 

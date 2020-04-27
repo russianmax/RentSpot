@@ -105,6 +105,7 @@
 
                                             </div>
 
+
                             </div>
                           <div class="text-center text-dark" >
                               <form action="/projects/{{ project.pk}}/" method="post">
@@ -116,9 +117,13 @@
                                   {% else %}
                                   <br>
                                   <p> You don't meet the criteria</p>
-<!--FROM HERE-->
-{% load crispy_forms_tags %}
-    <div class="content-section">
+                                  {% endif %}
+                              </form>
+                          </div>
+                        <br>
+                        </div>
+
+                       <div class="content-section">
         <div class="content-section" style="background: #41b6ae">
             <div class="media">
             <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
@@ -133,7 +138,7 @@
                 {% csrf_token %}
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Create New Listing</legend>
-                    {{ listing_form|crispy}}
+                    {{ change_listing_form|crispy}}
                 </fieldset>
                 <div class ="form-group">
                     <button class="btn bg-white btn-outline-info" type="submit">Upload</button>
@@ -141,14 +146,6 @@
             </form>
         </div>
     </div>
-<!--CODE FROM PROFILE-->
-
-                                  {% endif %}
-
-                              </form>
-                          </div>
-                            <br>
-                        </div>
                     </div>
                 </div>
 
