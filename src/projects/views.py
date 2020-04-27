@@ -81,30 +81,36 @@ def property_apply(request, pk):
 
 def project_detail(request, pk):
     project = Properties.objects.get(pk=pk)
+    applyButton = Property_Applications.objects.filter(listing=project)
     propertyReview = Property_Reviews.objects.filter(property=project)
-    if request.user.last_name == 'False' : #here is the tenants view of the property, and the data we are getting incase they apply
-        tenant = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)
-        applyButton = Property_Applications.objects.filter(listing=project)
-        if request.method == "POST": # if the tenant is applying to this property, input their data in the fields.
+    if request.user.last_name == 'False':
+        tenant_profile = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)
+        if request.method == "POST":
             applyButton = Property_Applications(
                 user=request.user,
-                listing=project, )
+                listing=project,)
             applyButton.save()
         context = {'project': project,
                    'applyButton': applyButton,
                    'propertyReview': propertyReview,
-                   'tenant': tenant}
-    else :
-        landlord = Landlord_Profile.objects.get(landlord=request.user.landlord_profile.landlord_id)
-        context = {'project': project,
-                   'landlord':landlord}
-
+                'tenant_profile': tenant_profile}
+    else: #if you're landlord, goes through this statement
+            if request.user.landlord_profile.landlord_id == project.landlord_id: # if landlord owns the property
+                listing_change = CreatingListingForm(request.POST, request.FILES,instance=request.user.landlord_profile)
+                if listing_change.is_valid():
+                    listing_change.save()
+                    listing_change = CreatingListingForm(instance=request.user.landlord_profile)
+                    messages.info(request, f'Click "Update" to store your details')
+            context = {'project': project,
+                   'applyButton': applyButton,
+                   'propertyReview': propertyReview,
+                   'listing_change' : listing_change}
     return render(request, 'project_detail.html', context)
+
 
 
 @login_required
 def createListing(request):
-
     if request.method == 'POST':
         listing_form = CreatingListingForm(request.POST, request.FILES)
         if listing_form.is_valid():

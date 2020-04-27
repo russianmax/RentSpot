@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <body>
 
@@ -79,7 +79,6 @@
                                         <h5>Tenant_salary_required:</h5>
                                   <p>{{project.tenantSalary}}</p>
 
-
                                 </div>
                               </div>
                                     {% if project.referenceRequired == False %}
@@ -117,6 +116,33 @@
                                   {% else %}
                                   <br>
                                   <p> You don't meet the criteria</p>
+<!--FROM HERE-->
+{% load crispy_forms_tags %}
+    <div class="content-section">
+        <div class="content-section" style="background: #41b6ae">
+            <div class="media">
+            <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
+                <div class="media-body">
+                    <h2 class="account-heading text-white">{{user.username}}</h2>
+                    <p class="text-white">{{user.email}}</p>
+                </div>
+            </div>
+
+            <!-- This enctype tag is what is needed to actually save an image!!!!!! -->
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Create New Listing</legend>
+                    {{ listing_form|crispy}}
+                </fieldset>
+                <div class ="form-group">
+                    <button class="btn bg-white btn-outline-info" type="submit">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<!--CODE FROM PROFILE-->
+
                                   {% endif %}
 
                               </form>
