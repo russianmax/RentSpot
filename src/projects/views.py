@@ -14,7 +14,8 @@ def project_index(request):
     #     search_term = request.GET['search']
     #     projects = Properties.objects.all().filter(street1__icontains=search_term)
     projects = Properties.objects.all()
-
+    user = request.user
+    print(user)
     myFilter = CountyFilter(request.GET, queryset=projects)
     projects = myFilter.qs
     context = {
@@ -83,6 +84,8 @@ def project_detail(request, pk):
     project = Properties.objects.get(pk=pk)
     applyButton = Property_Applications.objects.filter(listing=project)
     propertyReview = Property_Reviews.objects.filter(property=project)
+    context = {'project': project, 'propertyReview': propertyReview}
+
     if request.user.last_name == 'False':
         tenant_profile = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)
         if request.method == "POST":
@@ -90,17 +93,16 @@ def project_detail(request, pk):
                 user=request.user,
                 listing=project,)
             applyButton.save()
-        context = {'project': project,
-                   'applyButton': applyButton,
-                   'propertyReview': propertyReview,
-                'tenant_profile': tenant_profile}
+        context['applyButton'] = applyButton
+        context['tenant_profile']= tenant_profile
     elif request.user.landlord_profile.landlord_id == project.landlord_id:
+        change_listing_form = CreatingListingForm(request.POST, request.FILES, instance=project)
         if request.method == 'POST':
-            change_listing_form = CreatingListingForm(request.POST,request.FILES,instance=project)
             if change_listing_form.is_valid():
                 change_listing_form.save()
                 messages.success(request, f'Your account has been updated!')
-        context = {'project': project, 'applyButton': applyButton,'propertyReview': propertyReview,'change_listing_form' : change_listing_form}
+        context['change_listing_form'] = change_listing_form
+
     return render(request, 'project_detail.html', context)
 
 

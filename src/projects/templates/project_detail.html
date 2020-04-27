@@ -2,6 +2,87 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  right: 28px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 700px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;}
+</style>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+
+
 <body>
 
   <div class="card border border-dark" style="background: #41b6ae">
@@ -81,31 +162,31 @@
 
                                 </div>
                               </div>
-                                    {% if project.referenceRequired == False %}
-                                            <div class="card bg-steel border border-dark text-white text-center">
-                                            <p>No reference is required for applicants.</p>
-                                            </div>
-                                        {% else %}
-                                            <div class="card border border-dark bg-warning text-center">
-                                                <p>All applicants must have references to apply for this property.</p>
-                                                {% if tenant_profile.references %}
-                                                <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
-                                                {% else %}
-                                                <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' with a reference <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
-                                                {% endif %}
-                                            </div>
-                                        {% endif %}
-                                            <div class="card border border-dark bg-warning text-center">
-                                                <p>All applicants must have yearly income of equal or over €{{project.tenantSalary}} apply for this property.</p>
-                                                {% if tenant_profile.salary >= project.tenantSalary %}
-                                                <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
-                                                {% else %}
-                                                <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
-                                                {% endif %}
-
-                                            </div>
-
-
+                            </div>
+                    <!-- This is how the tenants will view the add -->
+                    {% if request.user.last_name == 'False' %}
+                        {% if project.referenceRequired == False %}
+                            <div class="card bg-steel border border-dark text-white text-center">
+                            <p>No reference is required for applicants.</p>
+                            </div>
+                        {% else %}
+                            <div class="card border border-dark bg-warning text-center">
+                                <p>All applicants must have references to apply for this property.</p>
+                                {% if tenant_profile.references %}
+                                <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
+                                {% else %}
+                                <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' with a reference <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
+                                {% endif %}
+                            </div>
+                        <p></p>
+                        {% endif %}
+                            <div class="card border border-dark bg-warning text-center">
+                                <p>All applicants must have yearly income of equal or over €{{project.tenantSalary}} apply for this property.</p>
+                                {% if tenant_profile.salary >= project.tenantSalary %}
+                                <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
+                                {% else %}
+                                <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
+                                {% endif %}
                             </div>
                           <div class="text-center text-dark" >
                               <form action="/projects/{{ project.pk}}/" method="post">
@@ -120,33 +201,33 @@
                                   {% endif %}
                               </form>
                           </div>
-                        <br>
+                        <!-- This is how the tenants will view the add -->
+
+                        <br><!-- Manage Listing function if the user is the owner-->
+                    {% elif request.user.landlord_profile.landlord_id == project.landlord_id%}
+                        <p></p>
+                        <div style="text-align: center">
+                            <button class="open-button" onclick="openForm()">Manage your Spot</button>
                         </div>
+                                <div class="form-popup" id="myForm">
+                                  <form class="form-container text-dark" method="POST" enctype="multipart/form-data">
 
-                       <div class="content-section">
-        <div class="content-section" style="background: #41b6ae">
-            <div class="media">
-            <img class="rounded-circle account-img" src="{{user.landlord_profile.image.url}}">
-                <div class="media-body">
-                    <h2 class="account-heading text-white">{{user.username}}</h2>
-                    <p class="text-white">{{user.email}}</p>
-                </div>
-            </div>
-
-            <!-- This enctype tag is what is needed to actually save an image!!!!!! -->
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Create New Listing</legend>
-                    {{ change_listing_form|crispy}}
-                </fieldset>
-                <div class ="form-group">
-                    <button class="btn bg-white btn-outline-info" type="submit">Upload</button>
-                </div>
-            </form>
+                                      <label for="Viewing Date " class="text-white">Enter a time that suits you to host a viewing with {{ portal.tenant }}</label>
+                                        <fieldset class="form-group col-md-12 bg-white border border-dark" style="margin: auto;padding: 10px">
+                                            {% csrf_token %}
+                                            {{change_listing_form | crispy}}
+                                            <div class="text-center">
+                                                <button type="submit" class="btn bg-dark text-white">Update your listing</button>
+                                            </div>
+                                        </fieldset>
+                                      <p></p>
+                                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                  </form>
+                                <!-- Manage Listing function if the user is the owner-->
+                    {% endif %}
         </div>
     </div>
-                    </div>
+                </div>
                 </div>
 
 

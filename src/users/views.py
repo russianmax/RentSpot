@@ -120,17 +120,8 @@ def viewProfile(request, pk):
         link.listing = listingId
         link.tenant = portal
         link.save()
-
-        # too hacky
-        context = {'properties': properties,
-                   'applications': applications,
-                   'viewings': viewings,
-                   'submitButton':link
-                   }
-
         messages.success(request, f'Your scheduled a viewing!')
-        return render(request,'users/landlordPortal.html', context)
-        # too hacky
+        return redirect('portal')
     else:
         link = submitButton
 
