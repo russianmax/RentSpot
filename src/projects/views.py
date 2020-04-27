@@ -3,7 +3,8 @@ from projects.models import Properties, Property_Applications, Property_Reviews
 from users.models import Landlord_Profile, Tenant_Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm ,ScheduleViewingForm
+from django.forms import modelformset_factory
+from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm ,ScheduleViewingForm, ManageListingForm
 from .filters import CountyFilter
 
 
@@ -15,7 +16,6 @@ def project_index(request):
     #     projects = Properties.objects.all().filter(street1__icontains=search_term)
     projects = Properties.objects.all()
     user = request.user
-    print(user)
     myFilter = CountyFilter(request.GET, queryset=projects)
     projects = myFilter.qs
     context = {
@@ -96,7 +96,7 @@ def project_detail(request, pk):
         context['applyButton'] = applyButton
         context['tenant_profile']= tenant_profile
     elif request.user.landlord_profile.landlord_id == project.landlord_id:
-        change_listing_form = CreatingListingForm(request.POST, request.FILES, instance=project)
+        change_listing_form = ManageListingForm(request.POST, request.FILES, instance=project)
         if request.method == 'POST':
             if change_listing_form.is_valid():
                 change_listing_form.save()
@@ -107,8 +107,34 @@ def project_detail(request, pk):
 
 
 
+# @login_required
+# def createListing(request):
+#     ImageFormset = modelformset_factory(Properties, fields=('images',), extra=5)
+#     if request.method == 'POST':
+#         listing_form = CreatingListingForm(request.POST)
+#         formset = ImageFormset(request.POST or None, request.FILES or None)
+#         if listing_form.is_valid() and formset.is_valid():
+#             link  = listing_form.save(commit=False)
+#             link.landlord = request.user
+#             link.save()
+#             for f in formset:
+#                 print(len(formset))
+#                 try:
+#                     photo = Properties(properties=request.user.landlord_profile,images=f.clean_data['images'])
+#                     photo.save()
+#                     messages.success(request, f'Your listing has been created!!')
+#                     return redirect('/portal/', args=link.pk)
+#                 except Exception as e:
+#                     break
+#     else:
+#         listing_form = CreatingListingForm()
+#         formset = ImageFormset ()
+#         link = listing_form
+#     return render(request, 'createListing.html', {'listing_form': link,'formset':formset})
+
 @login_required
 def createListing(request):
+
     if request.method == 'POST':
         listing_form = CreatingListingForm(request.POST, request.FILES)
         if listing_form.is_valid():
@@ -122,4 +148,3 @@ def createListing(request):
         link = listing_form
 
     return render(request, 'createListing.html', {'listing_form': link})
-

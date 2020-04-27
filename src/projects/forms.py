@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class CreatingListingForm(forms.ModelForm):
     class Meta:
         model = Properties
-        fields = ['image',
+        fields = [ 'image',
                   'street1','street2',
                   'county',
                   'type',
@@ -34,3 +34,8 @@ class ScheduleViewingForm(forms.ModelForm):
     class Meta:
         model = Schedule_Viewing
         fields = ['date','time']
+
+class ManageListingForm(forms.ModelForm):
+    class Meta:
+        model = Properties
+        fields = ['image','county','is_active']

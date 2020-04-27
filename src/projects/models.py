@@ -44,11 +44,11 @@ class Properties(models.Model):
     #tenantSavings = models.IntegerField(null=True)
     tenantSalary = models.IntegerField(null=True)
     referenceRequired = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='house_preview/')
+    is_active = models.BooleanField(default=True)
+    image= models.ImageField(upload_to='house_preview/')
 
     def __str__(self):
         return f'{self.street1} Property'
-
 
 
 

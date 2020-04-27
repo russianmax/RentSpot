@@ -18,6 +18,7 @@
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Create New Listing</legend>
                     {{ listing_form|crispy}}
+                    {{ formset.as_table }}
                 </fieldset>
                 <div class ="form-group">
                     <button class="btn bg-white btn-outline-info" type="submit">Upload</button>
