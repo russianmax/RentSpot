@@ -33,8 +33,8 @@ class Property_Applications(models.Model):
 class Properties(models.Model):
     User = settings.AUTH_USER_MODEL
     landlord = models.ForeignKey(User, on_delete=models.CASCADE)
-    street1 = models.CharField(max_length=20,null=True)
-    street2 = models.CharField(max_length=20,null=True)
+    street1 = models.CharField(max_length=30,null=True)
+    street2 = models.CharField(max_length=30,null=True)
     county = models.CharField(choices=COUNTY_CHOICES,max_length=200)
     rentPrice = models.IntegerField()
     description = models.TextField(null=True)
@@ -43,13 +43,20 @@ class Properties(models.Model):
     bathRoom = models.IntegerField(choices=NUMBER_CHOICES,default=1)
     tenantSalary = models.IntegerField(null=True)
     referenceRequired = models.BooleanField(default=False)
+    image= models.FileField(upload_to="house_preview/", default=None)
 
     def __str__(self):
         return f'{self.street1} Property'
 
+def get_property_image_filenames(instance, filename):
+    street1 = instance.property.street1
+    return "house_preview/%s/image" % (street1)
+
+
 class Property_Images(models.Model):
     property = models.ForeignKey(Properties, on_delete=models.CASCADE)
-    images = models.FileField(upload_to="house_preview/%Y/%m/%d", default=None)
+    images = models.FileField(upload_to=get_property_image_filenames, default=None)
+
 
 
 

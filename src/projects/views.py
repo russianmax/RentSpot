@@ -118,10 +118,10 @@ def project_detail(request, pk):
         context['applyButton'] = applyButton
         context['tenant_profile']= tenant_profile
     elif request.user.landlord_profile.landlord_id == project.landlord_id:
-        change_listing_form = ManageListingForm(request.POST, request.FILES, instance=project)
+        change_listing_form = CreatingListingForm(request.POST, request.FILES, instance=project)
         if request.method == 'POST':
             if change_listing_form.is_valid():
-                change_listing_form.save()
+                change_listing_form.asave()
                 messages.success(request, f'Your account has been updated!')
         context['change_listing_form'] = change_listing_form
 
@@ -155,9 +155,8 @@ def project_detail(request, pk):
 
 @login_required
 def createListing(request):
-
     if request.method == 'POST':
-        listing_form = CreatingListingForm(request.POST)
+        listing_form = CreatingListingForm(request.POST, request.FILES)
         image_form = ImageForm(request.POST, request.FILES)
         images = request.FILES.getlist('images')
         if listing_form.is_valid() and image_form.is_valid():
