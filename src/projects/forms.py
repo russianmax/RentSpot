@@ -8,9 +8,9 @@ from django.forms import ClearableFileInput
 class CreatingListingForm(forms.ModelForm):
     class Meta:
         model = Properties
-        fields = ['street1','street2','county','type',
+        fields = ['image','street1','street2','county','type',
                   'description','bedRooms','bathRoom',
-                  'rentPrice','tenantSalary','referenceRequired','image']
+                  'rentPrice','tenantSalary','referenceRequired']
 
 class ImageForm(forms.ModelForm):
     class Meta:
@@ -35,6 +35,7 @@ class ScheduleViewingForm(forms.ModelForm):
         fields = ['date','time']
 
 class ManageListingForm(forms.ModelForm):
+
     class Meta:
         model = Properties
         fields = ['county']

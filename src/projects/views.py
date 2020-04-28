@@ -100,8 +100,6 @@ def project_detail(request, pk):
     propertyReview = Property_Reviews.objects.filter(property=project)
     # getting the urls
     property_images = Property_Images.objects.filter(property=project)
-    for test in property_images:
-        print(test.images.url)
     context = {
         'project': project,
         'propertyReview': propertyReview,
@@ -118,7 +116,7 @@ def project_detail(request, pk):
         context['applyButton'] = applyButton
         context['tenant_profile']= tenant_profile
     elif request.user.landlord_profile.landlord_id == project.landlord_id:
-        change_listing_form = CreatingListingForm(request.POST, request.FILES, instance=project)
+        change_listing_form = ManageListingForm(request.POST, request.FILES, instance=project)
         if request.method == 'POST':
             if change_listing_form.is_valid():
                 change_listing_form.asave()
