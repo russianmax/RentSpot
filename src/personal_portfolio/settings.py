@@ -14,7 +14,7 @@ SECRET_KEY = '8x+p778ii32g4*h7)*)x95sbo^gk$w31_xbh_2bu_x%5(4a*h-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','rentspot-274921.nw.r.appspot.com']
 
 
 # Application definition
