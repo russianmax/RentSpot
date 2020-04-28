@@ -41,14 +41,15 @@ class Properties(models.Model):
     type = models.CharField(choices=TYPE_CHOICES,max_length=200,default='House')
     bedRooms = models.IntegerField(choices=NUMBER_CHOICES,default=1)
     bathRoom = models.IntegerField(choices=NUMBER_CHOICES,default=1)
-    #tenantSavings = models.IntegerField(null=True)
     tenantSalary = models.IntegerField(null=True)
     referenceRequired = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    image= models.ImageField(upload_to='house_preview/')
 
     def __str__(self):
         return f'{self.street1} Property'
+
+class Property_Images(models.Model):
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE)
+    images = models.FileField(upload_to="house_preview/%Y/%m/%d", default=None)
 
 
 

@@ -1,13 +1,14 @@
-from .models import Properties, Property_Applications, Property_Reviews, Schedule_Viewing
+from .models import Properties, Property_Applications, Property_Reviews, Schedule_Viewing, Property_Images
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
+from django.forms import ClearableFileInput
 
 # class to allow user update their own data
 class CreatingListingForm(forms.ModelForm):
     class Meta:
         model = Properties
-        fields = [ 'image',
+        fields = [
                   'street1','street2',
                   'county',
                   'type',
@@ -19,6 +20,12 @@ class CreatingListingForm(forms.ModelForm):
                   'referenceRequired'
                   ]
 
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Property_Images
+        fields = ['images']
+        widgets = {'images': ClearableFileInput(attrs={'multiple': True}),}
+        # widget is important to upload multiple files
 
 class ListingApplicationForm(forms.ModelForm):
     class Meta:
@@ -38,4 +45,4 @@ class ScheduleViewingForm(forms.ModelForm):
 class ManageListingForm(forms.ModelForm):
     class Meta:
         model = Properties
-        fields = ['image','county','is_active']
+        fields = ['county']

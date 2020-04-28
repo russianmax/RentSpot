@@ -69,28 +69,28 @@ WSGI_APPLICATION = 'personal_portfolio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# SQLITE3 config
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# #PostgreSQL config
+#SQLITE3 config
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-DATABASES['default']['HOST'] = '/cloudsql/rentspot-274921:europe-west2:rentspot-instance-db'
-if os.getenv('GAE_INSTANCE'):
-    pass
-else:
-    DATABASES['default']['HOST'] = '35.242.149.218'
+
+# # #PostgreSQL config
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'admin',
+#     }
+# }
+# DATABASES['default']['HOST'] = '/cloudsql/rentspot-274921:europe-west2:rentspot-instance-db'
+# if os.getenv('GAE_INSTANCE'):
+#     pass
+# else:
+#     DATABASES['default']['HOST'] = '35.242.149.218'
 
 
 # Password validation

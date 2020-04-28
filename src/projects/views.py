@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from projects.models import Properties, Property_Applications, Property_Reviews
+from projects.models import Properties, Property_Applications, Property_Reviews, Property_Images
 from users.models import Landlord_Profile, Tenant_Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.forms import modelformset_factory
-from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm ,ScheduleViewingForm, ManageListingForm
+from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm ,ScheduleViewingForm, ManageListingForm, ImageForm
 from .filters import CountyFilter
 
 
@@ -84,7 +84,11 @@ def project_detail(request, pk):
     project = Properties.objects.get(pk=pk)
     applyButton = Property_Applications.objects.filter(listing=project)
     propertyReview = Property_Reviews.objects.filter(property=project)
-    context = {'project': project, 'propertyReview': propertyReview}
+    # getting the urls
+    property_images = Property_Images.objects.filter(property=project)
+    for test in property_images:
+        print(test.images.url)
+    context = {'project': project, 'propertyReview': propertyReview,'property_images' : property_images,}
 
     if request.user.last_name == 'False':
         tenant_profile = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)
@@ -104,7 +108,6 @@ def project_detail(request, pk):
         context['change_listing_form'] = change_listing_form
 
     return render(request, 'project_detail.html', context)
-
 
 
 # @login_required
@@ -136,15 +139,21 @@ def project_detail(request, pk):
 def createListing(request):
 
     if request.method == 'POST':
-        listing_form = CreatingListingForm(request.POST, request.FILES)
-        if listing_form.is_valid():
+        listing_form = CreatingListingForm(request.POST)
+        image_form = ImageForm(request.POST, request.FILES)
+        images = request.FILES.getlist('images')
+        if listing_form.is_valid() and image_form.is_valid():
             link  = listing_form.save(commit=False)
             link.landlord = request.user
             link.save()
+            for i in images:
+                image_instance = Property_Images(images=i, property=link)
+                image_instance.save()
             messages.success(request, f'Your listing has been created!!')
             return redirect('/portal/', args=link.pk)
     else:
         listing_form = CreatingListingForm()
         link = listing_form
+        image_form = ImageForm()
 
-    return render(request, 'createListing.html', {'listing_form': link})
+    return render(request, 'createListing.html', {'listing_form': link,'image_form': image_form})
