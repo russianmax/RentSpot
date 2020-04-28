@@ -7,21 +7,35 @@ from django.forms import modelformset_factory
 from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm ,ScheduleViewingForm, ManageListingForm,ImageForm
 from .filters import CountyFilter
 
-
-
-def project_index(request):
-    # search_term = ''
+# search_term = ''
     # if 'search' in request.GET:
     #     search_term = request.GET['search']
     #     projects = Properties.objects.all().filter(street1__icontains=search_term)
+
+def project_index(request):
     projects = Properties.objects.all()
+    # property_images = Property_Images.objects.all()
+    # # for properties_images in property_images:
+    # #         print(properties_images.property)
+    #
+
     user = request.user
     myFilter = CountyFilter(request.GET, queryset=projects)
     projects = myFilter.qs
     context = {
-        'projects': projects, 'myFilter' : myFilter,
+        'projects': projects, 'myFilter': myFilter,
     }
     return render(request, 'project_index.html', context)
+
+# def project_index(request):
+#     projects = Properties.objects.all()
+#     user = request.user
+#     myFilter = CountyFilter(request.GET, queryset=projects)
+#     projects = myFilter.qs
+#     context = {
+#         'projects': projects, 'myFilter': myFilter,
+#     }
+#     return render(request, 'project_index.html', context)
 
 
 # @login_required
@@ -88,7 +102,11 @@ def project_detail(request, pk):
     property_images = Property_Images.objects.filter(property=project)
     for test in property_images:
         print(test.images.url)
-    context = {'project': project, 'propertyReview': propertyReview,'property_images' : property_images,}
+    context = {
+        'project': project,
+        'propertyReview': propertyReview,
+        'property_images' : property_images,
+           }
 
     if request.user.last_name == 'False':
         tenant_profile = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)

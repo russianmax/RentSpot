@@ -106,22 +106,14 @@ function closeForm() {
                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner text-center border border-dark">
             {#                        this is where the images in the slideshow are#}
-                                <div class="carousel-item active">
-                                    <img src="{{ project.image.url }}" style="width:100%; height:90%;">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ project.image.url }}" style="width:100%;">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ project.image.url }}" style="width:100%; height:90%;">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ project.image.url }}" style="width:100%;">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ project.image.url }}" style="width:100%; height:90%;">
-                                </div>
-                            </div>
+
+                                {% for p_images in property_images %}
+                                    <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %} %} ">
+                                        <img src="{{ p_images.images.url }}" style="width:100%; height:90%;">
+                                    </div>
+                                {% endfor %}
+{#
+
 
             {#                    Previous Button#}
                                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
