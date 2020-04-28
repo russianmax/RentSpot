@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from projects.models import Properties, Property_Applications, Property_Reviews, Property_Images
+from projects.models import Properties, Property_Applications, Property_Reviews,Property_Images
 from users.models import Landlord_Profile, Tenant_Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.forms import modelformset_factory
-from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm ,ScheduleViewingForm, ManageListingForm, ImageForm
+from .forms import CreatingListingForm, ListingApplicationForm, PropertyReviewForm ,ScheduleViewingForm, ManageListingForm,ImageForm
 from .filters import CountyFilter
 
 
