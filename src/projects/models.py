@@ -30,6 +30,7 @@ class Property_Applications(models.Model):
      app_description = models.TextField(default='app description')
      created = models.TextField(default=1)
 
+
 class Properties(models.Model):
     User = settings.AUTH_USER_MODEL
     landlord = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -51,7 +52,6 @@ class Properties(models.Model):
 def get_property_image_filenames(instance, filename):
     street1 = instance.property.street1
     return "house_preview/%s/image" % (street1)
-
 
 class Property_Images(models.Model):
     property = models.ForeignKey(Properties, on_delete=models.CASCADE)

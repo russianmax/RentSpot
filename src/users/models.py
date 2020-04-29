@@ -23,6 +23,7 @@ class Tenant_Profile(models.Model):
     savingsDocument = models.FileField(upload_to='docs',null=True,blank=True)
     is_hap = models.NullBooleanField(default=False)
     hapDocument = models.FileField(upload_to='docs',null=True, blank=True)
+    both_salary = models.IntegerField(null=True,default=None)
 
     def __str__(self):
         return f'{self.tenant.username} Tenant Profile'

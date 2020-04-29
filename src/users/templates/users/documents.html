@@ -2,12 +2,13 @@
 {% load crispy_forms_tags %}
 {% block content%}
 
+
 <div class="card">
     <h1>Want to add a Guarantor to your profile?</h1>
+    {% if user.tenant_profile.both_salary == 'None' %}
     <form method="POST">
         <label for="Viewing Date " class="text-white">Enter a time that suits you to host a viewing with {{ portal.tenant }}</label>
         <fieldset class="form-group col-md-4 bg-white border border-dark" style="margin: auto;padding: 10px">
-
             {% csrf_token %}
             {{addG | crispy}}
             <div class="text-center">
@@ -15,6 +16,9 @@
             </div>
         </fieldset>
     </form>
+        {% else %}
+        <p> You already have a guarantor</p>
+   {%  endif %}
 
     </div>
 {% endblock content %}

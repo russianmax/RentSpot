@@ -14,7 +14,6 @@ from .filters import CountyFilter
 
 def project_index(request):
     projects = Properties.objects.all()
-    print(request.user.is_authenticated)
     myFilter = CountyFilter(request.GET, queryset=projects)
     projects = myFilter.qs
     context = {

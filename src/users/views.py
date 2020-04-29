@@ -13,7 +13,6 @@ from django import forms
 
 
 def register(request):
-
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -44,19 +43,10 @@ def register(request):
 #     return render(request, 'users/documents.html', context)
 
 def guarantor(request,):
-    # tenant_user = request.user.tenant_profile
-    # guarantor = Guarantor.objects.get(tenant=tenant_user)
-    # tenant_salary = request.user.tenant_profile.salary
-    # guarantor_salary = guarantor.g_salary
-    # # print(type(guarantor_salary))
-    # # print(type(tenant_salary))
-    # tenant_salary = guarantor_salary + tenant_salary
-    # print(tenant_salary)
+    # new field created in DB called both_salary
+    # this code adds both salaries and displays it in both_salary
+    # does it everytime this view is clicked
     tenant_user = request.user.tenant_profile
-    guarantor = Guarantor.objects.get(tenant=tenant_user).g_salary
-    tenant = Tenant_Profile.objects.get(tenant=request.user)
-    tenant.salary = tenant.salary + guarantor
-    tenant.save()
     if request.method == 'POST':
         addG = AddGuarantorForm(request.POST, request.FILES)
         if addG.is_valid():
@@ -64,6 +54,10 @@ def guarantor(request,):
             link.tenant = tenant_user
             link.save()
             messages.success(request, f"You've added a guarantor to your profile!")
+            guarantor = Guarantor.objects.get(tenant=tenant_user).g_salary
+            tenant = Tenant_Profile.objects.get(tenant=request.user)
+            tenant.both_salary = tenant.salary + guarantor
+            tenant.save()
             return redirect('/portal/')
     else:
         addG = AddGuarantorForm()
@@ -77,7 +71,6 @@ def guarantor(request,):
 def profile(request, *args, **kwargs):
     if request.method == 'POST':
         if request.user.last_name == 'False':
-
             p_form = TenantProfileUpdateForm(request.POST, request.FILES, instance=request.user.tenant_profile)
         else:
             p_form = LandlordProfileUpdateForm(request.POST, request.FILES, instance=request.user.landlord_profile)
@@ -167,13 +160,5 @@ def viewProfile(request, pk):
 #     }
 #     return render(request, 'users/view_profile.html', context)
 
-def documents(request):
-    context = {}
-    if request.method == 'POST':
-        uploaded_document = request.FILES['document']
-        #print(uploaded_document.name, uploaded_document.size)
-        fs = FileSystemStorage()
-        name = fs.save(uploaded_document.name,uploaded_document)
-        context['url'] = fs.url(name)
-    return render(request, 'users/documents.html', context)
+
 
