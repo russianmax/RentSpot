@@ -178,18 +178,27 @@ function closeForm() {
                             <div class="card border border-dark bg-warning text-center text-dark" style="padding:5px">
                                 <p>All applicants must have yearly income of equal or over €{{project.tenantSalary}} apply for this property.</p>
                                 {% if tenant_profile.salary >= project.tenantSalary %}
-                                <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
+                                    <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
+
+                                {% elif tenant_profile.both_salary >= project.tenantSalary %}
+                                    <p>You meet this requirement with your Guarantor <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
+
                                 {% else %}
-                                <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
+                                    <p>You don't meet this requirement, please '<a href="{% url 'profile' %}">Update your profile</a>' <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;"></p>
                                 {% endif %}
                             </div>
                           <div class="text-center text-dark" >
                               <form action="/projects/{{ project.pk}}/" method="post">
                                 {% csrf_token %}
                                <P>{{tenant.profile.both_salary }}</P>
-                                  {% if user.last_name == 'False' and tenant_profile.both_salary >= project.tenantSalary and tenant_profile.references  %}
-                                    <br>
-                                    <a href="{% url 'application_submit' project.pk %}" type="submit" class="btn btn-primary">SpotOn!</a>
+                                  {% if user.last_name == 'False' %}
+                                      {% if tenant_profile.references %}
+                                           {% if tenant_profile.salary >= project.tenantSalary or tenant_profile.both_salary >= project.tenantSalary  %}
+                                            <br>
+                                            <a href="{% url 'application_submit' project.pk %}" type="submit" class="btn btn-dark">SpotOn!</a>
+                                           {% endif %}
+                                      {% endif %}
+
                                   {% else %}
                                   <br>
                                   <p> You don't meet the criteria</p>
@@ -220,7 +229,7 @@ function closeForm() {
                                   </form>
                                 <!-- Manage Listing function if the user is the owner-->
                                 </div>
-                                    {% endif %}
+                        {% endif %}
                         </div>
                     </div>
                 </div>
@@ -229,18 +238,23 @@ function closeForm() {
 {#                        End of property detail #}
 
           <div class="col-md-4">
-              <div class="content-section border border-dark bg-white">
+              <div class="content-section border border-dark bg-white ">
                   <h5>Property Reviews:</h5>
                         {% for reviews in propertyReview %}
-                            <h3>{{reviews.tenant}}</h3>
-                            <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">{{reviews.review_description}}</li>
-                            </ul>
-                            {% endfor %}
-                            <br>
-                            {% if request.user.last_name == 'False'  %}
-                            <a href="{% url 'review_submit' project.pk %}" type="submit" class="btn btn-primary">Leave a Review</a>
-                            {% endif %}
+                            <div class="card border border-dark text-white" style="padding: 3px;background: #41b6ae">
+                                <h3 class="text-white">{{reviews.tenant}}</h3>
+                                <ul class="list-group border border-dark">
+                                <li class="list-group-item list-group-item-light">{{reviews.review_description}}</li>
+                                </ul>
+                            </div>
+                            <p></p>
+                        {% endfor %}
+
+                        {% if request.user.last_name == 'False'  %}
+                            <div class="text-center">
+                                <a href="{% url 'review_submit' project.pk %}" type="submit" class="btn btn-dark" >Leave a Review</a>
+                            </div>
+                        {% endif %}
               </div>
           </div>
       </div>

@@ -70,7 +70,9 @@
                                  <h5 class="card-title">{{ project.county }}</h5>
                                  <p class="card-text">{{ project.description | stringformat:".28s" }} ...</p> <!--the sfrmat function limits the characters -->
                                  <p class="card-text">€{{ project.rentPrice }} p/m</p>
-                                <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary center">View Property</a>
+                                 <div class="text-center">
+                                    <a href="{% url 'project_detail' project.pk %}" class="btn btn-dark center">View Property</a>
+                                 </div>
                             </div>
                         <!-- </div> -->
                     </div>
