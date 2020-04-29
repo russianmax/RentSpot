@@ -44,15 +44,19 @@ def register(request):
 #     return render(request, 'users/documents.html', context)
 
 def guarantor(request,):
+    # tenant_user = request.user.tenant_profile
+    # guarantor = Guarantor.objects.get(tenant=tenant_user)
+    # tenant_salary = request.user.tenant_profile.salary
+    # guarantor_salary = guarantor.g_salary
+    # # print(type(guarantor_salary))
+    # # print(type(tenant_salary))
+    # tenant_salary = guarantor_salary + tenant_salary
+    # print(tenant_salary)
     tenant_user = request.user.tenant_profile
-    guarantor = Guarantor.objects.get(tenant=tenant_user)
-    tenant_salary = request.user.tenant_profile.salary
-    guarantor_salary = guarantor.g_salary
-    # print(type(guarantor_salary))
-    # print(type(tenant_salary))
-    tenant_salary = guarantor_salary + tenant_salary
-    print(tenant_salary)
-
+    guarantor = Guarantor.objects.get(tenant=tenant_user).g_salary
+    tenant = Tenant_Profile.objects.get(tenant=request.user)
+    tenant.salary = tenant.salary + guarantor
+    tenant.save()
     if request.method == 'POST':
         addG = AddGuarantorForm(request.POST, request.FILES)
         if addG.is_valid():
