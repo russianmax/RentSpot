@@ -14,12 +14,7 @@ from .filters import CountyFilter
 
 def project_index(request):
     projects = Properties.objects.all()
-    # property_images = Property_Images.objects.all()
-    # # for properties_images in property_images:
-    # #         print(properties_images.property)
-    #
-
-    user = request.user
+    print(request.user.is_authenticated)
     myFilter = CountyFilter(request.GET, queryset=projects)
     projects = myFilter.qs
     context = {
@@ -27,15 +22,6 @@ def project_index(request):
     }
     return render(request, 'project_index.html', context)
 
-# def project_index(request):
-#     projects = Properties.objects.all()
-#     user = request.user
-#     myFilter = CountyFilter(request.GET, queryset=projects)
-#     projects = myFilter.qs
-#     context = {
-#         'projects': projects, 'myFilter': myFilter,
-#     }
-#     return render(request, 'project_index.html', context)
 
 
 # @login_required
@@ -105,23 +91,23 @@ def project_detail(request, pk):
         'propertyReview': propertyReview,
         'property_images' : property_images,
            }
-
-    if request.user.last_name == 'False':
-        tenant_profile = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)
-        if request.method == "POST":
-            applyButton = Property_Applications(
-                user=request.user,
-                listing=project,)
-            applyButton.save()
-        context['applyButton'] = applyButton
-        context['tenant_profile']= tenant_profile
-    elif request.user.landlord_profile.landlord_id == project.landlord_id:
-        change_listing_form = ManageListingForm(request.POST, request.FILES, instance=project)
-        if request.method == 'POST':
-            if change_listing_form.is_valid():
-                change_listing_form.asave()
-                messages.success(request, f'Your account has been updated!')
-        context['change_listing_form'] = change_listing_form
+    if request.user.is_authenticated:
+        if request.user.last_name == 'False': # allows to tenant to view ads and apply for them if they meet the requirements
+            tenant_profile = Tenant_Profile.objects.get(tenant=request.user.tenant_profile.tenant_id)
+            if request.method == "POST":
+                applyButton = Property_Applications(
+                    user=request.user,
+                    listing=project,)
+                applyButton.save()
+            context['applyButton'] = applyButton
+            context['tenant_profile']= tenant_profile
+        elif request.user.landlord_profile.landlord_id == project.landlord_id: # if the landlord owns this ad, this let's him edit the ad
+            change_listing_form = ManageListingForm(request.POST, request.FILES, instance=project)
+            if request.method == 'POST':
+                if change_listing_form.is_valid():
+                    change_listing_form.asave()
+                    messages.success(request, f'Your account has been updated!')
+            context['change_listing_form'] = change_listing_form
 
     return render(request, 'project_detail.html', context)
 

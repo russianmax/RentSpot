@@ -160,11 +160,11 @@ function closeForm() {
                     <!-- This is how the tenants will view the add -->
                     {% if request.user.last_name == 'False' %}
                         {% if project.referenceRequired == False %}
-                            <div class="card bg-steel border border-dark text-white text-center">
+                            <div class="card bg-steel border border-dark text-white text-center" style="padding:5px">
                             <p>No reference is required for applicants.</p>
                             </div>
                         {% else %}
-                            <div class="card border border-dark bg-warning text-center">
+                            <div class="card border border-dark bg-warning text-center text-dark" style="padding:5px">
                                 <p>All applicants must have references to apply for this property.</p>
                                 {% if tenant_profile.references %}
                                 <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
@@ -174,7 +174,7 @@ function closeForm() {
                             </div>
                         <p></p>
                         {% endif %}
-                            <div class="card border border-dark bg-warning text-center">
+                            <div class="card border border-dark bg-warning text-center text-dark" style="padding:5px">
                                 <p>All applicants must have yearly income of equal or over €{{project.tenantSalary}} apply for this property.</p>
                                 {% if tenant_profile.salary >= project.tenantSalary %}
                                 <p>You meet this requirement  <img src="https://www.ikydz.com/wp-content/uploads/2016/06/green-tick.png" style="height: 30px; width:30px;"></p>
@@ -220,11 +220,10 @@ function closeForm() {
                                 <!-- Manage Listing function if the user is the owner-->
                                 </div>
                                     {% endif %}
-
-    </div>
+                        </div>
+                    </div>
                 </div>
-                </div>
-
+            </div>
 
 {#                        End of property detail #}
 
@@ -238,7 +237,9 @@ function closeForm() {
                             </ul>
                             {% endfor %}
                             <br>
+                            {% if request.user.last_name == 'False'  %}
                             <a href="{% url 'review_submit' project.pk %}" type="submit" class="btn btn-primary">Leave a Review</a>
+                            {% endif %}
               </div>
           </div>
       </div>

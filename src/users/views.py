@@ -6,13 +6,14 @@ from django.core.files.storage import FileSystemStorage
 from .forms import UserRegistrationForm, UserUpdateForm, TenantProfileUpdateForm , LandlordProfileUpdateForm , AddGuarantorForm
 from projects.models import Properties, Property_Applications , Schedule_Viewing
 from projects.forms import ScheduleViewingForm
-from .models import Tenant_Profile, Tenant_Reviews, Landlord_Profile
+from .models import Tenant_Profile, Tenant_Reviews, Landlord_Profile, Guarantor
 from django import forms
 
 
 
 
 def register(request):
+
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -26,22 +27,45 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
+# def guarantor(request,):
+#     addG = AddGuarantorForm(request.POST, request.FILES, instance=request.user.tenant_profile)
+#     if request.method == 'POST':
+#         if addG.is_valid():
+#             link = addG.save(commit=False)
+#             link.tenant = request.user
+#             link.save()
+#             messages.success(request, f"You've added a guarantor to your profile!")
+#         else:
+#             link  = addG
+#             messages.info(request,'Please upload the required files.')
+#
+#     context = {'addG': addG}
+#
+#     return render(request, 'users/documents.html', context)
+
 def guarantor(request,):
-    addG = AddGuarantorForm(request.POST,request.FILES, instance=request.user.tenant_profile)
+    tenant_user = request.user.tenant_profile
+    guarantor = Guarantor.objects.get(tenant=tenant_user)
+    tenant_salary = request.user.tenant_profile.salary
+    guarantor_salary = guarantor.g_salary
+    # print(type(guarantor_salary))
+    # print(type(tenant_salary))
+    tenant_salary = guarantor_salary + tenant_salary
+    print(tenant_salary)
 
     if request.method == 'POST':
+        addG = AddGuarantorForm(request.POST, request.FILES)
         if addG.is_valid():
             link = addG.save(commit=False)
-            link.tenant = request.user
+            link.tenant = tenant_user
             link.save()
             messages.success(request, f"You've added a guarantor to your profile!")
-        else:
-            link = addG
-            messages.info(request,'Please upload the required files.')
+            return redirect('/portal/')
+    else:
+        addG = AddGuarantorForm()
+        link = addG
+    return render(request, 'users/documents.html', {'addG': link})
 
-    context = {'addG': addG}
-
-    return render(request, 'users/documents.html', context)
 
 
 
@@ -49,6 +73,7 @@ def guarantor(request,):
 def profile(request, *args, **kwargs):
     if request.method == 'POST':
         if request.user.last_name == 'False':
+
             p_form = TenantProfileUpdateForm(request.POST, request.FILES, instance=request.user.tenant_profile)
         else:
             p_form = LandlordProfileUpdateForm(request.POST, request.FILES, instance=request.user.landlord_profile)
@@ -100,17 +125,10 @@ def portal(request,):
 # need to add schedule viewing functionality here
 @login_required
 def viewProfile(request, pk):
-    authuser = request.user
-    print(authuser)
     landlord_user = request.user.landlord_profile
     portal = Tenant_Profile.objects.get(pk=pk)
     tenantReview = Tenant_Reviews.objects.filter(tenant=portal)
     viewingApplication = Property_Applications.objects.get(property_owner=landlord_user,tenant_apply=portal)
-
-    #too hacky
-    properties = Properties.objects.filter(landlord=authuser)
-    applications = Property_Applications.objects.filter(property_owner=landlord_user)
-    viewings = Schedule_Viewing.objects.filter(landlord=landlord_user)
 
     listingId = viewingApplication.listing
     submitButton = ScheduleViewingForm(request.POST)

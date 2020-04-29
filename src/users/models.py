@@ -19,7 +19,7 @@ class Tenant_Profile(models.Model):
     salary = models.FloatField(null=True)
     salaryDocument = models.FileField(upload_to='docs',null=True,blank=True)
     references = models.FileField(upload_to='docs',null=True, blank=True)
-    savings = models.FloatField(null=True)
+    savings = models.IntegerField(null=True)
     savingsDocument = models.FileField(upload_to='docs',null=True,blank=True)
     is_hap = models.NullBooleanField(default=False)
     hapDocument = models.FileField(upload_to='docs',null=True, blank=True)
@@ -48,3 +48,5 @@ class Guarantor(models.Model):
     g_salary = models.FloatField(null=True)
     g_salaryDoc = models.FileField(upload_to='docs',null=True, blank=True)
     g_confirmation = models.FileField(upload_to='docs',null=True, blank=True)
+
+    #

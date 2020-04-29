@@ -68,7 +68,7 @@
                             <div class="card-body" style="width=272px height" >
                                 <h5 class="card-title">{{ project.street1 }}</h5>
                                  <h5 class="card-title">{{ project.county }}</h5>
-                                 <p class="card-text">{{ project.description | stringformat:".28s" }}...</p> <!--the sfrmat function limits the characters -->
+                                 <p class="card-text">{{ project.description | stringformat:".28s" }} ...</p> <!--the sfrmat function limits the characters -->
                                  <p class="card-text">€{{ project.rentPrice }} p/m</p>
                                 <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary center">View Property</a>
                             </div>
