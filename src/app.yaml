@@ -1,4 +1,5 @@
 runtime: python37
+service: rentspot
 
 handlers:
 - url: /static
