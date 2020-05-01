@@ -4,6 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("<int:pk>/", views.viewProfile, name="view_profile"),
+    path("<int:pk>/<int:listing>", views.viewProfile, name="view_profile"),
 
 ] 

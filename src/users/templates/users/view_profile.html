@@ -23,9 +23,9 @@
     <div class="content-section border border-dark" style="background: #41b6ae">
       <div class="media">
 {#          Fixed images for view tenant....add .url#}
-        <img class="rounded-circle account-img border border-dark" src="{{ portal.image.url }}">
+        <img class="rounded-circle account-img border border-dark" src="{{ tenant.image.url }}">
           <div class="media-body  text-white">
-            <font size="10"class="account-heading">{{portal.tenant}}</font>
+            <font size="10"class="account-heading">{{tenant.tenant}}</font>
             <img class="rounded-circle account-img" style="width:30px;height:30px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png">
             <p></p>
 {#              Buttons are linked to pages in the image carousel#}
@@ -54,13 +54,13 @@
 
                         <div class="carousel-item active">
                             <h5>Tenants References</h5>
-                            {% if portal.references == '' %}
+                            {% if tenant.references == '' %}
                                <p class="text-secondary">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;">
-                                    {{portal.tenant}} has not uploaded a reference to their profile yet</p>
+                                    {{tenant.tenant}} has not uploaded a reference to their profile yet</p>
 
                             {% else %}
-                                <iframe src="{{ portal.references.url }}" width="100%" height="500px"></iframe>
+                                <iframe src="{{ tenant.references.url }}" width="100%" height="500px"></iframe>
 
 
                             {% endif %}
@@ -68,44 +68,44 @@
 
                         <div class="carousel-item">
                             <h5>Tenants Salary</h5>
-                            {% if portal.salaryDocument == '' %}
+                            {% if tenant.salaryDocument == '' %}
                                 <p class="text-secondary">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;">
-                                    {{portal.tenant}} has not uploaded their payslips to their profile yet</p>
+                                    {{tenant.tenant}} has not uploaded their payslips to their profile yet</p>
 
                             {% else %}
-                                <p>€{{portal.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
-                                <iframe src="{{ portal.salaryDocument.url }}" width="100%" height="500px"></iframe>
+                                <p>€{{tenant.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
+                                <iframe src="{{ tenant.salaryDocument.url }}" width="100%" height="500px"></iframe>
                             {% endif %}
                         </div>
 
 
                         <div class="carousel-item">
-                            {% if portal.savingsDocument == '' %}
+                            {% if tenant.savingsDocument == '' %}
                                 <h5>Tenants Savings</h5>
                                 <p class="text-secondary">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;">
-                                    {{portal.tenant}} has not uploaded their proof of employment to their profile yet</p>
+                                    {{tenant.tenant}} has not uploaded their proof of employment to their profile yet</p>
                             {% else %}
-                                <p>€{{portal.savings }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
-                                <iframe src="{{ portal.savingsDocument.url }}" width="100%" height="500px"></iframe>
+                                <p>€{{tenant.savings }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
+                                <iframe src="{{ tenant.savingsDocument.url }}" width="100%" height="500px"></iframe>
                             {% endif %}
                         </div>
 
 
                         <div class="carousel-item">
                              <h5>HAP Document</h5>
-                            {% if portal.hapDocument == '' %}
+                            {% if tenant.hapDocument == '' %}
                                 <h5>H.A.P. Status:</h5>
                                     <p>In-Active</p>
                                     <p class="text-secondary">
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;">
-                                    {{portal.tenant}} has not uploaded their H.A.P. details  to their profile yet</p>
+                                    {{tenant.tenant}} has not uploaded their H.A.P. details  to their profile yet</p>
 
                             {% else %}
                                 <h5>H.A.P. Status: </h5>
                                     <p>This tenant has H.A.P.</p>
-                                    <iframe src="{{ portal.hapDocument.url }}" width="100%" height="500px"></iframe>
+                                    <iframe src="{{ tenant.hapDocument.url }}" width="100%" height="500px"></iframe>
                             {% endif %}
                         </div>
 
@@ -113,7 +113,7 @@
                             <h2 style="color: white">Would you like to schedule a viewing with this tenant?</h2>
 
                             <form method="POST">
-                              <label for="Viewing Date " class="text-white">Enter a time that suits you to host a viewing with {{ portal.tenant }}</label>
+                              <label for="Viewing Date " class="text-white">Enter a time that suits you to host a viewing with {{ tenant.tenant }}</label>
                               <fieldset class="form-group col-md-4 bg-white border border-dark" style="margin: auto;padding: 10px">
                                   {% csrf_token %}
                                   {{submitButton | crispy}}

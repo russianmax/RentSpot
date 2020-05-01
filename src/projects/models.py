@@ -31,6 +31,9 @@ class Property_Applications(models.Model):
      app_description = models.TextField(default='app description')
      created = models.TextField(default=1)
 
+     def __str__(self):
+         return f'{self.listing} application by {self.tenant_apply}'
+
 
 class Properties(models.Model):
     User = settings.AUTH_USER_MODEL

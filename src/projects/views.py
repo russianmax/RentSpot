@@ -32,7 +32,6 @@ def scheduleViewing(request,pk):
         link = submitButton.save(commit=False)
         link.landlord = landlord
         link.listing = viewingApply.listing
-        print(viewingApply)
         messages.success(request, f'You have Scheduled a viewing!')
         return redirect('/portal/')
     else:

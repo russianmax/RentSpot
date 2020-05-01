@@ -74,7 +74,8 @@
                                         <div class="card mb-3">
                                             <div class="card-body border border-dark">
                                                 <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
-                                                <a href="{% url 'view_profile' application.tenant_apply.pk %}" >{{ application.tenant_apply }}</a>
+                                                <a href="{% url 'view_profile' application.tenant_apply.pk application.listing_id %}" >
+                                                    {{application.tenant_apply }}</a>
                                                 <p class="card-text">{{application.app_description}}</p>
                                                 {{scheduleButton|crispy}}
                                             </div>

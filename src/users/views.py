@@ -121,19 +121,18 @@ def portal(request,):
 
 # need to add schedule viewing functionality here
 @login_required
-def viewProfile(request, pk):
+def viewProfile(request, pk, listing):
     landlord_user = request.user.landlord_profile
-    portal = Tenant_Profile.objects.get(pk=pk)
-    tenantReview = Tenant_Reviews.objects.filter(tenant=portal)
-    viewingApplication = Property_Applications.objects.get(property_owner=landlord_user,tenant_apply=portal)
-
-    listingId = viewingApplication.listing
+    tenant = Tenant_Profile.objects.get(pk=pk)
+    tenantReview = Tenant_Reviews.objects.filter(tenant=tenant)
+    viewingApplication = Property_Applications.objects.filter(property_owner=landlord_user,tenant_apply=tenant)
+    property = Properties.objects.get(pk=listing)
     submitButton = ScheduleViewingForm(request.POST)
     if request.method == 'POST':
         link = submitButton.save(commit=False)
         link.landlord = landlord_user
-        link.listing = listingId
-        link.tenant = portal
+        link.listing = property
+        link.tenant = tenant
         link.save()
         messages.success(request, f'Your scheduled a viewing!')
         return redirect('portal')
@@ -141,7 +140,7 @@ def viewProfile(request, pk):
         link = submitButton
 
     context = {
-        'portal': portal,
+        'tenant': tenant,
         'tenantReview': tenantReview,
         'submitButton': link
     }
