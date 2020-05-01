@@ -115,7 +115,6 @@
                             <form method="POST">
                               <label for="Viewing Date " class="text-white">Enter a time that suits you to host a viewing with {{ portal.tenant }}</label>
                               <fieldset class="form-group col-md-4 bg-white border border-dark" style="margin: auto;padding: 10px">
-
                                   {% csrf_token %}
                                   {{submitButton | crispy}}
                                   <div class="text-center">

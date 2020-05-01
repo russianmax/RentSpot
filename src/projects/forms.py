@@ -35,7 +35,6 @@ class ScheduleViewingForm(forms.ModelForm):
         fields = ['date','time']
 
 class ManageListingForm(forms.ModelForm):
-
     class Meta:
         model = Properties
-        fields = ['county']
+        fields = ['description','rentPrice','tenantSalary','referenceRequired','image']

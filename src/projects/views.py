@@ -100,14 +100,17 @@ def project_detail(request, pk):
                 applyButton.save()
             context['applyButton'] = applyButton
             context['tenant_profile']= tenant_profile
-        elif request.user.landlord_profile.landlord_id == project.landlord_id: # if the landlord owns this ad, this let's him edit the ad
-            change_listing_form = ManageListingForm(request.POST, request.FILES, instance=project)
-            if request.method == 'POST':
-                if change_listing_form.is_valid():
-                    change_listing_form.asave()
-                    messages.success(request, f'Your account has been updated!')
-            context['change_listing_form'] = change_listing_form
-
+        if request.user.last_name == 'True':
+            if request.user.landlord_profile.landlord_id == project.landlord_id: # if the landlord owns this ad, this let's him edit the ad
+                change_listing_form = ManageListingForm(request.POST, request.FILES, instance=project)
+                if request.method == 'POST':
+                    if change_listing_form.is_valid():
+                        change_listing_form.landlord = request.user.landlord_profile
+                        change_listing_form.save()
+                        messages.success(request, f'Your account has been updated!')
+                    else:
+                        change_listing_form = ManageListingForm()
+                context['change_listing_form'] = change_listing_form
     return render(request, 'project_detail.html', context)
 
 
