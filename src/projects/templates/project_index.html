@@ -11,11 +11,6 @@
         margin-left: 10px;
         {#background: #41b6ae;#}
 }
-
-.
-
-
-
 </style>
 
 <div class="content-section border border-dark active-purple-3"style="background: #41b6ae">
@@ -27,37 +22,35 @@
 
     {% else %}
 {#        If the user is logged out/ not registered it displays a different header #}
-        <img src="{% static 'rentSpotLogo.jpg' %}" style="position:center; height: 300px; width:80%; margin: auto">
+        <img src="{% static 'rentSpotLogo.jpg' %}" style="position:center; height: 180px; width:50%; margin: auto">
         <h1 style="color: white">Join RentSpot today!</h1>
         <h2 style="color: white">Get your spot on</h2>
     {% endif %}
+{#    search bar    #}
 
+     <div class="container " style="width: 35%; padding:3px; background:#41b6ae" >
+         <form method ="get" style="width: 100%;" >
 
- <div class="container " style="width: 35%; padding:3px; background:#41b6ae" >
-     <form method ="get" style="width: 100%;" >
-         {{ myFilter.form }}
-         <p>
-         <button class="border border-dark" type="submit">
-         Search</button>
-     </form>
-    </div>
-
-
-
- <br>
+             {{ myFilter.form }}
+             <p></p>
+             <button class="border border-dark" type="submit">
+             Search</button>
+         </form>
+        </div>
+     <br>
  </div>
 
 </div>
         <legend class="border-bottom mb-4 ">Available Listings:</legend>
         <p></p>
 
-    <div class="column-md-12 center">
-        <div class="row" >
+    <div class="column-md-12" >
+        <div class="row" style="margin: 30px" >
         {% if projects %}
 
             {% for project in projects %}
                 <p> </p>
-                <div class="col-md-3" style="margin-left: auto; margin-right: auto;display: block">
+                <div class="col-md-3" style="padding: 10px; ">
 
                     <div class="card mb-2 border border-dark" style="width:270px; height: 400px;">
                         <!-- <div class="media"> -->
@@ -66,7 +59,7 @@
                              src="{{ project.image.url}}">
 
                             <div class="card-body" style="width=272px height" >
-                                <h5 class="card-title">{{ project.street1 }}</h5>
+                                <h5 class="card-title">{{ project.street2 }}</h5>
                                  <h5 class="card-title">{{ project.county }}</h5>
                                  <p class="card-text">{{ project.description | stringformat:".28s" }} ...</p> <!--the sfrmat function limits the characters -->
                                  <p class="card-text">€{{ project.rentPrice }} p/m</p>
@@ -79,9 +72,8 @@
                 </div>
             {% endfor %}
         {% else %}
-            <h5 class="" style="padding:5px" > No properties found matching your search criteria, please refine your search.
+            <h5 class="" style="padding:5px" > No properties found matching your search criteria, please refine your search.</h5>
         {% endif %}
-
-            </div>
+        </div>
     </div>
 {% endblock content%}

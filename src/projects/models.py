@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from users.models import Landlord_Profile, Tenant_Profile
 from projects.choices import *
-from django_google_maps import fields as map_fields
+#from django_google_maps import fields as map_fields
 
 # Create your models here.
 
@@ -44,11 +44,12 @@ class Properties(models.Model):
     rentPrice = models.IntegerField(verbose_name='Cost of rent per month')
     description = models.TextField(null=True)
     type = models.CharField(choices=TYPE_CHOICES,max_length=200,default='House',verbose_name='Type of property')
-    bedRooms = models.IntegerField(choices=NUMBER_CHOICES,default=1,verbose_name='Number of bedrooms')
-    bathRoom = models.IntegerField(choices=NUMBER_CHOICES,default=1,verbose_name='Number of bathrooms')
+    bedRooms = models.IntegerField(choices=NUMBER_CHOICES,default=1,verbose_name='No. Bedrooms')
+    bathRoom = models.IntegerField(choices=NUMBER_CHOICES,default=1,verbose_name='No. Bathrooms')
     tenantSalary = models.IntegerField(null=True,verbose_name='Tenant expected salary')
     referenceRequired = models.BooleanField(default=False,verbose_name='Reference required?')
     image= models.FileField(upload_to="house_preview/", default=None, verbose_name='Select an image that describes this property best')
+    listingStatus = models.BooleanField(default=True, verbose_name='Do you want to pause your listing?')
 
     def __str__(self):
         return f'{self.street1} Property'
@@ -61,6 +62,9 @@ class Property_Images(models.Model):
     property = models.ForeignKey(Properties, on_delete=models.CASCADE)
     images = models.FileField(upload_to=get_property_image_filenames, default=None,verbose_name='Select property images')
 
-
+# class Rented_Property(models.Model):
+#     tenant = models.OneToOneField('Schedule_Viewing',to_field='tenant', on_delete=models.CASCADE)
+#     listing = models.OneToOneField('Schedule_Viewing',to_field='listing', on_delete=models.CASCADE)
+#     landlord = models.OneToOneField('Schedule_Viewing',to_field='landlord', on_delete=models.CASCADE)
 
 

@@ -54,9 +54,10 @@
                                         <img class="card-img-top" style="margin: auto; margin-top:10px; height:170px"  src="{{listing.image.url}}">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ listing.street1 }}</h5>
-                                            <p class="card-text">{{ listing.description }}</p>
+                                            <p class="card-text">{{ listing.description | stringformat:".28s" }} ...</p>
                                             <p class="card-text">€{{ listing.rentPrice }}</p>
-                                            <a href="{% url 'project_detail' listing.pk %}" class="btn btn-primary">View Property</a>
+                                            <a href="{% url 'project_detail' listing.pk %}" class="btn btn-dark">View Property</a>
+                                            <h1> {{ listing }}</h1>
                                         </div>
                                 </div>
                             {% endfor %}
@@ -97,7 +98,7 @@
 
                                         <div class="card-body ">
                                             <h5 class="card-title">{{ view.listing }}</h5>
-                                            <p class="card-text">You have scheduled a viewing with {{ view.tenant }} at {{ view.time }} on {{ view.date }}</p>
+                                            <p class="card-text">You have scheduled a viewing with <a href="{% url 'view_profile' view.tenant.pk view.listing_id %}" >{{ view.tenant }}</a> at {{ view.time }} on {{ view.date }}</p>
 
                                         </div>
                                 </div>
