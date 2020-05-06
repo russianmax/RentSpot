@@ -51,13 +51,12 @@
                             {% for listing in properties %}
                                 <div class="col-md-3 border border-dark center" style="margin: 14px">
 
-                                        <img class="card-img-top" style="margin: auto; margin-top:10px; height:170px"  src="{{listing.image.url}}">
+                                        <img class="card-img-top bg-dark" style="margin: auto; margin-top:10px; height:170px"  src="{{listing.image.url}}">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ listing.street1 }}</h5>
                                             <p class="card-text">{{ listing.description | stringformat:".28s" }} ...</p>
                                             <p class="card-text">€{{ listing.rentPrice }}</p>
                                             <a href="{% url 'project_detail' listing.pk %}" class="btn btn-dark">View Property</a>
-                                            <h1> {{ listing }}</h1>
                                         </div>
                                 </div>
                             {% endfor %}
@@ -72,8 +71,8 @@
                             <div class="row">
                                 {% for application in applications %}
                                     <div class = "col-md-12 ">
-                                        <div class="card mb-3">
-                                            <div class="card-body border border-dark">
+                                        <div class="card mb-3 border border-dark">
+                                            <div class="card-body ">
                                                 <h5 class="card-title">{{ application.listing }}</h5>  <!--django tags for db-->
                                                 <a href="{% url 'view_profile' application.tenant_apply.pk application.listing_id %}" >
                                                     {{application.tenant_apply }}</a>
@@ -94,9 +93,8 @@
                         <div class="row">
 
                             {% for view in viewings %}
-                                <div class="col-md-3 border border-dark center bg-white" style="margin: 14px">
-
-                                        <div class="card-body ">
+                                <div class="col-md-3 ">
+                                        <div class="card mb-3 border border-dark  bg-white" style="padding:14px ">
                                             <h5 class="card-title">{{ view.listing }}</h5>
                                             <p class="card-text">You have scheduled a viewing with <a href="{% url 'view_profile' view.tenant.pk view.listing_id %}" >{{ view.tenant }}</a> at {{ view.time }} on {{ view.date }}</p>
 
@@ -108,24 +106,9 @@
 
                     </div>
                 </div>
-
-
-
-
-
             </div>
-        </div>
-
         <br>
 
-        <div class="container-f " >
-            <div class="col-md-12">
-                <div class="text-white">
-                    <font size='10'>Applications:</font>
-                </div>
-
-            </div>
-</div>
             
             
 

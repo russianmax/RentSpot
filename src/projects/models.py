@@ -65,6 +65,6 @@ class Property_Images(models.Model):
 # class Rented_Property(models.Model):
 #     tenant = models.OneToOneField('Schedule_Viewing',to_field='tenant', on_delete=models.CASCADE)
 #     listing = models.OneToOneField('Schedule_Viewing',to_field='listing', on_delete=models.CASCADE)
-#     landlord = models.OneToOneField('Schedule_Viewing',to_field='landlord', on_delete=models.CASCADE)
-
-
+# #     landlord = models.OneToOneField('Schedule_Viewing',to_field='landlord', on_delete=models.CASCADE)
+#       leaseStart = models.DateField()
+#       leaseEnd = models.DateField()

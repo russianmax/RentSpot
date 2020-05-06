@@ -10,4 +10,4 @@ class CountyFilter(django_filters.FilterSet):
         model = Properties
         fields = '__all__'
         exclude = ['image','tenantSalary','referenceRequired',
-                     'street1','street2','description','landlord','rentPrice']
+                     'street1','street2','description','landlord','rentPrice','listingStatus']
