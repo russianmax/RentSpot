@@ -40,7 +40,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-8">
-                        <legend class="border-bottom  mb-4 ">Applications:</legend>
+                        <legend class="border-bottom  mb-4 ">Your Applications</legend>
                         <div class="row">
                         {% for application in applications %}
                             <div class = "col-md-4 ">
@@ -48,7 +48,8 @@
                                     <img class="card-img-top" src="{{listing.image.url}}">
                                     <div class="card-body">
                                             <h5 class="card-title"><a href="{% url 'project_detail' application.listing_id %}" >{{ application.listing }}</a></h5>  <!--django tags for db-->
-                                            <p class="card-text">{{application.app_description}}</p>
+
+                                        <p class="card-text">{{application.app_description}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -58,13 +59,13 @@
 
                 <div class="col-md-4">
                     <div class="border border-dark ex1" style="background: #41b6ae">
-                        <legend class="border-bottom mb-4 text-white">Upcoming Viewings:</legend>
+                        <legend class="border-bottom mb-4 text-white">Upcoming Property Viewings</legend>
                         <div class="row">
                             {% for newViewing in viewings %}
                                     <div class = "col-md-12 ">
                                         <div class="card mb-3">
                                             <div class="card-body border border-dark">
-                                                <h5 class="card-title">{{ newViewing.listing }}</h5>  <!--django tags for db-->
+                                                 <h5 class="card-title"><a href="{% url 'project_detail' newViewing.listing_id %}" >{{ newViewing.listing }}</a></h5> <!--django tags for db-->
                                                 <p class="success">Congratulations! {{ newViewing.landlord }} has scheduled a viewing with you.</p>
                                                 <p class="card-text">Your viewing is on {{ newViewing.date }} at {{ newViewing.time }}</p>
                                                 <p></p>

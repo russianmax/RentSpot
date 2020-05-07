@@ -19,7 +19,6 @@ class Tenant_Profile(models.Model):
     salary = models.FloatField(null=True)
     salaryDocument = models.FileField(upload_to='docs',null=True,blank=True)
     references = models.FileField(upload_to='docs',null=True, blank=True)
-    savings = models.IntegerField(null=True)
     savingsDocument = models.FileField(upload_to='docs',null=True,blank=True)
     is_hap = models.NullBooleanField(default=False)
     hapDocument = models.FileField(upload_to='docs',null=True, blank=True)

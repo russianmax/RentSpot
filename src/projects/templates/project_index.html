@@ -18,8 +18,11 @@
     {% if user.is_authenticated %}
 {#        Header card for logged in users#}
         <h1 style="color: white">Welcome back to RentSpot {{ request.user}}</h1>
-        <h3 style="color: white">Lets find the perfect spot for you!</h3>
-
+        {% if request.user.last_name == False %}
+        <h3 style="color: white">Lets find the perfect spot for you!</h3>#
+            {% else %}
+        <h3 style="color: white">Lets find the perfect tenants for you!</h3>
+        {% endif %}
     {% else %}
 {#        If the user is logged out/ not registered it displays a different header #}
         <img src="{% static 'rentSpotLogo.jpg' %}" style="position:center; height: 180px; width:50%; margin: auto">
@@ -41,7 +44,7 @@
  </div>
 
 </div>
-        <legend class="border-bottom mb-4 ">Available Listings:</legend>
+        <legend class="border-bottom mb-4 ">Available Listings</legend>
         <p></p>
 
     <div class="column-md-12" >

@@ -30,6 +30,7 @@ class Property_Applications(models.Model):
      listing = models.ForeignKey('Properties', on_delete=models.CASCADE)
      app_description = models.TextField(default='app description')
      created = models.TextField(default=1)
+     viewing_scheduled = models.BooleanField(default=False )
 
      def __str__(self):
          return f'{self.listing} application by {self.tenant_apply}'

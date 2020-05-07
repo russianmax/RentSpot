@@ -23,19 +23,29 @@ def project_index(request):
 
 
 
-# @login_required
-def scheduleViewing(request,pk):
+def schedule_viewing(request,pk):
     landlord = request.user.landlord_profile
-    submitButton = ScheduleViewingForm(request.POST)
     viewingApply = Property_Applications.objects.get(pk=pk)
+    #####################
+    viewingApply.viewing_scheduled = True
+    viewingApply.save()
+    ####################
     if request.method == 'POST':
-        link = submitButton.save(commit=False)
-        link.landlord = landlord
-        link.listing = viewingApply.listing
-        messages.success(request, f'You have Scheduled a viewing!')
-        return redirect('/portal/')
-    else:
-        return redirect('/portal/')
+        submitButton = ScheduleViewingForm(request.POST)
+        if submitButton.is_valid():
+            link = submitButton.save(commit=False)
+            link.landlord = landlord
+            link.listing = viewingApply.listing
+            messages.success(request, f'You have Scheduled a viewing!')
+            print('test')
+            return redirect('/portal/')
+        else:
+            submitButton = ScheduleViewingForm()
+            link = submitButton
+    print('test')
+    return render(request, 'users/landlordPortal.html', {'submitButton': link})
+
+
 
 def property_review(request,pk):
     project = Properties.objects.get(pk=pk)
@@ -112,31 +122,6 @@ def project_detail(request, pk):
                 context['change_listing_form'] = change_listing_form
     return render(request, 'project_detail.html', context)
 
-
-# @login_required
-# def createListing(request):
-#     ImageFormset = modelformset_factory(Properties, fields=('images',), extra=5)
-#     if request.method == 'POST':
-#         listing_form = CreatingListingForm(request.POST)
-#         formset = ImageFormset(request.POST or None, request.FILES or None)
-#         if listing_form.is_valid() and formset.is_valid():
-#             link  = listing_form.save(commit=False)
-#             link.landlord = request.user
-#             link.save()
-#             for f in formset:
-#                 print(len(formset))
-#                 try:
-#                     photo = Properties(properties=request.user.landlord_profile,images=f.clean_data['images'])
-#                     photo.save()
-#                     messages.success(request, f'Your listing has been created!!')
-#                     return redirect('/portal/', args=link.pk)
-#                 except Exception as e:
-#                     break
-#     else:
-#         listing_form = CreatingListingForm()
-#         formset = ImageFormset ()
-#         link = listing_form
-#     return render(request, 'createListing.html', {'listing_form': link,'formset':formset})
 
 @login_required
 def createListing(request):

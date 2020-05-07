@@ -24,7 +24,7 @@ class UserUpdateForm(forms.ModelForm):
 class TenantProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Tenant_Profile
-        fields = ['identification','image','references','salary','salaryDocument','savings','savingsDocument','is_hap','hapDocument']
+        fields = ['identification','image','references','salary','salaryDocument','savingsDocument','is_hap','hapDocument']
 
 class AddGuarantorForm(forms.ModelForm):
     class Meta:
