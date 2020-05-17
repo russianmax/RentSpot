@@ -13,7 +13,6 @@ COUNTY_CHOICES = (
     ('Westmeath', 'Westmeath'), ('Wexford', 'Wexford'), ('Wicklow', 'Wicklow'),
 )
 
-
 NUMBER_CHOICES = (
     (1, 1),
     (2, 2),

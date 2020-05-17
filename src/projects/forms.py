@@ -4,14 +4,19 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms import ClearableFileInput
 
-# class to allow user update their own data
 class CreatingListingForm(forms.ModelForm):
     class Meta:
         model = Properties
         fields = ['image','street1','street2','county','type',
                   'description','bedRooms','bathRoom',
                   'rentPrice','tenantSalary','referenceRequired']
+#
+class ManageListingForm(forms.ModelForm):
+    class Meta:
+        model = Properties
+        fields = ['description','rentPrice','tenantSalary','referenceRequired','image','listingStatus']
 
+# form that allows to upload multiple images files
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Property_Images
@@ -34,7 +39,3 @@ class ScheduleViewingForm(forms.ModelForm):
         model = Schedule_Viewing
         fields = ['date','time']
 
-class ManageListingForm(forms.ModelForm):
-    class Meta:
-        model = Properties
-        fields = ['description','rentPrice','tenantSalary','referenceRequired','image']

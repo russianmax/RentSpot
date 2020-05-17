@@ -5,9 +5,6 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from users.models import Landlord_Profile, Tenant_Profile
 from projects.choices import *
-#from django_google_maps import fields as map_fields
-
-# Create your models here.
 
 class Property_Reviews(models.Model):
     tenant = models.ForeignKey(Tenant_Profile,to_field='tenant', on_delete=models.CASCADE)
@@ -15,14 +12,12 @@ class Property_Reviews(models.Model):
     landlord = models.ForeignKey(Landlord_Profile,to_field='landlord', on_delete=models.CASCADE)
     review_description = models.TextField()
 
-
 class Schedule_Viewing(models.Model):
     landlord = models.ForeignKey(Landlord_Profile,to_field='landlord', on_delete=models.CASCADE)
     tenant = models.ForeignKey(Tenant_Profile,to_field='tenant', on_delete=models.CASCADE)
     listing = models.ForeignKey('Properties', on_delete=models.CASCADE)
     date = models.CharField(max_length=16,null=True)
     time = models.CharField(max_length=6,null=True)
-
 
 class Property_Applications(models.Model):
      tenant_apply = models.ForeignKey(Tenant_Profile,to_field='tenant', on_delete=models.CASCADE)
@@ -34,7 +29,6 @@ class Property_Applications(models.Model):
 
      def __str__(self):
          return f'{self.listing} application by {self.tenant_apply}'
-
 
 class Properties(models.Model):
     User = settings.AUTH_USER_MODEL
@@ -54,7 +48,7 @@ class Properties(models.Model):
 
     def __str__(self):
         return f'{self.street1} Property'
-
+# gets the directory name for property images
 def get_property_image_filenames(instance, filename):
     street1 = instance.property.street1
     return "house_preview/%s/image" % (street1)
@@ -62,10 +56,3 @@ def get_property_image_filenames(instance, filename):
 class Property_Images(models.Model):
     property = models.ForeignKey(Properties, on_delete=models.CASCADE)
     images = models.FileField(upload_to=get_property_image_filenames, default=None,verbose_name='Select property images')
-
-# class Rented_Property(models.Model):
-#     tenant = models.OneToOneField('Schedule_Viewing',to_field='tenant', on_delete=models.CASCADE)
-#     listing = models.OneToOneField('Schedule_Viewing',to_field='listing', on_delete=models.CASCADE)
-# #     landlord = models.OneToOneField('Schedule_Viewing',to_field='landlord', on_delete=models.CASCADE)
-#       leaseStart = models.DateField()
-#       leaseEnd = models.DateField()

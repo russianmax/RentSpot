@@ -17,9 +17,9 @@
  <div class="container-fuild text-white text-center">
     {% if user.is_authenticated %}
 {#        Header card for logged in users#}
-        <h1 style="color: white">Welcome back to RentSpot {{ request.user}}</h1>
-        {% if request.user.last_name == False %}
-        <h3 style="color: white">Lets find the perfect spot for you!</h3>#
+        <h1 style="color: white">Welcome back to RentSpot, {{ request.user}}!</h1>
+        {% if request.user.last_name == 'False' %}
+        <h3 style="color: white">Lets find the perfect spot for you!</h3>
             {% else %}
         <h3 style="color: white">Lets find the perfect tenants for you!</h3>
         {% endif %}
@@ -31,7 +31,7 @@
     {% endif %}
 {#    search bar    #}
 
-     <div class="container " style="width: 35%; padding:3px; background:#41b6ae" >
+     <div class="container " style="width: 30%; padding:3px; background:#41b6ae" >
          <form method ="get" style="width: 100%;" >
 
              {{ myFilter.form }}
@@ -49,9 +49,10 @@
 
     <div class="column-md-12" >
         <div class="row" style="margin: 30px" >
-        {% if projects %}
+        {% if projects  %}
 
             {% for project in projects %}
+               {% if project.listingStatus == True %}
                 <p> </p>
                 <div class="col-md-3" style="padding: 10px; ">
 
@@ -73,6 +74,7 @@
                         <!-- </div> -->
                     </div>
                 </div>
+                   {% endif %}
             {% endfor %}
         {% else %}
             <h5 class="" style="padding:5px" > No properties found matching your search criteria, please refine your search.</h5>

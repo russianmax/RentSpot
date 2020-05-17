@@ -58,11 +58,8 @@
                                <p class="text-secondary">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;">
                                     {{tenant.tenant}} has not uploaded a reference to their profile yet</p>
-
                             {% else %}
                                 <iframe src="{{ tenant.references.url }}" width="100%" height="500px"></iframe>
-
-
                             {% endif %}
                         </div>
 
@@ -72,14 +69,11 @@
                                 <p class="text-secondary">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/1200px-Red_X.svg.png" style="height: 30px; width:30px;">
                                     {{tenant.tenant}} has not uploaded their payslips to their profile yet</p>
-
                             {% else %}
                                 <p>€{{tenant.salary }} <img class="rounded-circle account-img" style="width:15px;height:15px;" src="https://cdn2.iconfinder.com/data/icons/essentials-volume-i/128/verified-gold-512.png"></p>
                                 <iframe src="{{ tenant.salaryDocument.url }}" width="100%" height="500px"></iframe>
                             {% endif %}
                         </div>
-
-
                         <div class="carousel-item">
                             {% if tenant.savingsDocument == '' %}
                                 <h5>Tenants Savings</h5>
@@ -91,7 +85,6 @@
                                 <iframe src="{{ tenant.savingsDocument.url }}" width="100%" height="500px"></iframe>
                             {% endif %}
                         </div>
-
 
                         <div class="carousel-item">
                              <h5>HAP Document</h5>
