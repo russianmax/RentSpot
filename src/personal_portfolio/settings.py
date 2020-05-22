@@ -86,11 +86,11 @@ DATABASES = {
         'PASSWORD': 'admin',
     }
 }
-DATABASES['default']['HOST'] = '/cloudsql/rentspot-274921:europe-west2:rentspot-db-db'
+DATABASES['default']['HOST'] = '/cloudsql/rentspot-274921:europe-west2:rentspot-last-db'
 if os.getenv('GAE_INSTANCE'):
     pass
 else:
-    DATABASES['default']['HOST'] = '34.89.81.237'
+    DATABASES['default']['HOST'] = '35.189.78.14'
 
 
 # Password validation
