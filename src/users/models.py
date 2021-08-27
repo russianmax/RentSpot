@@ -20,7 +20,8 @@ class Tenant_Profile(models.Model):
     salaryDocument = models.FileField(upload_to='docs',null=True,blank=True)
     references = models.FileField(upload_to='docs',null=True, blank=True)
     savingsDocument = models.FileField(upload_to='docs',null=True,blank=True)
-    is_hap = models.NullBooleanField(default=False)
+    is_hap = models.BooleanField(null=True)
+    #NullBooleanField(default = False)
     hapDocument = models.FileField(upload_to='docs',null=True, blank=True)
     both_salary = models.IntegerField(null=True,default=None)
 

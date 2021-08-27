@@ -88,7 +88,6 @@ def portal(request,):
         landlord_user = request.user.landlord_profile
         properties = Properties.objects.filter(landlord=user)
         applications = Property_Applications.objects.filter(property_owner=landlord_user)
-        print(applications)
         viewings = Schedule_Viewing.objects.filter(landlord=landlord_user)
 
         context = {'properties': properties,

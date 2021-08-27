@@ -1,5 +1,9 @@
+from django.apps import AppConfig
 
 import os
+
+AppConfig.default = False
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +25,6 @@ ALLOWED_HOSTS = ['127.0.0.1','rentspot-dot-rentspot-274921.nw.r.appspot.com']
 
 INSTALLED_APPS = [
     'projects',
-
     'users.apps.UsersConfig',
     'crispy_forms',
     'django.contrib.admin',
@@ -31,7 +34,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -70,27 +72,27 @@ WSGI_APPLICATION = 'personal_portfolio.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 #SQLITE3 config
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# # #PostgreSQL config
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-DATABASES['default']['HOST'] = '/cloudsql/rentspot-274921:europe-west2:rentspot-last-db'
-if os.getenv('GAE_INSTANCE'):
-    pass
-else:
-    DATABASES['default']['HOST'] = '35.189.78.14'
+
+# # # #PostgreSQL config
+# #DATABASES = {
+# #    'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'admin',
+#     }
+# }
+# DATABASES['default']['HOST'] = '/cloudsql/rentspot-274921:europe-west2:rentspot-last-db'
+# if os.getenv('GAE_INSTANCE'):
+#     pass
+# else:
+#     DATABASES['default']['HOST'] = '35.189.78.14'
 
 
 # Password validation
@@ -149,13 +151,13 @@ LOGIN_URL = 'login'
 
 #S3 BUCKETS CONFIG
 
-AWS_ACCESS_KEY_ID = 'AKIA4KGRGCJCKL2GXFVS'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'rentspot-bucket'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_ACCESS_KEY_ID = 'AKIA4KGRGCJCKL2GXFVS'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'rentspot-bucket'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 
